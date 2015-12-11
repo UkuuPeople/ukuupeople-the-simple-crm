@@ -1,0 +1,1097 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: UkuuPeople\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-09 11:39+0530\n"
+"PO-Revision-Date: 2015-07-09 11:39+0530\n"
+"Last-Translator: Prashant Gajare <prashant.gajare@webaccessglobal.com>\n"
+"Language-Team: WebAccessGlobal <info@webaccessglobal.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_c\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: UkuuPeople\n"
+
+#: UkuuPeople/custom-fields.php:6
+msgid "First Name*"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:15
+msgid "Last Name*"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:24
+msgid "Display Name"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:30
+msgid "Email*"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:39 UkuuPeople/custom-fields.php:129
+#: UkuuPeople/includes/class-ukuupeople.php:1145
+msgid "Phone"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:45
+msgid "Mobile"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:51
+msgid "Website"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:57
+msgid "Contact Image"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:63
+#: UkuuPeople/includes/class-ukuupeople.php:1504
+msgid "Job Title"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:69
+#: UkuuPeople/includes/class-ukuupeople.php:1508
+msgid "Twitter Handle"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:75
+#: UkuuPeople/includes/class-ukuupeople.php:1511
+#: UkuuPeople/includes/CMB2/example-functions.php:489
+msgid "Facebook URL"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:81
+#: UkuuPeople/includes/class-ukuupeople.php:1514
+msgid "Date Of Birth"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:87
+msgid "Street Address"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:93
+msgid "Street Address Line 2"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:99
+msgid "City"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:105
+msgid "Postal code"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:111
+msgid "Country"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:117
+msgid "State"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:123
+msgid "Preferred Contact Method"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:130
+#: UkuuPeople/includes/class-ukuupeople.php:1144
+msgid "Email"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:131
+msgid "SMS"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:136
+msgid "Bulk Mailings"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:142
+msgid "Opt Out"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:147
+msgid "Start Date*"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:148
+msgid "Enter the Start Date"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:156
+msgid "End Date*"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:157
+msgid "Enter the End Date"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:165
+msgid "Status*"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:166
+msgid "Status of Touchpoint"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:173
+msgid "Scheduled"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:174
+msgid "Completed"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:175
+msgid "Cancel"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:179
+msgid "Details"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:185
+msgid "Attachments"
+msgstr ""
+
+#: UkuuPeople/custom-fields.php:186
+msgid "Upload a file or enter a URL."
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:51
+msgid "Add New Human"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:52
+msgid "New Human"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:53
+msgid "Edit Human"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:54
+msgid "View Human"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:55
+msgid "People"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:56
+msgid "Search Human"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:57 UkuuPeople/ukuupeople-config.php:92
+msgid "Parent text:"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:58
+msgid "No People found."
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:59
+msgid "No People found in Trash."
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:86
+msgid "Add New Touchpoint"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:87
+msgid "New Touchpoint"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:88
+msgid "Edit Touchpoint"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:89
+msgid "View Touchpoint"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:90
+msgid "All Touchpoints"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:91
+msgid "Search Touchpoints"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:93
+msgid "No Touchpoints found."
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:94
+msgid "No Touchpoints found in Trash."
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:119
+msgid "Search Tribe"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:120
+msgid "All Tribe"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:121
+msgid "Parent Tribe"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:122
+msgid "Parent Tribe:"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:123
+msgid "Edit Tribe"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:124
+msgid "Update Tribe"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:125
+msgid "Add New Tribe"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:126
+msgid "New Tribe Name"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:127
+msgid "Tribe"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:145
+msgid "Search Tag"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:146
+msgid "All Tag"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:147
+msgid "Parent Tag"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:148
+msgid "Parent Tag:"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:149
+msgid "Edit Tag"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:150
+msgid "Update Tag"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:151
+msgid "Add New Tag"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:152
+msgid "New Tag Name"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:153
+msgid "Tag"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:171
+msgid "Search Contact Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:172
+msgid "All Contact Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:173
+msgid "Parent Contact Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:174
+msgid "Parent Contact Type:"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:175
+msgid "Edit Contact Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:176
+msgid "Update Contact Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:177
+msgid "Add New Contact Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:178
+msgid "New Contact Type Name"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:179
+#: UkuuPeople/includes/class-ukuupeople.php:640
+#: UkuuPeople/includes/class-ukuupeople.php:648
+#: UkuuPeople/includes/class-ukuupeople.php:1174
+msgid "Contact Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:197
+msgid "Search Touchpoint Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:198
+msgid "All Touchpoint Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:199
+msgid "Parent Touchpoint Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:200
+msgid "Parent Touchpoint Type:"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:201
+msgid "Edit Touchpoint Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:202
+msgid "Update Touchpoint Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:203
+msgid "Add New Touchpoint Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:204
+msgid "New Touchpoint Type Name"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:205
+msgid "Touchpoint Type"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:228
+msgid "Edit Contact Info"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:259
+msgid "Edit Privacy Settings"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:274
+msgid "Related Organization"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:279
+msgid "select organization"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:295
+msgid "Edit Contact Address"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:317
+msgid "Activity information"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:336
+msgid "Touchpoint Contact"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:344
+#: UkuuPeople/includes/class-ukuupeople.php:733
+#: UkuuPeople/includes/class-ukuupeople.php:951
+msgid "Human"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:345
+msgid "This Touchpoint belongs to:"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:359
+msgid "Assigned To"
+msgstr ""
+
+#: UkuuPeople/ukuupeople-config.php:367
+#: UkuuPeople/includes/class-ukuupeople.php:642
+#: UkuuPeople/includes/class-ukuupeople.php:650
+#: UkuuPeople/includes/class-ukuupeople.php:1177
+msgid "Assigned to"
+msgstr ""
+
+#: UkuuPeople/includes/add-ons.php:36
+#: UkuuPeople/includes/class-ukuupeople.php:124
+msgid "UkuuPeople Add-ons"
+msgstr ""
+
+#: UkuuPeople/includes/add-ons.php:37
+msgid "Browse All Extensions"
+msgstr ""
+
+#: UkuuPeople/includes/add-ons.php:37
+msgid "View All Add-ons"
+msgstr ""
+
+#: UkuuPeople/includes/add-ons.php:39
+msgid "Extend the awesomeness of Ukuu People."
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:121
+msgid "Add New Contact"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:122
+msgid "Touchpoint"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:122
+msgid "Touchpoints"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:124
+msgid "Add-ons"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:126
+msgid "setting"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:126
+msgid "Settings"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:133
+msgid "My Activities"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:139
+msgid "My Favorites"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:149
+msgid "Choose color for"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:233
+msgid "Create"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:301
+msgid "Search results for"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:329
+msgid "Touchpoint List"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:389
+msgid "Select Touchpoint type"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:597
+#: UkuuPeople/includes/class-ukuupeople.php:1644
+msgid "Edit"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:639
+#: UkuuPeople/includes/class-ukuupeople.php:647
+#: UkuuPeople/includes/class-ukuupeople.php:1173
+msgid "Date and Time"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:641
+#: UkuuPeople/includes/class-ukuupeople.php:649
+#: UkuuPeople/includes/class-ukuupeople.php:1176
+msgid "Subject"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:643
+#: UkuuPeople/includes/class-ukuupeople.php:651
+#: UkuuPeople/includes/class-ukuupeople.php:1178
+msgid "Status"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:659
+msgid "Show"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:661
+#: UkuuPeople/includes/class-ukuupeople.php:817
+#: UkuuPeople/includes/class-ukuupeople.php:922
+msgid "All"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:732
+#: UkuuPeople/includes/class-ukuupeople.php:1608
+#: UkuuPeople/includes/class-ukuupeople.php:1616
+msgid "Add New"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:734
+#: UkuuPeople/includes/class-ukuupeople.php:952
+msgid "Organization"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:797
+#: UkuuPeople/includes/class-ukuupeople.php:911
+msgid "Show All"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:820
+#: UkuuPeople/includes/class-ukuupeople.php:925
+#: UkuuPeople/includes/class-ukuupeople.php:1026
+#: UkuuPeople/includes/class-ukuupeople.php:1645
+msgid "Trash"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:946
+msgid "ADD NEW"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1012
+msgid "Restore this item from the Trash"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1012
+msgid "Restore"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1015
+msgid "Delete this item permanently"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1015
+msgid "Delete Permanently"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1022
+msgid "View"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1023
+msgid "Quick Edit"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1026
+msgid "Move this item to the Trash"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1141
+#: UkuuPeople/includes/class-ukuupeople.php:1172
+msgid "input id=\"cb-select-all-1\" type=\"checkbox\""
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1143
+msgid "Name"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1146
+msgid "TouchPoint"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1175
+msgid "TouchPoint Contact"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1518
+msgid "Address"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1534
+msgid "Tags"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1605
+msgid "Types"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1608
+msgid "Type"
+msgstr ""
+
+#: UkuuPeople/includes/class-ukuupeople.php:1612
+msgid "Add New "
+msgstr ""
+
+#: UkuuPeople/includes/settings.php:37
+msgid "Google App Sync"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:82
+#: UkuuPeople/includes/CMB2/tests/test-cmb-field.php:206
+msgid "Test Metabox"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:93
+#: UkuuPeople/includes/CMB2/example-functions.php:380
+msgid "Test Text"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:94
+#: UkuuPeople/includes/CMB2/example-functions.php:106
+#: UkuuPeople/includes/CMB2/example-functions.php:114
+#: UkuuPeople/includes/CMB2/example-functions.php:122
+#: UkuuPeople/includes/CMB2/example-functions.php:131
+#: UkuuPeople/includes/CMB2/example-functions.php:139
+#: UkuuPeople/includes/CMB2/example-functions.php:153
+#: UkuuPeople/includes/CMB2/example-functions.php:160
+#: UkuuPeople/includes/CMB2/example-functions.php:168
+#: UkuuPeople/includes/CMB2/example-functions.php:185
+#: UkuuPeople/includes/CMB2/example-functions.php:194
+#: UkuuPeople/includes/CMB2/example-functions.php:202
+#: UkuuPeople/includes/CMB2/example-functions.php:209
+#: UkuuPeople/includes/CMB2/example-functions.php:216
+#: UkuuPeople/includes/CMB2/example-functions.php:230
+#: UkuuPeople/includes/CMB2/example-functions.php:243
+#: UkuuPeople/includes/CMB2/example-functions.php:256
+#: UkuuPeople/includes/CMB2/example-functions.php:268
+#: UkuuPeople/includes/CMB2/example-functions.php:277
+#: UkuuPeople/includes/CMB2/example-functions.php:285
+#: UkuuPeople/includes/CMB2/example-functions.php:294
+#: UkuuPeople/includes/CMB2/example-functions.php:301
+#: UkuuPeople/includes/CMB2/example-functions.php:315
+#: UkuuPeople/includes/CMB2/example-functions.php:381
+#: UkuuPeople/includes/CMB2/example-functions.php:475
+#: UkuuPeople/includes/CMB2/example-functions.php:483
+#: UkuuPeople/includes/CMB2/example-functions.php:490
+#: UkuuPeople/includes/CMB2/example-functions.php:497
+#: UkuuPeople/includes/CMB2/example-functions.php:504
+#: UkuuPeople/includes/CMB2/example-functions.php:511
+#: UkuuPeople/includes/CMB2/example-functions.php:518
+#: UkuuPeople/includes/CMB2/example-functions.php:556
+#: UkuuPeople/includes/CMB2/tests/test-cmb-field.php:218
+msgid "field description (optional)"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:105
+msgid "Test Text Small"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:113
+msgid "Test Text Medium"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:121
+msgid "Website URL"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:130
+msgid "Test Text Email"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:138
+msgid "Test Time"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:145
+#: UkuuPeople/includes/CMB2/example-functions.php:146
+msgid "Time zone"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:152
+msgid "Test Date Picker"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:159
+msgid "Test Date Picker (UNIX timestamp)"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:167
+msgid "Test Date/Time Picker Combo (UNIX timestamp)"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:184
+msgid "Test Money"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:193
+msgid "Test Color Picker"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:201
+msgid "Test Text Area"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:208
+msgid "Test Text Area Small"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:215
+msgid "Test Text Area for Code"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:222
+msgid "Test Title Weeeee"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:223
+msgid "This is a title description"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:229
+msgid "Test Select"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:235
+#: UkuuPeople/includes/CMB2/example-functions.php:248
+#: UkuuPeople/includes/CMB2/example-functions.php:260
+msgid "Option One"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:236
+#: UkuuPeople/includes/CMB2/example-functions.php:249
+#: UkuuPeople/includes/CMB2/example-functions.php:261
+msgid "Option Two"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:237
+#: UkuuPeople/includes/CMB2/example-functions.php:250
+#: UkuuPeople/includes/CMB2/example-functions.php:262
+msgid "Option Three"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:242
+msgid "Test Radio inline"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:255
+msgid "Test Radio"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:267
+msgid "Test Taxonomy Radio"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:276
+msgid "Test Taxonomy Select"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:284
+msgid "Test Taxonomy Multi Checkbox"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:293
+msgid "Test Checkbox"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:300
+#: UkuuPeople/includes/CMB2/tests/test-cmb-field.php:217
+msgid "Test Multi Checkbox"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:306
+#: UkuuPeople/includes/CMB2/tests/test-cmb-field.php:223
+msgid "Check One"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:307
+#: UkuuPeople/includes/CMB2/tests/test-cmb-field.php:224
+msgid "Check Two"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:308
+#: UkuuPeople/includes/CMB2/tests/test-cmb-field.php:225
+msgid "Check Three"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:314
+msgid "Test wysiwyg"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:322
+msgid "Test Image"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:323
+msgid "Upload an image or enter a URL."
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:329
+msgid "Multiple Files"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:330
+msgid "Upload or add multiple images/attachments."
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:337
+msgid "oEmbed"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:338
+msgid ""
+"Enter a youtube, twitter, or instagram URL. Supports services listed at <a "
+"href=\"http://codex.wordpress.org/Embeds\">http://codex.wordpress.org/"
+"Embeds</a>."
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:371
+msgid "About Page Metabox"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:402
+msgid "Repeating Field Group"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:410
+msgid "Generates reusable form entries"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:412
+msgid "Entry {#}"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:413
+msgid "Add Another Entry"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:414
+msgid "Remove Entry"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:426
+msgid "Entry Title"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:433
+msgid "Description"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:434
+msgid "Write a short description for this entry"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:440
+msgid "Entry Image"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:446
+msgid "Image Caption"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:467
+msgid "User Profile Metabox"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:474
+msgid "Extra Info"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:482
+msgid "Avatar"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:496
+msgid "Twitter URL"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:503
+msgid "Google+ URL"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:510
+msgid "Linkedin URL"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:517
+msgid "User Field"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:540
+msgid "Theme Options Metabox"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/example-functions.php:555
+msgid "Site Background Color"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:155
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:163
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:735
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:760
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:356
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:1002
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:137
+msgid "Remove"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:711
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:737
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:847
+msgid "Add or Upload Files"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:734
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:759
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:1000
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:139
+msgid "Download"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:736
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:761
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:997
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:138
+msgid "File:"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:747
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:762
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:907
+msgid "Add or Upload File"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:786
+#: UkuuPeople/includes/CMB2/includes/CMB2_Ajax.php:135
+msgid "Remove Embed"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-types.php:787
+#: UkuuPeople/includes/CMB2/includes/CMB2_Ajax.php:139
+#, php-format
+msgid "No oEmbed Results Found for %s. View more info at"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/tests/test-cmb-field.php:178
+#: UkuuPeople/includes/CMB2/includes/CMB2_Field.php:914
+#: UkuuPeople/includes/CMB2/includes/CMB2_Field.php:918
+msgid "None"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_Field.php:891
+msgid "Add Group"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_Field.php:892
+msgid "Remove Group"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:297
+msgid "Add Row"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:734
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:782
+msgid "No terms"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_Types.php:983
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:136
+msgid "Remove Image"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2.php:120
+msgid "Metabox configuration is required to have an ID parameter"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2.php:326
+msgid "Click to toggle"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_Ajax.php:40
+msgid "Please Try Again"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/helper-functions.php:249
+msgid "Save"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:86
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:119
+msgid "Clear"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:87
+msgid "Default"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:88
+msgid "Select Color"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:89
+msgid "Current Color"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:110
+msgid "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:111
+msgid "Su, Mo, Tu, We, Th, Fr, Sa"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:112
+msgid "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:113
+msgid ""
+"January, February, March, April, May, June, July, August, September, "
+"October, November, December"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:114
+msgid "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:115
+msgid "Next"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:116
+msgid "Prev"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:117
+msgid "Today"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:118
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:128
+msgid "Done"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:122
+msgid "Choose Time"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:123
+msgid "Time"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:124
+msgid "Hour"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:125
+msgid "Minute"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:126
+msgid "Second"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:127
+msgid "Now"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:135
+msgid "Use this file"
+msgstr ""
+
+#: UkuuPeople/includes/CMB2/includes/CMB2_JS.php:140
+msgid "Select / Deselect All"
+msgstr ""
+
+#~ msgid "Elements path"
+#~ msgstr "Ruta de los elementos"

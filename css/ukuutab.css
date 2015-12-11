@@ -1,0 +1,91 @@
+.post-type-wp-type-contacts #first-sidebar-contact {
+    	width: 35% !important;/*408px;*/
+}
+
+.post-type-wp-type-contacts #contactdetailsblock {
+        width:90% !important;;
+}
+
+.post-type-wp-type-contacts #second-sidebar-contact {
+    	width: /*400px;*/35% !important;
+}
+
+.post-type-wp-type-contacts #third-sidebar-contact {
+    	float: left;
+	margin: 0px 0px 0px 3%;
+    	/*padding-left: 0px;*/
+    	width: /*400px;*/25%;
+    	position:relative;
+	background-color: white;
+    	border: 1px solid #C0C0C0;
+	display:block;
+	line-height:1.2em;
+	min-height:335px; 
+	padding:5px;
+}
+
+.post-type-wp-type-contacts .scrolldiv {
+    overflow-y: auto;
+    height:200px;
+    margin-top:25px;
+}
+
+.post-type-wp-type-contacts .scrolldiv a{
+        text-decoration: none;
+	outline:none;
+}
+
+.post-type-wp-type-contacts .org-members {
+    width:100%;
+    min-height:30px;
+    clear:both;
+    margin-bottom:20px;
+}
+
+.post-type-wp-type-contacts #org-members {
+    padding: 1em 1.4em;
+}
+
+.post-type-wp-type-contacts .tabcontactimage {
+    float:left;
+    width:20%;
+}
+
+.post-type-wp-type-contacts .namemail {
+    float:left;
+    width:75%;
+}
+
+.post-type-wp-type-contacts .tabname {
+    color: #0a73b9;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 100%;
+}
+
+.post-type-wp-type-contacts .tabemail {
+    color: #959595;
+    font-size: 90%;
+}
+
+.post-type-wp-type-contacts .org-title {
+    font-size: 15px;
+    color: #0a73b9;
+    font-family: Arial,Helvetica,sans-serif;
+    font-weight:bold;
+    border-bottom:1px solid #F8F8F8;
+    padding-bottom:10px;
+}
+
+@media only screen and (max-width: 820px) {
+
+    .post-type-wp-type-contacts .tabname, .post-type-wp-type-contacts .tabemail { font-size: 50%; }
+
+}
+
+.ukuumembership, .ukuumembership-blue, .ukuucontributions, .ukuucontributions-blue
+{ display: inline-block; background: url('../images/ukuusprite.png') no-repeat; no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+
+.ukuumembership { background-position: -5px -379px; width: 20px; height: 20px; }
+.ukuumembership-blue { background-position: -5px -404px; width: 20px; height: 20px; }
+.ukuucontributions { background-position: -5px -218px; width: 20px; height: 19px; }
+.ukuucontributions-blue { background-position: -5px -242px; width: 20px; height: 19px; }
