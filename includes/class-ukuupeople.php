@@ -380,7 +380,7 @@ class UkuuPeople{
         if ( $value['action'] == '' || ($value['action'] != '' && has_action($value['action'])) ) {
           $count++;
           if ($count == 1) $value['icon'] = $value['icon'].'-blue';
-          echo '<li class="tab'.$key.'" onclick="abc(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
+          echo '<li class="tab'.$key.'" onclick="tab_filter(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
         }
       }
       ?></ul><div id="org-members">
@@ -409,7 +409,7 @@ class UkuuPeople{
         foreach ($tab_filter as $key => $value){
           $count++;
           if ($count == 1) $value['icon'] = $value['icon'].'-blue';
-          echo '<li class="tab'.$key.'" onclick="abc(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
+          echo '<li class="tab'.$key.'" onclick="tab_filter(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
         }
         echo "</ul>";
         foreach ($tab_filter as $key => $value){
