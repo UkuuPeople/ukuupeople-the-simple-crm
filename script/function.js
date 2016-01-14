@@ -79,3 +79,17 @@ function addToFav ($post, $entry) {
     }
   });
 }
+
+jQuery(document).ready(function() {
+    jQuery("#third-sidebar-contact").tabs();
+});
+
+function tab_filter( data , filter ) {	
+    jQuery.each(filter, function( index, value ) {
+	if (index == data) {
+	    jQuery("#third-sidebar-contact .tab"+index).find('span').removeAttr('class').addClass(value.icon+'-blue');
+	}else{
+	    jQuery("#third-sidebar-contact .tab"+index).find('span').removeAttr('class').addClass(value.icon);
+	}	
+    });
+}

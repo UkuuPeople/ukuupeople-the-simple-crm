@@ -362,51 +362,63 @@ class UkuuPeople{
    * custom action for tab info in organization view
    */
   function custom_human_info( $edit , $slug ) {
-    wp_enqueue_script('jquery-ui-tabs');?>
-    <script>
-    jQuery(document).ready(function() {
-        jQuery("#third-sidebar-contact").tabs();
-      });
-    function abc( data ) {
-      if ( data == 'membership' )
-        {
-          jQuery("#third-sidebar-contact .tabmembership").find('span').removeAttr('class').addClass('ukuumembership-blue');
-          jQuery("#third-sidebar-contact .tabcontribution").find('span').removeAttr('class').addClass('ukuucontributions');
-        }
-      if ( data == 'contribution' )
-        {
-          jQuery("#third-sidebar-contact .tabmembership").find('span').removeAttr('class').addClass('ukuumembership');
-          jQuery("#third-sidebar-contact .tabcontribution").find('span').removeAttr('class').addClass('ukuucontributions-blue');
-        }
-    }
-    </script><?php
+    wp_enqueue_script('jquery-ui-tabs');
+    $tab_filter = array();
+    $tab_filter = apply_filters( 'ukuupeople_view_tab_filter', $tab_filter );
     if ( $slug == 'wp-type-org-contact' ) {
-      wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css');?>
-        <div id="third-sidebar-contact">
-           <ul>
-           <li class="tabmembership" onclick="abc('membership')"><a href="#org-members"><span class='ukuumembership-blue'></span></a></li>
-           <?php if ( has_action('ukuugive_tab_view') ) {?>
-           <li class="tabcontribution" onclick="abc('contribution')"><a href="#donation-tab"><span class='ukuucontributions'></span></a></li>
-           <?php } ?>
-           </ul>
-           <div id="org-members">
-           <span class='org-title'>Organization <?php _e('Team Members' , 'UkuuPeople' ) ?></span>
-           <?php $this->org_members( $edit->ID ); ?>
-           </div>
-           <div id="donation-tab">
-           <?php do_action( 'ukuugive_tab_view' , $edit ); ?>
-           </div>
-       </div><?php
-     } elseif( $slug == 'wp-type-ind-contact' && has_action( 'ukuugive_tab_view' ) ) {
-      wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css');?>
-        <div id="third-sidebar-contact">
-           <ul>
-           <li><a href="#donation-tab"><span class='ukuucontributions-blue'></span></a></li>
-           </ul>
-           <div id="donation-tab">
-           <?php do_action( 'ukuugive_tab_view' , $edit ); ?>
-           </div>
-        </div><?php
+      $tab_filter['membership'] = array(
+        'id' => 'org-members',
+        'action' => '',
+        'icon' => 'ukuumembership',
+      );
+      wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css');
+      echo '<div id="third-sidebar-contact">';
+      echo "<ul>";
+      $count = 0;
+      $jsn_tab_filter = htmlspecialchars(json_encode($tab_filter));
+      foreach (array_reverse($tab_filter) as $key => $value){
+        if ( $value['action'] == '' || ($value['action'] != '' && has_action($value['action'])) ) {
+          $count++;
+          if ($count == 1) $value['icon'] = $value['icon'].'-blue';
+          echo '<li class="tab'.$key.'" onclick="abc(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
+        }
+      }
+      ?></ul><div id="org-members">
+      <span class='org-title'>Organization <?php _e('Team Members' , 'UkuuPeople' ) ?></span>
+      <?php $this->org_members( $edit->ID );
+         echo "</div>";
+         foreach ($tab_filter as $key => $value){
+           echo '<div id="'.$value['id'].'">';
+           do_action( $value['action'] , $edit );
+           echo '</div>';
+         }
+         echo "</div>";
+    } elseif( $slug == 'wp-type-ind-contact' && $tab_filter) {
+      $flag= false;
+      foreach ($tab_filter as $key => $value){
+        if ( $value['action'] != '' && has_action($value['action']) ) {
+          $flag= true;
+        }
+      }
+      if ($flag){
+        wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css');
+        echo '<div id="third-sidebar-contact">';
+        echo "<ul>";
+        $count = 0;
+        $jsn_tab_filter = htmlspecialchars(json_encode($tab_filter));
+        foreach ($tab_filter as $key => $value){
+          $count++;
+          if ($count == 1) $value['icon'] = $value['icon'].'-blue';
+          echo '<li class="tab'.$key.'" onclick="abc(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
+        }
+        echo "</ul>";
+        foreach ($tab_filter as $key => $value){
+          echo '<div id="'.$value['id'].'">';
+          do_action( $value['action'] , $edit );
+          echo "</div>";
+        }
+        echo "</div>";
+      }
     }
   }
 
