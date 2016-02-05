@@ -364,6 +364,24 @@ class UkuuPeople{
   function custom_human_info( $edit , $slug ) {
     wp_enqueue_script('jquery-ui-tabs');
     $tab_filter = array();
+    // version dependent code
+    $plugin_info = get_plugins();
+    $plugin_exist = array_key_exists(UKUUGIVE_BASENAME,$plugin_info);
+    if ($plugin_exist){
+      require_once ABSPATH . 'wp-admin/includes/plugin.php';
+      $plugin_active = is_plugin_active(UKUUGIVE_BASENAME);
+      if ($plugin_active){
+        $plugin_version = $plugin_info[UKUUGIVE_BASENAME]['Version'];
+        if($plugin_version <= '1.0.2'){
+          $tab_filter['contribution'] =array(
+            'id' => 'donation-tab',
+            'action' => 'ukuugive_tab_view',
+            'icon' => 'ukuucontributions',
+          );
+        }
+      }
+    }
+    // version dependent code
     $tab_filter = apply_filters( 'ukuupeople_view_tab_filter', $tab_filter );
     if ( $slug == 'wp-type-org-contact' ) {
       $tab_filter['membership'] = array(
@@ -1649,6 +1667,30 @@ class UkuuPeople{
           echo "<div class='add_to_fav_star' style='float:left;'><div id='fav-star' class='remove-star'></div></div>";
         }
         break;
+      case 'ulm-inactive_days' :
+        $args = array('post_type' => 'wp-type-activity' , 'posts_per_page'=> -1, 'post_status' => array( 'publish', 'private' ) ,
+                'meta_query' => array(
+                  'relation' => 'AND',
+                  array(
+                    'key'     => '_wpcf_belongs_wp-type-activity_id',
+                    'value'   => $post_id,
+                    'compare' => 'LIKE',
+                  ),
+                ));
+        $loop = get_posts( $args );
+        if(isset($loop[0]->ID)) {
+          $post_obj = get_post( $loop[0]->ID );
+          $created_date  = new DateTime($post_obj-> post_date);
+          $currentDateTime = new DateTime(date('Y-m-d H:i:s'));
+          $inactive_days =  date_diff($currentDateTime,$created_date);
+          if ( $inactive_days->days > 100 ) {
+            echo "> 100";
+          }
+          else {
+            echo $inactive_days->days;
+          }
+        }
+        break;
       case 'wp-type-activity': // Activity chart
         $monthsArray[date('Y')][date('n')] =  date( 'n' );
         for ( $i = 4; $i >= 0; $i-- ) {
@@ -1724,7 +1766,8 @@ class UkuuPeople{
     $defaults['wp-phone'] = __('Phone','UkuuPeople');
     $defaults['wp-type-activity'] = __('TouchPoint','UkuuPeople');
     $defaults['wp-favorites'] = __('');
-    $Order = array( 'cb' ,'wp-color-code' , 'wp-contact-full-name' , 'wp-email' , 'wp-phone' , 'wp-type-activity','wp-favorites');
+    $defaults['ulm-inactive_days'] = __('Inactive Days', 'UkuuPeople' );
+    $Order = array( 'cb' ,'wp-color-code' , 'wp-contact-full-name' , 'wp-email' , 'wp-phone' , 'wp-type-activity','wp-favorites','ulm-inactive_days');
     foreach ($Order as $colname){
       $new[$colname] = $defaults[$colname];
     }
