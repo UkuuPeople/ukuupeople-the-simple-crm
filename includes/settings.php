@@ -101,7 +101,7 @@ function licenses() {
     'mailchimp_license'    => 'ukuupeople_mailchimp_license_key',
     'give_license'         => 'ukuupeople_give_license_key',
     'ukuugoogle_license'   => 'ukuupeople_google_license_key',
-  };
+  );
   foreach ( $addonarr as $key => $value ) {
     if( has_action( $key ) ) {
       do_action( $key );
