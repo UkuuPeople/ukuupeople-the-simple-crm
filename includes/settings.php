@@ -95,13 +95,13 @@ function settings() {
 function licenses() {
   echo admin_tabs();
   // custom actions for addon license page
-  $addonarr = [
+  $addonarr = array(
     'gravity_form_license' => 'ukuu_gravity_form_license_key',
     'import_license'       => 'ukuupeople_import_license_key',
     'mailchimp_license'    => 'ukuupeople_mailchimp_license_key',
     'give_license'         => 'ukuupeople_give_license_key',
     'ukuugoogle_license'   => 'ukuupeople_google_license_key',
-  ];
+  };
   foreach ( $addonarr as $key => $value ) {
     if( has_action( $key ) ) {
       do_action( $key );
