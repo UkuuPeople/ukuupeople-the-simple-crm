@@ -402,7 +402,7 @@ class UkuuPeople{
         }
       }
       ?></ul><div id="org-members">
-      <span class='org-title'>Organization <?php _e('Team Members' , 'UkuuPeople' ) ?></span>
+      <span class='org-title'><?php _e('Organization', 'UkuuPeople') ?> <?php _e('Team Members' , 'UkuuPeople' ) ?></span>
       <?php $this->org_members( $edit->ID );
          echo "</div>";
          foreach ($tab_filter as $key => $value){
@@ -512,7 +512,7 @@ class UkuuPeople{
          <table>
          <tr>
          <td><?php echo __( 'Touchpoint Contact', 'UkuuPeople' ); ?></td>
-         <td><input type="text" name="touchpoint_contact_name" placeholder="Start typing name"></td>
+         <td><input type="text" name="touchpoint_contact_name" placeholder="<?php _e('Start typing name', 'UkuuPeople') ?>"></td>
          </tr>
          <input type="hidden" id="touchpoint_contact_id">
          <tr><td></td><td><input type="button" class="button button-primary" value="create" name="wp-touchpoint-contact-select" redirect="<?php echo $Url?>"></td></tr>
@@ -525,7 +525,7 @@ class UkuuPeople{
       $orgUrl = admin_url( 'post-new.php?post_type=wp-type-contacts&ctype=wp-type-org-contact');
       ?>
       <div style="display:none" id="dialog" title="<?php _e( 'Add New','UkuuPeople') ?>">
-      <input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" redirect="<?php echo $indUrl?>"  ><?php echo __('Human', 'UkuuPeople'); ?><br/>      <input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" redirect="<?php echo $orgUrl?>" > <?php echo __('Organization', 'UkuuPeople'); ?><br/>                                                                                                                                                    </div>
+      <input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" redirect="<?php echo $indUrl?>"><?php _e('Human', 'UkuuPeople'); ?><br/>      <input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" redirect="<?php echo $orgUrl?>"><?php _e('Organization', 'UkuuPeople'); ?><br/>                                                                                                                                                    </div>
     <?php
     }
     // Dialog box for Contact and touchpoint page
@@ -855,13 +855,13 @@ class UkuuPeople{
         echo "<div><a href='$URL'><strong>";
         echo substr( get_the_title(), 0, 15).'...';echo "</a></strong></div>";
       }
-      echo "created by ";
-      echo "<span><a href='#'>$iduser</a></span>";
+      _e('created by', 'UkuuPeople');
+      echo " <span><a href='#'>$iduser</a></span>";
       $with_id = get_post_meta( get_the_ID() , '_wpcf_belongs_wp-type-contacts_id', true );
       if ( $with_id ) {
         $display_name =  get_post_meta( $with_id , 'wpcf-display-name', true );
         $contact_view_url = get_edit_post_link ( $with_id );
-        echo "<div>with <span><a href='$contact_view_url'>".$display_name."</a></span></div>";
+        echo "<div>" . __('with', 'UkuuPeople') . " <span><a href='$contact_view_url'>".$display_name."</a></span></div>";
       }
       echo "</div><div class='activity_time' style='background-color:#0074a2;'><div class='dayName'>";
       echo date('l' ,$custom['wpcf-startdate'][0] );echo "</div><div class='time'>";
@@ -1014,17 +1014,17 @@ class UkuuPeople{
     <form name="quickaddform" enctype="multipart/form-data" method="post" id="quickAddform">
     <table class="quickadd">
       <tr>
-      <td class="quickadd-label">Contact</td>
-      <td><input type="text" name="dname" placeholder="Start typing name"><input id="dcontact_id" type="hidden" name="contact_id"></td>
+      <td class="quickadd-label"><?php _e('Contact', 'UkuuPeople') ?></td>
+      <td><input type="text" name="dname" placeholder="<?php _e('Start typing name', 'UkuuPeople') ?>"><input id="dcontact_id" type="hidden" name="contact_id"></td>
       </tr>
 
       <tr>
-      <td class="quickadd-label">Subject</td>
-      <td><input type="text" name="dsubject" placeholder="Enter subject"></td>
+      <td class="quickadd-label"><?php _e('Subject', 'UkuuPeople') ?></td>
+      <td><input type="text" name="dsubject" placeholder="<?php _e('Enter subject', 'UkuuPeople') ?>"></td>
       </tr>
 
       <tr>
-      <td class="quickadd-label">Type</td>
+      <td class="quickadd-label"><?php _e('Type', 'UkuuPeople') ?></td>
       <td><select name="dtype"><?php
       echo "<option value='' selected>".__( 'Select Touchpoint type', 'UkuuPeople' )."..</option>";
       foreach ($acttype as $key => $value ) {
@@ -1035,7 +1035,7 @@ class UkuuPeople{
       </tr>
 
       <tr>
-      <td class="quickadd-label">Start*</td>
+      <td class="quickadd-label"><?php _e('Start*', 'UkuuPeople') ?></td>
       <td>
       <input type="text" name="dsdate" required><span class="ukuucalendar"></span>
       <input type="text" name="dstime"><span class="ukuuclock"></span>
@@ -1043,7 +1043,7 @@ class UkuuPeople{
       </tr>
 
       <tr>
-      <td class="quickadd-label">End</td>
+      <td class="quickadd-label"><?php _e('End', 'UkuuPeople') ?></td>
       <td>
       <input type="text" name="dedate"><span class="ukuucalendar"></span>
       <input type="text" name="detime"><span class="ukuuclock"></span>
@@ -1051,26 +1051,26 @@ class UkuuPeople{
       </tr>
 
       <tr>
-      <td class="quickadd-label">Details</td>
+      <td class="quickadd-label"><?php _e('Details', 'UkuuPeople') ?></td>
       <td><textarea rows="3" cols="20" name="ddetails"></textarea></td>
       </tr>
 
       <tr>
       <td class="quickadd-label"></td>
-      <td><input type="button" name="dupload" value="Click to Upload Attachments">
+      <td><input type="button" name="dupload" value="<?php _e('Click to Upload Attachments', 'UkuuPeople') ?>">
       <input type="text" id="filename" name="filename" style="display:none">
       </td>
       </tr>
 
       <tr>
       <td class="quickadd-label"></td>
-      <td><input type="button" name="dassign" value="Click to select Assignee">
+      <td><input type="button" name="dassign" value="<?php _e('Click to select Assignee', 'UkuuPeople') ?>">
       <input type="text" id="touchpoint_assign_name_display" name="touchpoint_assign_name_display" style="display:none">
       <input type="hidden" id="touchpoint_assign_id" name="touchpoint_assign_id"></td>
       </tr>
 
       </table>
-      <input type="submit" class="button button-primary" name="quickAdd" value="Create">
+      <input type="submit" class="button button-primary" name="quickAdd" value="<?php _e('Create', 'UkuuPeople') ?>">
       </form>
     <?php
   }
@@ -1545,8 +1545,8 @@ class UkuuPeople{
     $orgUrl = admin_url( 'post-new.php?post_type=wp-type-contacts&ctype=wp-type-org-contact');
     ?>
 
-    <input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" redirect="<?php echo $indUrl?>"  > <?php echo __('Human', 'UkuuPeople'); ?><br/>
-    <input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" redirect="<?php echo $orgUrl?>" > <?php echo __('Organization', 'UkuuPeople'); ?><br/>
+    <input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" redirect="<?php echo $indUrl?>"><?php _e('Human', 'UkuuPeople'); ?><br/>
+    <input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" redirect="<?php echo $orgUrl?>"><?php _e('Organization', 'UkuuPeople'); ?><br/>
     <script type="text/javascript">
       jQuery("input[name='wp-contact-type-select']").on('click',function( event ) {
         window.location = jQuery(this).attr('redirect');
@@ -1972,7 +1972,7 @@ class UkuuPeople{
           $title = $postVal['post_title'] = $meta_data['wpcf-email'][0];
           $userdata['user_pass'] = Null;
           $user_id = wp_insert_user( $userdata ) ;
-          wp_new_user_notification( $user_id, '' );
+          wp_new_user_notification( $user_id, NULL );
         }
         else {
           $user = $user->data;
@@ -2260,7 +2260,7 @@ class UkuuPeople{
       	<span class='summary-display-name'><?php echo $display_name ?></span>
       	<span class='summary-org-name'><?php echo $org_name ?></span>
  <?php   if( $contact_id != 0 ) { ?>
-      	<span class='contact-dashboard'><a href='<?php echo $contact_dash_url ?>' class='button button-primary'>Contact Dashboard</a></span>
+ <span class='contact-dashboard'><a href='<?php echo $contact_dash_url ?>' class='button button-primary'><?php _e( 'Contact Dashboard', 'UkuuPeople' ) ?></a></span>
    <?php } ?>
      	</div>
       <div class='subject-summary'><span class='label-subject'>Subject </span><span class='subject-content' style="<?php echo 'color:'.$selectedColor ?>"><?php echo $subject ?></span></div>
@@ -2305,7 +2305,7 @@ class UkuuPeople{
   <div class='right-summary-activity'>
   	<div class='summary-details'><div class='summary-details-head label-subject'>Details</div><div class='summary-details-body'><?php echo $details ?></div>
   	</div>
-  	<div class='summary-assigned-to'><div class='summary-details-head label-subject'>Assigned to</div>
+  	<div class='summary-assigned-to'><div class='summary-details-head label-subject'><?php _e( 'Assigned to', 'UkuuPeople' ) ?></div>
     <div class='assigned-section' >
    <?php
       if( isset( $assigned_to ) && !empty( $assigned_to ) ) {
@@ -2354,7 +2354,7 @@ class UkuuPeople{
       <div class='left-photo-summary-activity'>
       	<span class='summary-display-name'><?php echo $display_name ?></span>
       	<span class='summary-org-name'><?php echo $org_name ?></span>
-      	<span class='contact-dashboard'><a href='<?php echo $contact_dash_url ?>' class='button button-primary'>Contact Dashboard</a></span>
+      	<span class='contact-dashboard'><a href='<?php echo $contact_dash_url ?>' class='button button-primary'><?php _e( 'Contact Dashboard', 'UkuuPeople' ) ?></a></span>
      	</div>
 		</div>
   </div>
