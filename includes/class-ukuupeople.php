@@ -483,7 +483,7 @@ class UkuuPeople{
       // Common styles
       wp_enqueue_style("wp-jquery-ui-dialog");
       global $wp_version;
-      if ( $wp_version <= '4.2.4' ) {?>
+      if ( $wp_version <= '4.2.6' ) {?>
       <script>
           jQuery(document).ready(function() {
               jQuery( ".wrap h2 a" ).attr("href", "#");
