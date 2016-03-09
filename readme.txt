@@ -119,3 +119,27 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 2. UkuuPeople contact listing.
 3. UkuuPeople contact dashboad (includes contribution display - add-on required).
 4. UkuuPeople TouchPoints listing.
+
+== Changelog ==
+= 1.5.3 =
+* Changes to fix incompatibility with some versions of PHP 5.3. Thanks to @kjohnson
+* Changes to add better support for tranlations for CMB2 fields. Thanks to @jessor
+* Updated version condition to show dialog box on TouchPoints for WP version 4.2.6 and 4.2.7
+* Filter changes for UkuuGive version compatibility
+* Added filter for tab view
+
+= 1.5.0 =
+* Introduction of enhanced admin settings panel for consolidation of licensing and integration settings
+* Enhancements to navigation in contact dashboard and touchpoints dashboard
+
+= 1.0 =
+* Changes to UkuuPeople Touchpoints interface
+
+
+== Upgrade Notice ==
+
+= 1.5.3 =
+This version fixes some compatibility issues with some versions of PHP 5.3 as well as incorporates better translations support.
+
+
+
