@@ -366,18 +366,20 @@ class UkuuPeople{
     $tab_filter = array();
     // version dependent code
     $plugin_info = get_plugins();
-    $plugin_exist = array_key_exists(UKUUGIVE_BASENAME,$plugin_info);
-    if ($plugin_exist){
-      require_once ABSPATH . 'wp-admin/includes/plugin.php';
-      $plugin_active = is_plugin_active(UKUUGIVE_BASENAME);
-      if ($plugin_active){
-        $plugin_version = $plugin_info[UKUUGIVE_BASENAME]['Version'];
-        if($plugin_version <= '1.0.2'){
-          $tab_filter['contribution'] =array(
-            'id' => 'donation-tab',
-            'action' => 'ukuugive_tab_view',
-            'icon' => 'ukuucontributions',
-          );
+    if(class_exists('UKUUGIVE')){
+      $plugin_exist = array_key_exists(UKUUGIVE_BASENAME,$plugin_info);
+      if ($plugin_exist){
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        $plugin_active = is_plugin_active(UKUUGIVE_BASENAME);
+        if ($plugin_active){
+          $plugin_version = $plugin_info[UKUUGIVE_BASENAME]['Version'];
+          if($plugin_version <= '1.0.2'){
+            $tab_filter['contribution'] =array(
+              'id' => 'donation-tab',
+              'action' => 'ukuugive_tab_view',
+              'icon' => 'ukuucontributions',
+            );
+          }
         }
       }
     }
