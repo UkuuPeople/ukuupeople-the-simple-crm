@@ -527,7 +527,7 @@ class UkuuPeople{
       $orgUrl = admin_url( 'post-new.php?post_type=wp-type-contacts&ctype=wp-type-org-contact');
       ?>
       <div style="display:none" id="dialog" title="<?php _e( 'Add New','UkuuPeople') ?>">
-      <input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" redirect="<?php echo $indUrl?>"><?php _e('Human', 'UkuuPeople'); ?><br/>      <input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" redirect="<?php echo $orgUrl?>"><?php _e('Organization', 'UkuuPeople'); ?><br/>                                                                                                                                                    </div>
+      <label for="wp-type-ind-contact"><input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" id="wp-type-ind-contact" redirect="<?php echo $indUrl?>"><?php _e('Human', 'UkuuPeople'); ?></label><br/>      <label for="wp-type-org-contact"><input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" id="wp-type-org-contact" redirect="<?php echo $orgUrl?>"><?php _e('Organization', 'UkuuPeople'); ?></label><br/>                                                                                                                                                    </div>
     <?php
     }
     // Dialog box for Contact and touchpoint page
