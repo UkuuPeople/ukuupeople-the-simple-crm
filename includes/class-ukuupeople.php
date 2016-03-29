@@ -2021,9 +2021,9 @@ class UkuuPeople{
       //change title of human and Organization
       $postLabels = $wp_post_types['wp-type-contacts']->labels;
       if ( $_GET['ctype'] == 'wp-type-ind-contact' )
-        $postLabels->add_new_item = 'Add New Human';
+        $postLabels->add_new_item = __('Add New Human', 'UkuuPeople');
       if ( $_GET['ctype'] == 'wp-type-org-contact' )
-        $postLabels->add_new_item = 'Add New Organization';
+        $postLabels->add_new_item = __('Add New Organization', 'UkuuPeople');
     }
 
     //Hide Contact post title
