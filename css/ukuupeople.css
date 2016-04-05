@@ -686,6 +686,13 @@ css for settings
     	word-wrap: break-word;
 }
 
+.post-type-wp-type-contacts #first-sidebar-contact #display-name {
+        height: auto;
+        margin-bottom: 10px;
+        overflow: hidden;
+        width: 151px;
+}
+
 .post-type-wp-type-contacts .display-name {
         float:left;
 	min-height: 150px;
@@ -695,6 +702,10 @@ css for settings
 .post-type-wp-type-contacts .add-touchpoint {
         bottom: 0;
 	position: absolute;
+}
+
+.post-type-wp-type-contacts #first-sidebar-contact .add-touchpoint {
+	    position: relative;
 }
 
 .post-type-wp-type-contacts #post-body.columns-2 #postbox-container-1 {
