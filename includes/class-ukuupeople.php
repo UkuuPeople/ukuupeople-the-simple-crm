@@ -2261,8 +2261,10 @@ class UkuuPeople{
       <div class='left-photo-summary-activity'>
       	<span class='summary-display-name'><?php echo $display_name ?></span>
       	<span class='summary-org-name'><?php echo $org_name ?></span>
- <?php   if( $contact_id != 0 ) { ?>
- <span class='contact-dashboard'><a href='<?php echo $contact_dash_url ?>' class='button button-primary'><?php _e( 'Contact Dashboard', 'UkuuPeople' ) ?></a></span>
+ <?php  $activity_id = get_post($edit->ID);
+        $meta_value_id = get_post_meta($activity_id->ID, '_wpcf_belongs_wp-type-activity_id', true);$post_type_name = get_post($meta_value_id);
+        if( $contact_id != 0  && $post_type_name->post_type == 'wp-type-contacts' ) { ?>
+        <span class='contact-dashboard'><a href='<?php echo $contact_dash_url ?>' class='button button-primary'>Contact Dashboard</a></span>
    <?php } ?>
      	</div>
       <div class='subject-summary'><span class='label-subject'>Subject </span><span class='subject-content' style="<?php echo 'color:'.$selectedColor ?>"><?php echo $subject ?></span></div>
