@@ -778,10 +778,14 @@ css for settings
 }
 
 .post-type-wp-type-contacts .ui-tabs li a[href^="#org-members"] {
-    border-right:1px solid #959595;
+    border-right:0px solid #959595;
     float: left;
     padding: 0.5em 1em;
     text-decoration: none;
+}
+
+.post-type-wp-type-contacts .ui-tabs li a[href^="#opportunity-tab"] {
+    padding: 0.5em 0 0.5em 1em;
 }
 
 .post-type-wp-type-contacts .ui-tabs li a:focus {
@@ -1500,3 +1504,19 @@ css for settings
     text-decoration:none;
 }
 /* summary touchpoints changes end */
+
+input.disabled, input:disabled, select.disabled, select:disabled, textarea.disabled, textarea:disabled, .first-page, .pre-page, .last-page, .next-page {
+    background: #008ec2 none repeat scroll 0 0;
+    border: 1px solid #0073aa;
+    box-shadow: 0 1px 0 #006799;
+    color: #fff;
+    padding: 5px 12px;
+}
+
+#activity .page-tablenav {
+    margin-top: 10px;
+}
+
+.post-type-wp-type-contacts #third-sidebar-contact {
+    margin: 0 0 0 3.25%;
+}
