@@ -102,6 +102,8 @@ function licenses() {
     'give_license'         => 'ukuupeople_give_license_key',
     'ukuugoogle_license'   => 'ukuupeople_google_license_key',
   );
+  // add your own license in ukuupeople's settings tab
+  $addonarr = apply_filters( 'ukkupeople_add_to_license_tab', $addonarr );
   foreach ( $addonarr as $key => $value ) {
     if( has_action( $key ) ) {
       do_action( $key );
