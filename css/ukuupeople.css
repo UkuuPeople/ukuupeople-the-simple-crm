@@ -166,6 +166,7 @@
     	clear:both;
     	width:99%;
     	margin-bottom: 15px;
+      padding-top: 2%;
 }
 
 .post-type-wp-type-contacts #postbox-container-1 {
@@ -182,8 +183,8 @@
 }
 
 #activity .page-tablenav {
-    	float:right;
-    	margin-bottom:15px;
+    float: right;
+    margin-bottom: 2px;
 }
 
 .post-type-wp-type-activity #post-body-content #titlewrap input{
