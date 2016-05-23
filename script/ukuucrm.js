@@ -450,3 +450,16 @@ jQuery( '#graph' ).ready(function() {
 	    .attr('class', 'y axis');
     }
 });
+
+jQuery('.post-type-wp-type-activity #post').on('submit', function (e) {
+    var datavalue = jQuery('input[name="post_title"]').val();
+    if ( datavalue == "" ) {
+	jQuery('.errordesc').remove();
+	jQuery('<div class="errordesc">Please enter valid description</div>').insertAfter("#titlewrap");
+	jQuery('.errordesc').css('color','red');
+	return false;
+    } else{
+	jQuery('.errordesc').remove();
+	return true;
+    }
+});
