@@ -138,6 +138,11 @@ class UkuuPeople{
      * add admin user to ukuupeople
      */
     add_action ('user_register', array( $this,"test"));
+
+    /*
+     *to remove dash(-)post-status from posttitle on posts listing page
+     */
+    add_filter('display_post_states', '__return_false');
   }
 
   function test() {
