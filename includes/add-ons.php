@@ -50,6 +50,7 @@ function ukuupeople_add_ons() {
   $mailchimp = UKUUPEOPLE_RELPATH. '/images/mailchimp.png';
   $gravity_forms = UKUUPEOPLE_RELPATH.'/images/gravity-forms-logo.png';
   $googleapp = UKUUPEOPLE_RELPATH.'/images/google-apps.png';
+  $opportunitymanagment = UKUUPEOPLE_RELPATH. '/images/opportunity-managment.png'
   $give = UKUUPEOPLE_RELPATH.'/images/give-logo.png';
   $csvimport = UKUUPEOPLE_RELPATH.'/images/ukuucsvimport.png';
   $output = '<div class="ukuupeople-add-on-main">
@@ -103,6 +104,25 @@ function ukuupeople_add_ons() {
   </div>
   <div class="addon-footer-wrap give-clearfix">
     <a class="button-secondary" target="_blank" title="Gravity Forms" href="http://shop.ukuupeople.com/add-on/gravity-forms/">
+      LEARN MORE
+      <span class="dashicons dashicons-external"></span>
+    </a>
+  </div>
+  </div>
+  <div class="ukuupeople-add-on-main">
+  <div class="featured-img">
+    <a target="_blank" title="Opportunity Management" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">
+      <img width="100%" height="100%" alt="Opportunity Management" src="'.$opportunitymanagment.'">
+    </a>
+  </div>
+  <div class="addon-content">
+    <h3 class="addon-heading">
+      <a target="_blank" title="Opportunity Management" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">Opportunity Management</a>
+    </h3>
+    <p>360⁰ view of your sales/opportunity pipeline activity and sales people.</p>
+  </div>
+  <div class="addon-footer-wrap give-clearfix">
+    <a class="button-secondary" target="_blank" title="Opportunity Management" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">
       LEARN MORE
       <span class="dashicons dashicons-external"></span>
     </a>
