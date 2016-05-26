@@ -3,8 +3,8 @@ Contributors: nathanporter, marisaporter, stephenlobo, tonymazz, nileemaJ, yoges
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
 Requires at least: 3.8
-Tested up to: 4.3
-Stable tag: 1.5.3
+Tested up to: 4.5.2
+Stable tag: 1.5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,5 +141,7 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 = 1.5.3 =
 This version fixes some compatibility issues with some versions of PHP 5.3 as well as incorporates better translations support.
 
+= 1.5.4 =
+This version introduces changes to support the Opportunity Management Add-on
 
 
