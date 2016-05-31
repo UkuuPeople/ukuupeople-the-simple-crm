@@ -52,7 +52,7 @@ function ukuupeople_add_ons() {
   $googleapp = UKUUPEOPLE_RELPATH.'/images/google-apps.png';
   $give = UKUUPEOPLE_RELPATH.'/images/give-logo.png';
   $csvimport = UKUUPEOPLE_RELPATH.'/images/ukuucsvimport.png';
-  $opportunity = UKUUPEOPLE_RELPATH.'/images/opportunity_logo.png';
+  $opportunity = UKUUPEOPLE_RELPATH.'/images/opportunity_management.png';
   $output = '<div class="ukuupeople-add-on-main">
   <div class="featured-img">
      <a target="_blank" title="UkkuPeople Mailchimp" href="http://shop.ukuupeople.com/add-on/mailchimp/">
