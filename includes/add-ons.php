@@ -52,6 +52,7 @@ function ukuupeople_add_ons() {
   $googleapp = UKUUPEOPLE_RELPATH.'/images/google-apps.png';
   $give = UKUUPEOPLE_RELPATH.'/images/give-logo.png';
   $csvimport = UKUUPEOPLE_RELPATH.'/images/ukuucsvimport.png';
+  $opportunity = UKUUPEOPLE_RELPATH.'/images/opportunity_logo.png';
   $output = '<div class="ukuupeople-add-on-main">
   <div class="featured-img">
      <a target="_blank" title="UkkuPeople Mailchimp" href="http://shop.ukuupeople.com/add-on/mailchimp/">
@@ -146,7 +147,26 @@ Sweet.</p>
       <span class="dashicons dashicons-external"></span>
     </a>
    </div>
-</div> ';
+</div>
+<div class="ukuupeople-add-on-main">
+  <div class="featured-img">
+    <a target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">
+      <img width="100%" height="100%" alt="Opportunity" src="'.$opportunity.'">
+    </a>
+  </div>
+  <div class="addon-content">
+    <h3 class="addon-heading">
+      <a target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">Opportunity Managment</a>
+    </h3>
+    <p>The Opportunity Management is perfect for tracking leads from a cold contact all the way through to a won opportunity.</p>
+   </div>
+   <div class="addon-footer-wrap give-clearfix">
+    <a class="button-secondary" target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">
+      LEARN MORE
+      <span class="dashicons dashicons-external"></span>
+    </a>
+   </div>
+</div>';
 	return $output;
 
 }

@@ -44,7 +44,7 @@ function create_post_type() {
 	$labels = array(
 		'name'               => _x( 'UkuuPeople', 'post type general name', 'UkuuPeople' ),
 		'singular_name'      => _x( 'Human', 'post type singular name', 'UkuuPeople' ),
-		'menu_name'          => _x( 'UkuuPeople', 'admin menu', 'UkuuPeople' ),
+		'menu_name'          => _x( 'Contacts', 'admin menu', 'UkuuPeople' ),
 		'name_admin_bar'     => _x( 'Human', 'add new on admin bar', 'UkuuPeople' ),
 		'add_new'            => _x( 'Add New', 'Human', 'UkuuPeople' ),
 		'add_new_item'       => __( 'Add New Human', 'UkuuPeople' ),
