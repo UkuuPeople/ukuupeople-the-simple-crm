@@ -1521,3 +1521,8 @@ input.disabled, input:disabled, select.disabled, select:disabled, textarea.disab
 .post-type-wp-type-contacts #third-sidebar-contact {
     margin: 0 0 0 3.25%;
 }
+
+/* hide Visibility field in createbox touchpoint */
+.post-type-wp-type-activity #misc-publishing-actions #visibility {
+    display: none !important;
+}
