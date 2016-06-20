@@ -573,7 +573,7 @@ class UkuuPeople{
     );
     wp_add_dashboard_widget (
       'ukuuCRM-dashboard-createactivity-widget',
-      __( 'Quick Add Touchpoint' ,'UkuuPeople' ),
+      __( 'Quick Add TouchPoint' ,'UkuuPeople' ),
       array( $this, 'ukuuCRM_dashboard_createactivity_content' ),
       $control_callback = null
     );
@@ -796,7 +796,7 @@ class UkuuPeople{
       echo "<input type='hidden' value='$contact_id' name='hidden_cid'>";
       $post_term = wp_get_post_terms( $post->ID, 'wp-type-activity-types', array("fields" => "names") );
       $acttype = get_terms( 'wp-type-activity-types' ,'hide_empty=0' );
-      echo '<select name="touchpoint-list" id="touchpoint-list" class="postbox">';
+      echo '<select name="touchpoint-list" id="touchpoint-list" class="postbox form-control" required="">';
       if( empty( $post_term )  ){
         echo "<option value='' selected>".__( 'Select Touchpoint type', 'UkuuPeople' )."..</option>";
       }
@@ -1021,19 +1021,19 @@ class UkuuPeople{
     <form name="quickaddform" enctype="multipart/form-data" method="post" id="quickAddform">
     <table class="quickadd">
       <tr>
-      <td class="quickadd-label"><?php _e('Contact', 'UkuuPeople') ?></td>
-      <td><input type="text" name="dname" placeholder="<?php _e('Start typing name', 'UkuuPeople') ?>"><input id="dcontact_id" type="hidden" name="contact_id"></td>
+      <td class="quickadd-label"><?php _e('Contact*', 'UkuuPeople') ?></td>
+      <td><input type="text" name="dname" required placeholder="<?php _e('Start typing name', 'UkuuPeople') ?>"><input id="dcontact_id" type="hidden" name="contact_id"></td>
       </tr>
 
       <tr>
-      <td class="quickadd-label"><?php _e('Subject', 'UkuuPeople') ?></td>
-      <td><input type="text" name="dsubject" placeholder="<?php _e('Enter subject', 'UkuuPeople') ?>"></td>
+      <td class="quickadd-label"><?php _e('Subject*', 'UkuuPeople') ?></td>
+      <td><input type="text" name="dsubject" required placeholder="<?php _e('Enter subject', 'UkuuPeople') ?>"></td>
       </tr>
 
       <tr>
-      <td class="quickadd-label"><?php _e('Type', 'UkuuPeople') ?></td>
-      <td><select name="dtype"><?php
-      echo "<option value='' selected>".__( 'Select Touchpoint type', 'UkuuPeople' )."..</option>";
+      <td class="quickadd-label"><?php _e('Type*', 'UkuuPeople') ?></td>
+      <td><select class="form-control" required="" name="dtype"><?php
+      echo "<option value='' selected>".__( 'Select TouchPoint type', 'UkuuPeople' )."..</option>";
       foreach ($acttype as $key => $value ) {
         echo "<option value=".$value->slug.">".$value->name."</option>";
       }
@@ -1071,7 +1071,7 @@ class UkuuPeople{
 
       <tr>
       <td class="quickadd-label"></td>
-      <td><input type="button" name="dassign" value="<?php _e('Click to select Assignee', 'UkuuPeople') ?>">
+      <td><input type="button" name="dassign" value="<?php _e('Click to Select Assignee', 'UkuuPeople') ?>">
       <input type="text" id="touchpoint_assign_name_display" name="touchpoint_assign_name_display" style="display:none">
       <input type="hidden" id="touchpoint_assign_id" name="touchpoint_assign_id"></td>
       </tr>
