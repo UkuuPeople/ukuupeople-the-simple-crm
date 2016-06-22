@@ -1,4 +1,4 @@
-=== CRM: Contact Management for WordPress - UkuuPeople ===
+=== CRM: Contact Management Simplified - UkuuPeople ===
 Contributors: nathanporter, marisaporter, stephenlobo, sonalshah, yogeshnipane, prashantgajare
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
