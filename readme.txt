@@ -1,5 +1,5 @@
-=== Simple WordPress CRM - UkuuPeople ===
-Contributors: nathanporter, marisaporter, stephenlobo, tonymazz, nileemaJ, yogeshnipane, prashantgajare
+=== CRM: Simple Contact Management - UkuuPeople ===
+Contributors: nathanporter, marisaporter, stephenlobo, sonalshah, yogeshnipane, prashantgajare
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
 Requires at least: 3.8
@@ -53,7 +53,7 @@ See all the features on the [UkuuPeople Website](http://ukuupeople.com "Visit th
 [UkuuPeople Demo Website](http://demo.ukuupeople.com "Visit the UkuuPeople Demo")
 
 = Extend the Awesome =
-UkuuPeople has a growing collection of add-ons to create an even more robust and full featured solution to your needs. You'll find integrations with [Gravity Forms](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [MailChimp](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [Give Donation Pages](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [Import/Export Tools](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [Google Apps](http://ukuupeople.com/add-ons "UkuuPeople Add-ons") and even more...
+UkuuPeople has a growing collection of add-ons to create an even more robust and full featured solution to your needs. You'll find integrations with [Gravity Forms](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [Opportunity/Lead Management](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [MailChimp](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [Give Donation Pages](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [Import/Export Tools](http://ukuupeople.com/add-ons "UkuuPeople Add-ons"), [Google Apps](http://ukuupeople.com/add-ons "UkuuPeople Add-ons") and even more...
 
 = Don't miss out on the latest news! =
 
@@ -121,6 +121,11 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 4. UkuuPeople TouchPoints listing.
 
 == Changelog ==
+= 1.5.4 =
+* Addition of support for Opportunity Management Add-on
+* Change of Dashboard Menu from "UkuuPeople" to "Contacts"
+* Minor Changes to TouchPoints
+
 = 1.5.3 =
 * Changes to fix incompatibility with some versions of PHP 5.3. Thanks to @kjohnson
 * Changes to add better support for tranlations for CMB2 fields. Thanks to @jessor
