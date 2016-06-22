@@ -8,7 +8,7 @@ Stable tag: 1.5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-UkuuPeople is the easiest CRM tool for WordPress. It effortlessly ties all of your contact interactions and contact data collections tools together.
+UkuuPeople is the easiest CRM tool for WordPress. It effortlessly ties all of your contact interactions and contact data collection tools together.
 
 == Description ==
 
