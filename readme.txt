@@ -8,7 +8,7 @@ Stable tag: 1.5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-UkuuPeople is the easiest Contact Relationship Managment tool for WordPress. It automates the collection of contact interactions via integrations with popular plugins. Effortlessly record meetings, phone calls, leads, track opportunities, and more!
+UkuuPeople is the easiest Contact Relationship Managment tool for WordPress. It automates the collection of contact interactions via integrations with popular plugins. Effortlessly record meetings, phone calls, leads, track opportunities and more!
 
 == Description ==
 
