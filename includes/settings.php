@@ -83,11 +83,11 @@ function settings() {
   echo '</div>';
   echo "<a href='".admin_url()."edit-tags.php?taxonomy=wp-type-activity-types&post_type=wp-type-contacts'><input type='button' class='button button-primary' value='".__( 'Add New', 'UkuuPeople' )." Touchpoint ". __( 'Type', 'UkuuPeople' ) . "'></a>";
   echo '<div class="postbox main-type-list"><h3 class="hndle"><span>Tribes</span></h3>';
-  types_list( $tribes , '' );
+  types_list( $tribes , 'tribe' );
   echo '</div>';
   echo "<a href='".admin_url()."edit-tags.php?taxonomy=wp-type-group&post_type=wp-type-contacts'><input type='button' class='button button-primary' value='".__( 'Add New ', 'UkuuPeople' )."Tribe'></a>";
   echo '<div class="postbox main-type-list"><h3 class="hndle"><span>People Tags</span></h3>';
-  types_list( $tags , '' );
+  types_list( $tags , 'tag' );
   echo '</div>';
   echo "<a href='".admin_url()."edit-tags.php?taxonomy=wp-type-tags&post_type=wp-type-contacts'><input type='button' class='button button-primary' value='". __( 'Add New', 'UkuuPeople' ) ." Tag'></a>";
 }
@@ -140,13 +140,26 @@ function types_list( $types , $type_name ) {
     'wp-type-contactform' => '#E6397A'
   );
 
+  // assign type
+  switch ($type_name) {
+    case 'touchpoint' :
+      $taxonomy_type = 'wp-type-activity-types';
+      break;
+    case 'tribe' :
+      $taxonomy_type = 'wp-type-group';
+      break;
+    case 'tag' :
+      $taxonomy_type = 'wp-type-tags';
+      break;
+  }
+
   foreach ( $types as $key => $value ) {
     if ( $count%2 == 0) echo "<tr>"; else echo "<tr class='alternate'>";
     $URL = get_edit_term_link( $value->term_id ,$value->taxonomy );
     $selectedColor = get_option('term_category_radio_' . $value->slug);
     $deleteURL = get_delete_post_link( $value->term_id);
     $wpn = wp_create_nonce( 'delete-tag_' .$value->term_id );
-    $dURL = 'edit-tags.php?action=delete&taxonomy=wp-type-activity-types&tag_ID='.$value->term_id.'&_wpnonce='.$wpn;
+    $dURL = 'edit-tags.php?action=delete&taxonomy='.$taxonomy_type.'&tag_ID='.$value->term_id.'&_wpnonce='.$wpn;
     echo "<td><a href='$URL'>$value->name</a>";?>
       <div class="row-actions">
         <span class="edit"><a title="Edit this item" href="<?php echo $URL ?>"><?php _e( 'Edit', 'UkuuPeople' ); ?></a>|</span>
