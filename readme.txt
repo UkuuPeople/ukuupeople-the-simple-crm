@@ -3,12 +3,12 @@ Contributors: nathanporter, marisaporter, stephenlobo, sonalshah, yogeshnipane, 
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
 Requires at least: 3.8
-Tested up to: 4.5.3
+Tested up to: 4.6.1
 Stable tag: 1.5.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-UkuuPeople is the easiest Contact Relationship Managment tool for WordPress. It automates the collection of contact interactions via integrations with popular plugins. Effortlessly record meetings, phone calls, leads, track opportunities and more!
+UkuuPeople is the easiest CRM tool for WordPress. It effortlessly ties all of your contact interactions and contact data collection tools together.
 
 == Description ==
 
@@ -149,4 +149,5 @@ This version fixes some compatibility issues with some versions of PHP 5.3 as we
 = 1.5.4 =
 This version introduces changes to support the Opportunity Management Add-on
 
-
+= 1.5.5 = 
+Bug fix to fix behaviour of "Trash" button for "Tribe" type under settings tab.
