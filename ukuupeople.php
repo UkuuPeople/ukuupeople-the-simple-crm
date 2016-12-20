@@ -11,7 +11,7 @@ define( 'UKUUPEOPLE_RELPATH', plugins_url() . '/' . basename( UKUUPEOPLE_ABSPATH
   Plugin URI: http://ukuupeople.com/
   Description: Ukuu People is the premium plugin that helps you elegantly manage all of your human relationships.
   Ukuu People effortlessly ties all of your contact interactions and contact data collection tools together to form one authoritative master list of all of your contacts and a record of your interactions with them.
-  Version: 1.5.5
+  Version: 1.5.6
   Author: UkuuPeople
   Author URI: http://ukuupeople.com/
   License: GPL 3
@@ -34,7 +34,7 @@ define( 'UKUUPEOPLE_RELPATH', plugins_url() . '/' . basename( UKUUPEOPLE_ABSPATH
 */
 
 global $ukuupeople_db_version;
-$ukuupeople_db_version = '1.5.5';
+$ukuupeople_db_version = '1.5.6';
 
 register_activation_hook( __FILE__, 'on_activation' );
 register_deactivation_hook( __FILE__, 'on_deactivation' );
