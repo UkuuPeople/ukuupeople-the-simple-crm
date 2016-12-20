@@ -490,7 +490,17 @@ class UkuuPeople{
       // Common styles
       wp_enqueue_style("wp-jquery-ui-dialog");
       global $wp_version;
-      if ( $wp_version <= '4.2.7' ) {?>
+      if ( $wp_version >= '4.7' ) {?>
+      <script>
+          jQuery(document).ready(function() {
+              jQuery( ".wrap a.page-title-action" ).attr("href", "#");
+              jQuery( ".wrap a.page-title-action" ).click(function() {
+                  jQuery( "#dialog" ).dialog( "open" );
+                });
+            });
+      </script><?php
+      }
+      elseif ( $wp_version <= '4.2.7' ) {?>
       <script>
           jQuery(document).ready(function() {
               jQuery( ".wrap h2 a" ).attr("href", "#");
