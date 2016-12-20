@@ -3,7 +3,7 @@ Contributors: nathanporter, marisaporter, stephenlobo, sonalshah, yogeshnipane, 
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
 Requires at least: 3.8
-Tested up to: 4.6.1
+Tested up to: 4.7
 Stable tag: 1.5.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
