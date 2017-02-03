@@ -69,6 +69,10 @@ class UkuuPeople{
     add_filter( 'manage_wp-type-activity_posts_columns', array( $this, 'ukku_activity_custom_fields_list_view' ) );
     add_action( 'admin_head', array( $this , 'ukku_contacts_custom_fields_hide_date_filter' ) );
 
+    // remove the default sort from subject column and adding to the date column
+    add_filter( 'manage_edit-wp-type-activity_sortable_columns', array( $this, 'remove_default_filter' ) );
+    add_filter( 'posts_clauses', array( $this, 'manage_wp_posts_be_qe_posts_clauses' ), 1, 2 );
+
     /*
      * Update related user on wp-type-contact updation
      */
@@ -143,6 +147,34 @@ class UkuuPeople{
      *to remove dash(-)post-status from posttitle on posts listing page
      */
     add_filter('display_post_states', '__return_false');
+  }
+
+  function remove_default_filter( $col ) {
+    unset( $col['title'] );
+    $col['wp-startdate'] = 'wp-startdate';
+    return $col;
+  }
+
+  function manage_wp_posts_be_qe_posts_clauses( $pieces, $query ) {
+    global $wpdb;
+    $query->set( 'orderby', 'wp-startdate' );
+
+    if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
+      // Get the order query variable - ASC or DESC
+      $order = strtoupper( $query->get( 'order' ) );
+      // Make sure the order setting qualifies. If not, set default as ASC
+      if ( ! in_array( $order, array( 'ASC', 'DESC' ) ) )
+        $order = 'ASC';
+      switch( $orderby ) {
+        // ordering by date
+        case 'wp-startdate':
+          //We have to join the postmeta table to include our date in the query.
+          $pieces[ 'join' ] .= " LEFT JOIN $wpdb->postmeta wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'wpcf-startdate'";
+          $pieces[ 'orderby' ] = " wp_rd.meta_value $order";
+		break;
+      }
+    }
+    return $pieces;
   }
 
   function test() {
