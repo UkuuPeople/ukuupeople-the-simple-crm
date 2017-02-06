@@ -4,182 +4,190 @@
 
 @media screen\0
 {
-*, *:before, *:after
+    *, *:before, *:after
 {
-	box-sizing:content-box !important;
+    box-sizing:content-box !important;
 }
 }
 
 
 .month-act {
-    	width:100%;
-    	height:auto;
-    	color:#FFFFFF;
-    	margin-top: 6px;
-    	text-align: center;
+    width:100%;
+    height:auto;
+    color:#FFFFFF;
+    margin-top: 6px;
+    text-align: center;
 }
 
 .day-act {
-    	color: #FFFFFF;
-    	font-size: 28px;
-    	font-weight: bold;
-    	height: 50px;
-    	margin-top: 13px;
-    	text-align: center;
-    	width: 100%;
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: bold;
+    height: 50px;
+    margin-top: 13px;
+    text-align: center;
+    width: 100%;
 }
 
 .activity_date {
-    	float: left;
-    	height: 58px;
-    	min-height: 70px;
-    	width:17%;
+    float: left;
+    height: 58px;
+    min-height: 70px;
+    width:17%;
 }
 
 .activity_info {
-    	float:left;
-    	width:55%;
-    	min-height: 70px;
-    	height: auto;
-    	top: 30px;
-    	right: 5px;
-    	padding: 0 5px;
+    float:left;
+    width:55%;
+    min-height: 70px;
+    height: auto;
+    top: 30px;
+    right: 5px;
+    padding: 0 5px;
 }
 
 .activity_time {
-    	float:left;
-    	width:25%;
-    	height:auto;
-    	min-height: 70px;
+    float:left;
+    width:25%;
+    height:auto;
+    min-height: 70px;
 }
 
 .user_activity {
-    	display: block;
-    	margin-bottom: 2px;
-    	text-align: justify;
-    	min-height: 70px;
-    	height: auto;
-    	overflow:hidden !important;
+    display: block;
+    margin-bottom: 2px;
+    text-align: justify;
+    min-height: 70px;
+    height: auto;
+    overflow:hidden !important;
 }
 
 #ukuuCRM-dashboard-activities-widget .inside {
-    	padding:0px;
+    padding:0px;
 }
 
 #wp-name .row-action ,.activity-wrapper .row-action{
-    	font-size:12px !important;
-    	padding-top:0px !important;
-    	margin:0px !important;
+    font-size:12px !important;
+    padding-top:0px !important;
+    margin:0px !important;
 }
 
 .dayName {
-    	color:#FFFFFF;
-    	margin-top: 6px;
-    	text-align: center;
+    color:#FFFFFF;
+    margin-top: 6px;
+    text-align: center;
 }
 
 .time {
-    	color:#FFFFFF;
-    	font-size: 22px;
-    	font-weight: bold;
-    	margin-top: 10px;
-    	text-align: center;
+    color:#FFFFFF;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
 
 }
 
 .meridiem {
-    	display: inline;
-    	font-size: 10px;
-    	font-weight: normal;
+    display: inline;
+    font-size: 10px;
+    font-weight: normal;
 }
 
 .ukuu-head {
-    	height: 30px !important;
-    	padding-left:12px;
+    height: 30px !important;
+    padding-left:12px;
 }
 
 #post-body-content #first-sidebar-contact {
-    	clear: both;
-    	float: left;
-    	width: 50%;/*408px;*/
-    	min-height:348px;
-    	position:relative;
+    clear: both;
+    float: left;
+    width: 50%;/*408px;*/
+    min-height:348px;
+    position:relative;
+}
+
+.admin_page_view-ukuupeople .wrap h1 {
+    padding-bottom: 2%;
 }
 
 #post-body-content #second-sidebar-contact {
-    	float: left;
-    	margin-top: 90px;
-    	padding-left: 0px;
-    	width: /*400px;*/50%;
-    	position:relative;
+    float: left;
+    margin-top: 100px;
+    padding-left: 0px;
+    width: /*400px;*/50%;
+    position:relative;
 }
 
 #post-body-content #user-images {
-    	background-color: transparent;
-    	float: left;
-    	overflow:hidden;
+    background-color: transparent;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
 }
 
 #post-body-content #display-name {
-    	float: left;
-    	font-size: 24px;
-    	font-weight: bold;
-    	word-wrap: break-word;
-    	line-height:28px;
-    	padding-right:15px;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    word-wrap: break-word;
+    line-height:28px;
+    padding-right:15px;
 }
 
 #post-body-content #contactdetailsblock {
-    	background-color: #FFFFFF;
-    	border: 1px solid #C0C0C0;
-    	float: left;
-    	padding: /*24px;*/5px;
-    	width: /*308px;*/94%;
-    	min-height: 155px;
-    	bottom:0;
-    	position:absolute;
+    background-color: #FFFFFF;
+    border: 1px solid #C0C0C0;
+    float: left;
+    padding: /*24px;*/5px;
+    width: /*308px;*/94%;
+    min-height: 155px;
+    bottom:0;
 }
 
 #post-body-content #addressblock {
-    	background-color: white;
-    	border: 1px solid #C0C0C0;
-    	/*width: 368px;*/
-    	padding:22px 10px;
-    	min-height:90px;
-    	position:relative;
-    	display:block;
-    	padding-top:10px;
-    	line-height:1.2em;
+    background-color: white;
+    border: 1px solid #C0C0C0;
+    /*width: 368px;*/
+    padding:22px 10px;
+    min-height:90px;
+    position:relative;
+    display:block;
+    padding-top:10px;
+    line-height:1.2em;
+}
+
+.post-type-wp-type-contacts #third-sidebar-contact {
+    padding: 8px !important;
 }
 
 #post-body-content #tagblock {
-    	background-color: white;
-    	border: 1px solid #c0c0c0;
-    	padding:15px;
-    	margin-top: 8px;
-    	/*width: 377px;*/
-    	display:block;
-    	min-height: 90px;
+    background-color: white;
+    border: 1px solid #c0c0c0;
+    padding:15px;
+    margin-top: 8px;
+    /*width: 377px;*/
+    display:block;
+    min-height: 90px;
 }
 
 #post-body-content #activity {
-    	clear:both;
-    	width:99%;
-    	margin-bottom: 15px;
+    clear:both;
+    width:99%;
+    margin-bottom: 15px;
       padding-top: 2%;
 }
 
 .post-type-wp-type-contacts #postbox-container-1 {
-    	clear:both;
-	padding-right: 0;
+    clear:both;
+    padding-right: 0;
 }
 
 .post-type-wp-type-contacts #post-body-content {
-    	width:129%
+    width:129%
 }
 
 .post-type-wp-type-contacts .wp-list-table #wp-email {
-    	width:20%;
+    width:20%;
 }
 
 #activity .page-tablenav {
@@ -188,208 +196,208 @@
 }
 
 .post-type-wp-type-activity #post-body-content #titlewrap input{
-    	width:98% !important;
+    width:98% !important;
 }
 
 .post-type-wp-type-contacts .contactimage {
-        float:left;
-        margin-right:10px;
+    float:left;
+    margin-right:10px;
 }
 
 #contactdetail-table .contactdetailhead {
-    	color:#0A73B9;
-    	font-family: Arial, Helvetica, sans-serif;
-    	font-size:13px;
-    	font-weight:bold;
+    color:#0A73B9;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:13px;
+    font-weight:bold;
 }
 
 .title-value {
-		color: #959595;
-    	font-size: 13px !important;
+    color: #959595;
+    font-size: 13px !important;
 }
 
 .title-value a {
-    	color: #959595;
-    	text-decoration: none;
+    color: #959595;
+    text-decoration: none;
 }
 
 #wp-color-code {
-    	width:55px;
+    width:55px;
 }
 
 /*css for activity*/
 
 .contribution_amount.activityColor {
-    	color: #ffffff;
-    	font-size: 13px;
-    	height: 48px;
-    	min-height: 70px;
-    	margin: -8px 0 !important;
-    	padding: 10 !important;
-    	text-align: center;
-    	vertical-align: middle;
-    	width: 83px;
+    color: #ffffff;
+    font-size: 13px;
+    height: 48px;
+    min-height: 70px;
+    margin: -8px 0 !important;
+    padding: 10 !important;
+    text-align: center;
+    vertical-align: middle;
+    width: 83px;
 
 }
 .date_number {
-    	font-size: 30px !important;
-    	font-weight: bold !important;
-    	line-height: 31px !important;
+    font-size: 30px !important;
+    font-weight: bold !important;
+    line-height: 31px !important;
 }
 
 #wpcf-group-activity-information div[data-wpt-id="wpcf-details"] textarea{
-    	padding:2px 0px !important;
+    padding:2px 0px !important;
 }
 
 .post-type-wp-type-activity #touchpoint-list {
-    	width:99%;
-    	height:40px;
+    width:99%;
+    height:40px;
 }
 
 .post-type-wp-type-activity #touchpoint-types .hndle {
-    	display:none;
+    display:none;
 }
 
 .post-type-wp-type-contacts #posts-filter .tablenav div:nth-child(2) select , .post-type-wp-type-activity #posts-filter .tablenav div:nth-child(2) select{
-    	float:none;
+    float:none;
 }
 
 /*.post-type-wp-type-contacts .post-title, .post-type-wp-type-contacts th#title, .post-type-wp-type-contacts th.column-title {*/
 .post-type-wp-type-contacts .post-title, .post-type-wp-type-contacts th#title, .post-type-wp-type-contacts th.column-title ,#types-child-table-wp-type-contacts-wp-type-activity .wpcf-pr-pagination-update--old , #types-child-table-wp-type-contacts-wp-type-activity .wpcf-pagination-boottom , #types-child-table-wp-type-contacts-wp-type-activity .wpcf-pagination-top {
-		display: none;
+    display: none;
 }
 
 /* Activity status CSS */
 .ukuucheck {
-	display: inline-block;
-	background: url('../images/ukuusprite.png') no-repeat;
-	overflow: hidden;
-	text-indent: -9999px;
-	text-align: left;
-	background-position: -5px -130px;
-	width: 20px;
-	height: 20px;
-	float:left;
+    display: inline-block;
+    background: url('../images/ukuusprite.png') no-repeat;
+    overflow: hidden;
+    text-indent: -9999px;
+    text-align: left;
+    background-position: -5px -130px;
+    width: 20px;
+    height: 20px;
+    float:left;
 }
 
 .ukuuclock {
-	display: inline-block;
-	background: url('../images/ukuusprite.png') no-repeat;
-	overflow: hidden;
-	text-indent: -9999px;
-	text-align: left;
-	background-position: -5px -155px;
-	width: 20px;
-	height: 20px;
-	float:left;
+    display: inline-block;
+    background: url('../images/ukuusprite.png') no-repeat;
+    overflow: hidden;
+    text-indent: -9999px;
+    text-align: left;
+    background-position: -5px -155px;
+    width: 20px;
+    height: 20px;
+    float:left;
 }
 
 /* paper icon CSS */
 .paper-icon {
-        background-position: -101px -222px;
-	background-image: url("../images/jquery-ui-3E3E3E.gif");
-	width:16px;
-	height:16px;
-	float:right;
-	margin-right:20px;
+    background-position: -101px -222px;
+    background-image: url("../images/jquery-ui-3E3E3E.gif");
+    width:16px;
+    height:16px;
+    float:right;
+    margin-right:20px;
 }
 
 /* CSS For meta boxes */
 .post-type-wp-type-contacts #postbox-container-2 .postbox div.inside > div > div > div{
-	width:46% !important;
-	border-bottom:none;
-	padding: 0 23px 0 0;
-	display: inline-block;  
+    width:46% !important;
+    border-bottom:none;
+    padding: 0 23px 0 0;
+    display: inline-block;  
 }
 
 .post-type-wp-type-contacts #postbox-container-2 .postbox div.inside > div > div > div .cmb-th, .post-type-wp-type-contacts #postbox-container-2 .postbox div.inside > div > div > div .cmb-td{
-	float:none;
-	width:100%;
+    float:none;
+    width:100%;
 }
 
 .post-type-wp-type-contacts #postbox-container-2 .postbox div.inside > div > div > div input.cmb2-upload-file {
-	width: 60% !important;
+    width: 60% !important;
 }
 
 .post-type-wp-type-contacts #postbox-container-2 .postbox div.inside > div > div > div input.cmb2-text-medium {
-	width: 100% !important;
+    width: 100% !important;
 }
 
 /* Favorites star */
 .add-star {
-    	margin: 7px;
-    	width: 30px;
-    	height: 30px;
-    	background: url('../images/star.png') no-repeat;
+    margin: 7px;
+    width: 30px;
+    height: 30px;
+    background: url('../images/star.png') no-repeat;
 }
 
 .remove-star {
-    	margin: 7px;
-    	width: 30px;
-    	height: 30px;
-    	background: url('../images/star2.png') no-repeat;
+    margin: 7px;
+    width: 30px;
+    height: 30px;
+    background: url('../images/star2.png') no-repeat;
 }
 
 /* Dashborad CSS for favorites listing */
 .dashboard-favorites-list {
-    	margin-top:5px;
+    margin-top:5px;
 }
 
 .dashboard-favorites-list .contact-image, .dashboard-favorites-list .phone {
-    	float: left;
-    	width: 15%;
-    	height: 69px;
+    float: left;
+    width: 15%;
+    height: 69px;
 }
 
 .dashboard-favorites-list .display-name {
-    	float: left;
-    	width: 70%;
+    float: left;
+    width: 70%;
 }
 
 .dashboard-favorites-list .display-name .contact-name , .dashboard-favorites-list .display-name .dashboard-email {
-    	margin-left: 20px;
+    margin-left: 20px;
 }
 
-/*
-css for settings
-*/
+/**
+  * css for settings
+**/
 
 .type-list , .type-list tr{
-    	width:100%;
+    width:100%;
 }
 
 .type-list tr {
-    	height:50px;
+    height:50px;
 }
 
 .type-list td {
-    	padding:10px;
-    	color:#0074a2;
-    	margin-top:5px;
+    padding:10px;
+    color:#0074a2;
+    margin-top:5px;
 }
 
 .type-list .color {
-    	float:right;
-    	height: 20px;
-    	width: 20px;
+    float:right;
+    height: 20px;
+    width: 20px;
 }
 
 .main-type-list {
-    	margin-top:30px;
-    	width:98%;
+    margin-top:30px;
+    width:98%;
 }
 
 .main-type-list span {
-    	margin-left:10px;
-    	margin-bottom:10px;
+    margin-left:10px;
+    margin-bottom:10px;
 }
 
 .main-type-list a{
-    	text-decoration:none;
+    text-decoration:none;
 }
 
 #post-body-content .add-touchpoint {
-    	margin-top:10px;
+    margin-top:3px;
 }
 
 @media only screen and (max-width: 1059px) {
@@ -398,158 +406,165 @@ css for settings
 
 }
 
+@media only screen and (max-width: 1024px) {
+
+.post-type-wp-type-contacts #first-sidebar-contact {
+    width: 50% !important;/*408px;*/
+}
+}
+
 /*=====04.03.2015 css start=====*/
 
 .plugins_page_ukuupeople-home .wrap {
-	margin: 0px 30px;
+    margin: 0px 30px;
 }
 
 .plugins_page_ukuupeople-home .box {
-	margin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .plugins_page_ukuupeople-home .licence-box {
-	margin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .plugins_page_ukuupeople-home .content {
-	display: inline-block;
-    	vertical-align: top;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .plugins_page_ukuupeople-home table th span {
-	color: #1494a1;
+    color: #1494a1;
 }
 
 .plugins_page_ukuupeople-home .inactive table th span {
-	color: #888888;
+    color: #888888;
 }
 
 .plugins_page_ukuupeople-home :checked + span {
-  	color: #888888 !important;
+    color: #888888 !important;
 }
 
 .plugins_page_ukuupeople-home .submit {
-	display: inline;
-    	margin: 0;
-    	vertical-align: top;
+    display: inline;
+    margin: 0;
+    vertical-align: top;
 }
 
 .plugins_page_ukuupeople-home .green {
-	color: #008000;
-	display: block;
-	margin-top: 2px;
+    color: #008000;
+    display: block;
+    margin-top: 2px;
 }
 
 .plugins_page_ukuupeople-home .button {
-	background: none repeat scroll 0 0 #00A1BE;
-	border: 0px;
-	border-radius: 0;
-	color: #ffffff;
-	padding: 2px 50px 1px;
-	height: 28px;
+    background: none repeat scroll 0 0 #00A1BE;
+    border: 0px;
+    border-radius: 0;
+    color: #ffffff;
+    padding: 2px 50px 1px;
+    height: 28px;
 }
 
 .plugins_page_ukuupeople-home .button:hover {
-	background: none repeat scroll 0 0 #1e8cbe;
-	color: #ffffff;
+    background: none repeat scroll 0 0 #1e8cbe;
+    color: #ffffff;
 }
 
 .plugins_page_ukuupeople-home p.submit #submit {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .plugins_page_ukuupeople-home .inactive {
-	opacity: 0.4;
+    opacity: 0.4;
 }
 
 .plugins_page_ukuupeople-home .inactive h2.pg-title {
-	color: #888888;
+    color: #888888;
 }
 
 .plugins_page_ukuupeople-home .inactive table th {
-	color: #888888;
+    color: #888888;
 }
 
 .plugins_page_ukuupeople-home h2.pg-title {
-	color: #EF5231;
-	font-size: 38px;
-	font-weight: bold;
-	line-height: 34px;
+    color: #EF5231;
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 34px;
 }
 
 .plugins_page_ukuupeople-home .inactive .green {
-	color: #888888;
-	display: block;
-    	margin-top: 2px;
+    color: #888888;
+    display: block;
+    margin-top: 2px;
 }
 
 .plugins_page_ukuupeople-home input[type="checkbox"] {
-    	float: left;
-    	height: 16px;
-    	left: 0px;
-    	margin: 0;
-    	opacity: 0;
-    	padding: 0;
-    	position: relative;
-	top: 1px;
-    	width: 16px;
+    float: left;
+    height: 16px;
+    left: 0px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    position: relative;
+    top: 1px;
+    width: 16px;
 }
 
 .plugins_page_ukuupeople-home input[type="checkbox"] + span {
-	background: url("../images/gr_custom-inputs-square.png") no-repeat scroll 0 -19px rgba(0, 0, 0, 0);
-    	height: 16px;
-	padding-left: 24px;
-	margin-left: -15px;
+    background: url("../images/gr_custom-inputs-square.png") no-repeat scroll 0 -19px rgba(0, 0, 0, 0);
+    height: 16px;
+    padding-left: 24px;
+    margin-left: -15px;
 }
 
 .plugins_page_ukuupeople-home input[type="checkbox"]:checked + span {
-	background-position: 0 -39px;
+    background-position: 0 -39px;
 }
 
 .plugins_page_ukuupeople-home .inactive input[type="checkbox"]:checked + span {
-	background-position: 0 -58px;
+    background-position: 0 -58px;
 }
 
 .plugins_page_ukuupeople-home .pl-number {
-	color: #525252;
-	display: inline-block;
-	vertical-align: top;
-    	font-size: 38px;
-    	font-weight: bold;
-    	min-height: 30px;
-    	margin-right: 25px;
-    	margin-top: 16px;
+    color: #525252;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 38px;
+    font-weight: bold;
+    min-height: 30px;
+    margin-right: 25px;
+    margin-top: 16px;
 }
 
 .plugins_page_ukuupeople-home .wrap .form-table th {
-	padding: 16px 10px 20px 0;
+    padding: 16px 10px 20px 0;
 }
 
 .plugins_page_ukuupeople-home .wrap .form-table td {
-	display: block;
-	padding: 8px 10px;
+    display: block;
+    padding: 8px 10px;
 }
 
 .plugins_page_ukuupeople-home .wrap .licence .form-table th {
-	padding: 19px 10px 0 0;
+    padding: 19px 10px 0 0;
 }
 
 .plugins_page_ukuupeople-home .wrap .licence .form-table tr:nth-child(2) th {
-	padding: 8px 10px 0 0;
+    padding: 8px 10px 0 0;
 }
 
 .plugins_page_ukuupeople-home .wrap .licence .form-table td {
-	padding: 10px 10px 12px;
+    padding: 10px 10px 12px;
 }
 
 .plugins_page_ukuupeople-home .wrap .licence .form-table tr:nth-child(2) td {
-	padding: 6px 10px 0;
+    padding: 6px 10px 0;
 }
 
 .plugins_page_ukuupeople-home .instruction {
-	display: block;
-	margin-top: 16px;
+    display: block;
+    margin-top: 16px;
 }
 
 /*=====04.03.2015 css end=====*/
@@ -604,23 +619,23 @@ css for settings
 @media screen and (max-width: 480px) {
 
 .dashboard-favorites-list .contact-image {
-    	float: left;
-    	width: 20%;
-    	height: 69px;
+	float: left;
+ 	width: 20%;
+ 	height: 69px;
 }
 
 .dashboard-favorites-list .phone {
-    	float: left;
-    	width: 20%;
-    	height: 69px;
+	float: left;
+ 	width: 20%;
+ 	height: 69px;
 }
 
 .dashboard-favorites-list .display-name {
-    	float: left;
-    	width: 40%;
-    	word-wrap:break-word;
-    	padding:0 10px;
-    	margin:0 0 0 20px;
+	float: left;
+ 	width: 40%;
+ 	word-wrap:break-word;
+ 	padding:0 10px;
+ 	margin:0 0 0 20px;
 }
 
 .dashboard-favorites-list .contact-name , .dashboard-favorites-list .dashboard-email {
@@ -665,100 +680,103 @@ css for settings
 }
 
 .post-type-wp-type-contacts #post-body-content #contactdetailsblock {
-    	background-color: #ffffff;
-    	border: 1px solid #c0c0c0;
-    	bottom: 2px;
-    	float: left;
-    	margin-top: 10px;
-    	min-height: 109px;
-    	padding: 5px;
-    	position: absolute;
-    	width: 94%;
-    	margin-bottom:2px;
+    background-color: #ffffff;
+    border: 1px solid #c0c0c0;
+    bottom: 2px;
+    display: block;
+    margin-bottom: 2px;
+		margin-top: 8px;
+    min-height: 109px;
+    padding: 5px;
+    width: 94%;
 }
 
-
-.post-type-wp-type-contacts #post-body-content #display-name {
-    	float: left;
-    	font-size: 22px;
-    	font-weight: bold;
-    	line-height: 28px;
-    	padding-right: 15px;
-    	word-wrap: break-word;
+.post-type-wp-type-contacts #post-body-content #display-name, .admin_page_view-ukuupeople #post-body-content #display-name{
+    float: left;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 28px;
+    padding-right: 15px;
+    word-wrap: break-word;
 }
 
 .post-type-wp-type-contacts #first-sidebar-contact #display-name {
-        height: auto;
-        margin-bottom: 10px;
-        overflow: hidden;
-        width: 151px;
+    height: auto;
+    margin-bottom: 0px;
+    overflow: hidden;
+    width: 175px;
+}
+
+.ukuu_opportunity_link {
+    margin-top: 4px;
 }
 
 .post-type-wp-type-contacts .display-name {
-        float:left;
-	min-height: 150px;
-	position: relative;
+   display: inline-block;
 }
 
 .post-type-wp-type-contacts .add-touchpoint {
-        bottom: 0;
-	position: absolute;
+    bottom: 0;
 }
 
 .post-type-wp-type-contacts #first-sidebar-contact .add-touchpoint {
-	    position: relative;
+    
 }
 
 .post-type-wp-type-contacts #post-body.columns-2 #postbox-container-1 {
-    	float: right;
-    	margin-right: 0;
-    	width: 32%;
+    float: right;
+    margin-right: 0;
+    width: 32%;
 }
 
 .post-type-wp-type-contacts #postbox-container-2 {
-    	width: 66%;
+    width: 66%;
+}
+
+.profiledetailsblock {
+    display: block;
 }
 
 .ukuu-touchpoint-types-filter {
-    	display: inline;
-    	padding: 5px;
-    	color: #fff !important;
+    display: inline;
+    padding: 5px;
+    color: #fff !important;
 }
 
 .ukuu-touchpoint-types-filter a {
-    	color: #fff !important;
+    color: #fff !important;
 }
 
 .post-type-wp-type-contacts #post-body-content .add-touchpoint input, .post-type-wp-type-contacts #post-body-content .add-touchpoint a {
-    	width: 100%;   	
+    width: 100%;   	
 }
 
 .post-type-wp-type-contacts #post-body-content .add-touchpoint .edit_contact {
-        margin-bottom:10px;
+    margin-bottom:4px;
 }
 
 .post-type-wp-type-contacts #activity .activity-datetime {
-        width:15%;
+    width:15%;
 }
 
 .post-type-wp-type-contacts #activity .activity-subject {
-        width:20%;
+    width:20%;
 }
 
 .post-type-wp-type-contacts #activity .activity-assign {
-        width:15%;
+    width:15%;
 }
 
 .post-type-wp-type-contacts #activity .activity-status {
-        width:5%;
+    width:5%;
 }
 
 .post-type-wp-type-contacts #activity .activity-desc {
-             display: inline-block;
-	     height: 3em;
-	     line-height: 1.2em;
-	     overflow: hidden;
-	     text-overflow: ellipsis;
+    display: inline-block;
+    height: 3em;
+    line-height: 1.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .post-type-wp-type-contacts .contact-org-url a{
@@ -801,110 +819,110 @@ css for settings
 
 /**
  * Add-ons SCSS
-*/
+ */
 .ukuupeople-add-on-main {
-        float: left;
-        margin: 0 4em 1.5em 0 !important;
-        padding: 0;
-        vertical-align: top;
-		width: 340px;
-        text-decoration: none;
-        color: inherit;
-        border: 0px solid #ddd;
-        display: block;
-        height: 545px;
-        overflow: hidden;
-		background: #FFF;
-		-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-		-webkit-transition-property: border, background, color;
-		transition-property: border, background, color;
-		-webkit-transition-duration: .05s;
-		transition-duration: .05s;
-		-webkit-transition-timing-function: ease-in-out;
-		transition-timing-function: ease-in-out;
-		position: relative;
-		border: 1px solid #F1F1F1;
+    float: left;
+    margin: 0 4em 1.5em 0 !important;
+    padding: 0;
+    vertical-align: top;
+    width: 340px;
+    text-decoration: none;
+    color: inherit;
+    border: 0px solid #ddd;
+    display: block;
+    height: 545px;
+    overflow: hidden;
+    background: #FFF;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    -webkit-transition-property: border, background, color;
+    transition-property: border, background, color;
+    -webkit-transition-duration: .05s;
+    transition-duration: .05s;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    position: relative;
+    border: 1px solid #F1F1F1;
 }
 
 .ukuupeople-add-on-main:hover {
-        border: 1px solid #d1d1d1;
+    border: 1px solid #d1d1d1;
 }
 
 .ukuupeople-add-on-main .addon-content {
-        *zoom: 1;
-        padding: 15px 20px;
+    *zoom: 1;
+    padding: 15px 20px;
 }
 
 .ukuupeople-add-on-main .addon-content:before, .ukuupeople-add-on-main .addon-content:after {
-        content: " ";
-		display: table;
+    content: " ";
+    display: table;
 }
 .ukuupeople-add-on-main .addon-content:after {
-        clear: both;
+    clear: both;
 }
 
 .ukuupeople-add-on-main .addon-content .addon-heading {
-		margin: 20px 0 10px;
-        font-size: 21px;
-        font-weight: bold;
-        line-height: 30px;
-        font-family:Montserrat,sans-serif;
+    margin: 20px 0 10px;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 30px;
+    font-family:Montserrat,sans-serif;
 }
 
 .ukuupeople-add-on-main .addon-content p {
-		font-size: 17px;
-		font-weight: normal;
-		line-height: 30px;
-		margin: 15px;
-		font-family:Montserrat,sans-serif;
-		color: #3c352e;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 30px;
+    margin: 15px;
+    font-family:Montserrat,sans-serif;
+    color: #3c352e;
 }
 
 .ukuupeople-add-on-main .addon-footer-wrap a {
-		background-color: #fff;
-		border: 1px solid rgb(0, 155, 191);
-		color: rgb(0, 155, 191);
-		display: block;
-		padding-bottom: 35px;
-		padding-top: 10px;
-		position: relative;
-		text-align: center;
-		width: 90%;
-		font-size: 18px;
-		margin-bottom: 40px;
+    background-color: #fff;
+    border: 1px solid rgb(0, 155, 191);
+    color: rgb(0, 155, 191);
+    display: block;
+    padding-bottom: 35px;
+    padding-top: 10px;
+    position: relative;
+    text-align: center;
+    width: 90%;
+    font-size: 18px;
+    margin-bottom: 40px;
 }
 
 .ukuupeople-add-on-main .addon-footer-wrap a:hover {
-		Background-color: #009BBF;
-		color: #FFF5E7;
-		border: 1px solid #009BBF;
+    Background-color: #009BBF;
+    color: #FFF5E7;
+    border: 1px solid #009BBF;
 }
 
 .ukuupeople-add-on-main .addon-content .addon-heading a {
-        outline: none;
-        text-decoration: none;
+    outline: none;
+    text-decoration: none;
 }
 
 .ukuupeople-add-on-main .addon-footer-wrap {
-        border-top: 0px solid #ddd;
-        position: absolute;
-        bottom: 2px;
-        left: 0;
-        width: 100%;
-        background-color: #FFF;
-        padding: 15px 20px;
+    border-top: 0px solid #ddd;
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    background-color: #FFF;
+    padding: 15px 20px;
 }
 
 .ukuupeople-view-addons-all span.dashicons, .ukuupeople-add-on-main span.dashicons {
-        width: 16px;
-		height: 16px;
-		font-size: 14px;
-		margin: 6px 0 0 0;
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+    margin: 6px 0 0 0;
 }
 
 .ukuupeople-view-addons-all span.dashicons {
-        margin-left: 3px;
+    margin-left: 3px;
 }
 
 /* License notification start */
@@ -984,7 +1002,7 @@ css for settings
 
 /* ====== summary view for activity ==============*/
 
-.post-type-wp-type-activity .summary-activity-main { 
+.post-type-wp-type-activity .summary-activity-main, .admin_page_view-touchpoint .summary-activity-main { 
     overflow:hidden;
 }
 
@@ -992,25 +1010,25 @@ css for settings
     min-height: 450px;
 }
 
-.post-type-wp-type-activity .summary-activity-view div {
-     min-height: 165px;
+.post-type-wp-type-activity .summary-activity-view div, .admin_page_view-touchpoint .summary-activity-view div {
+    min-height: 165px;
 }
 
-.post-type-wp-type-activity .left-summary-activity {
+.post-type-wp-type-activity .left-summary-activity, .admin_page_view-touchpoint .left-summary-activity {
     float:left; 
     width:60%;
     //border:1px solid;
     padding:10px 10px 10px 0px;
 }
 
-.post-type-wp-type-activity .right-summary-activity { 
+.post-type-wp-type-activity .right-summary-activity, .admin_page_view-touchpoint .right-summary-activity { 
     overflow:hidden;
     min-height:475px;
     padding:10px 10px 10px 10px;
 }
 
 @media screen and (max-width: 800px) {
-    .post-type-wp-type-activity .left-summary-activity { 
+    .post-type-wp-type-activity .left-summary-activity, .admin_page_view-touchpoint .left-summary-activity { 
 	float: none;
 	margin-right:0;
 	width:auto;  
@@ -1019,35 +1037,35 @@ css for settings
 
 /* ===== outer summary =============*/
 
-.post-type-wp-type-activity .left-photo-summary-activity {
+.post-type-wp-type-activity .left-photo-summary-activity, .admin_page_view-touchpoint .left-photo-summary-activity {
     overflow:hidden;
     min-height:165px !important;
 }
 
 
-.post-type-wp-type-activity .left-photo-activity {
+.post-type-wp-type-activity .left-photo-activity, .admin_page_view-touchpoint .left-photo-activity {
     min-height:165px !important;
     float:left; 
     width:25%;
 }
 
-.post-type-wp-type-activity .left-photo-adjustments {
+.post-type-wp-type-activity .left-photo-adjustments, .admin_page_view-touchpoint .left-photo-adjustments {
     width:15% !important;
 }
 
 @media screen and (max-width: 1270px) {
-    .post-type-wp-type-activity .left-photo-activity {
+    .post-type-wp-type-activity .left-photo-activity, .admin_page_view-touchpoint .left-photo-activity {
 	float: none;
 	margin-right:0;
 	width:100%;
     }
 }
 
-.post-type-wp-type-activity .left-activity-main {
+.post-type-wp-type-activity .left-activity-main, .admin_page_view-touchpoint .left-activity-main {
     overflow:hidden;
 }
 
-.post-type-wp-type-activity .summary-display-name {
+.post-type-wp-type-activity .summary-display-name, .admin_page_view-touchpoint .summary-display-name {
     font-weight:600;
     color: #457fb4;
     font-size:20px;
@@ -1055,7 +1073,7 @@ css for settings
     display:block;
 }
 
-.post-type-wp-type-activity .summary-org-name {
+.post-type-wp-type-activity .summary-org-name, .admin_page_view-touchpoint .summary-org-name {
     font-weight:500;
     color:#30a08b;
     font-size:13px;
@@ -1063,133 +1081,133 @@ css for settings
     display:block;
 }
 
-.post-type-wp-type-activity .contact-dashboard {
+.post-type-wp-type-activity .contact-dashboard, .admin_page_view-touchpoint .contact-dashboard {
     margin-top:10px;
     display:block;
 }
 
-.post-type-wp-type-activity .subject-summary {
+.post-type-wp-type-activity .subject-summary, .admin_page_view-touchpoint .subject-summary {
     margin-top:10px;
     min-height:20px !important;
 }
 
-.post-type-wp-type-activity .label-subject {
+.post-type-wp-type-activity .label-subject, .admin_page_view-touchpoint .label-subject {
     margin-right:15px;
     font-weight:600;
     font-size:12px;
     color:#464646;
 }
 
-.post-type-wp-type-activity .subject-content {
+.post-type-wp-type-activity .subject-content, .admin_page_view-touchpoint .subject-content {
     color: #9900cc;
     font-size: 18px;
     font-weight: 600;
 }
 
-.post-type-wp-type-activity .type-summary {
+.post-type-wp-type-activity .type-summary, .admin_page_view-touchpoint .type-summary {
     margin-top:5px;
     min-height:20px !important;
 }
 
-.post-type-wp-type-activity .type-content {
+.post-type-wp-type-activity .type-content, .admin_page_view-touchpoint .type-content {
     color : #457fb4;
     margin-left:5px;
 }
 
 /*  SECTIONS  */
-.post-type-wp-type-activity .summary-datetime-section {
+.post-type-wp-type-activity .summary-datetime-section, .admin_page_view-touchpoint .summary-datetime-section {
     clear: both;
     padding-top: 3px;
     margin: 0px;
 }
 
-.post-type-wp-type-activity .date-time-a {
+.post-type-wp-type-activity .date-time-a, .admin_page_view-touchpoint .date-time-a {
     min-height:30px !important;
 }
 
-.post-type-wp-type-activity .date-time-b {
+.post-type-wp-type-activity .date-time-b, .admin_page_view-touchpoint .date-time-b {
     min-height:30px !important;
 }
 
-.post-type-wp-type-activity .date-time-c {
+.post-type-wp-type-activity .date-time-c, .admin_page_view-touchpoint .date-time-c {
     min-height:30px !important;
 }
 
-.post-type-wp-type-activity .summary-datetime-col.summary-status.date-time-b {
+.post-type-wp-type-activity .summary-datetime-col.summary-status.date-time-b, .admin_page_view-touchpoint .summary-datetime-col.summary-status.date-time-b {
     width: 28%;
 }
 
 /*  GRID OF THREE           =========== */
 @media only screen and (min-width: 1280px) {
-  .post-type-wp-type-activity .summary-status {
-    width: 23.5%;
-  }
+    .post-type-wp-type-activity .summary-status, .admin_page_view-touchpoint .summary-status {
+	width: 23.5%;
+    }
 
-  /*  COLUMN SETUP  */
-  .post-type-wp-type-activity .summary-datetime-col {
-    display: block;
-    float: left;
-  }
+    /*  COLUMN SETUP  */
+    .post-type-wp-type-activity .summary-datetime-col, .admin_page_view-touchpoint .summary-datetime-col {
+	display: block;
+	float: left;
+    }
 
-  .post-type-wp-type-activity .summary-datetime-col:first-child {
-    margin-left: 0;
-  }
+    .post-type-wp-type-activity .summary-datetime-col:first-child, .admin_page_view-touchpoint .summary-datetime-col:first-child {
+	margin-left: 0;
+    }
 }
 @media only screen and (max-width: 480px) {
-  .post-type-wp-type-activity .summary-datetime-section {
-    width: 100%; /* fix for Firefox */
-    display: -webkit-box;
-    display: -moz-box;
-    display: -webkit-flexbox;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -moz-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-  }
+.post-type-wp-type-activity .summary-datetime-section, .admin_page_view-touchpoint .summary-datetime-section {
+	width: 100%; /* fix for Firefox */
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flexbox;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-moz-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
 
-  .post-type-wp-type-activity .date-time-a {
-      margin-bottom:5px;
-    -webkit-box-ordinal-group: 2;
-    -moz-box-ordinal-group: 2;
-    -webkit-flex-order: 1;
-    -ms-flex-order: 1;
-    -webkit-order: 1;
-    order: 1;
-  }
+.post-type-wp-type-activity .date-time-a, .admin_page_view-touchpoint .date-time-a {
+	margin-bottom:5px;
+	-webkit-box-ordinal-group: 2;
+	-moz-box-ordinal-group: 2;
+	-webkit-flex-order: 1;
+	-ms-flex-order: 1;
+	-webkit-order: 1;
+	order: 1;
+}
 
-  .post-type-wp-type-activity .date-time-b {
-      margin-bottom:5px;
-    -webkit-box-ordinal-group: 3;
-    -moz-box-ordinal-group: 3;
-    -webkit-flex-order: 2;
-  }
+.post-type-wp-type-activity .date-time-b, .admin_page_view-touchpoint .date-time-b {
+	margin-bottom:5px;
+	-webkit-box-ordinal-group: 3;
+	-moz-box-ordinal-group: 3;
+	-webkit-flex-order: 2;
+}
 
-  .post-type-wp-type-activity .date-time-c {
-      margin-bottom:5px;
-  }
+.post-type-wp-type-activity .date-time-c, .admin_page_view-touchpoint .date-time-c {
+	margin-bottom:5px;
+}
 
 }
 
-.post-type-wp-type-activity .summary-datetime-col.summary-status_custom.summary-status.date-time-a > a {
+.post-type-wp-type-activity .summary-datetime-col.summary-status_custom.summary-status.date-time-a > a, .admin_page_view-touchpoint .summary-datetime-col.summary-status_custom.summary-status.date-time-a > a {
     text-decoration: none;
 }
 
-.post-type-wp-type-activity .summary-datetime-section.group {
+.post-type-wp-type-activity .summary-datetime-section.group, .admin_page_view-touchpoint .summary-datetime-section.group {
     min-height: 40px;
     margin-top:12px;
 }
 
-.post-type-wp-type-activity .summary-datetime-col summary-status date-time-a , .summary-datetime-col summary-date , .summary-datetime-col summary-time {
+.post-type-wp-type-activity .summary-datetime-col summary-status date-time-a, .admin_page_view-touchpoint .summary-datetime-col summary-status date-time-a , .summary-datetime-col summary-date , .summary-datetime-col summary-time {
     padding:5px;
 }
 
-.post-type-wp-type-activity .completed-summary {
+.post-type-wp-type-activity .completed-summary, .admin_page_view-touchpoint .completed-summary {
     background-color: #39b54a;
     display: block;
     font-size: 15px;
@@ -1201,31 +1219,31 @@ css for settings
     width: 140px;
 }
 
-.post-type-wp-type-activity .attachment-summary {
+.post-type-wp-type-activity .attachment-summary, .admin_page_view-touchpoint .attachment-summary {
     min-height:20px !important;
     margin-top:10px;    
 }
 
-.post-type-wp-type-activity .summary-activity-main .attachment-first {
+.post-type-wp-type-activity .summary-activity-main .attachment-first, .admin_page_view-touchpoint .summary-activity-main .attachment-first {
     border:1px solid #959595;
     width:120px;
     min-height:120px;
     position: relative;
 }
 
-.post-type-wp-type-activity .summary-datetime-section.group.section-custom {
+.post-type-wp-type-activity .summary-datetime-section.group.section-custom, .admin_page_view-touchpoint .summary-datetime-section.group.section-custom {
     min-height:125px !important;
 }
 
-.post-type-wp-type-activity .attachment-pdf {
-   background-color: #771D78;
+.post-type-wp-type-activity .attachment-pdf, .admin_page_view-touchpoint .attachment-pdf {
+    background-color: #771D78;
 }
 
-.post-type-wp-type-activity .attachment-doc {
+.post-type-wp-type-activity .attachment-doc, .admin_page_view-touchpoint .attachment-doc {
     background-color:#2272BB;
 }
 
-.post-type-wp-type-activity .attachment-text {
+.post-type-wp-type-activity .attachment-text, .admin_page_view-touchpoint .attachment-text {
     color: #ffffff;
     display: block;
     font-size: 30px;
@@ -1233,21 +1251,21 @@ css for settings
     margin: 50px 0 0 25px;
 }
 
-.post-type-wp-type-activity .summary-details {
+.post-type-wp-type-activity .summary-details, .admin_page_view-touchpoint .summary-details {
     width:98%;
     min-height:120px !important;
     padding: 5px 0 15px 10px;
     background-color:#ffffff;
 }
 
-.post-type-wp-type-activity .summary-details-head {
+.post-type-wp-type-activity .summary-details-head, .admin_page_view-touchpoint .summary-details-head {
     margin-top:5px;
     min-height:20px !important;
     padding-left:5px;
     margin-bottom: 6px;
 }
 
-.post-type-wp-type-activity .summary-details-body {
+.post-type-wp-type-activity .summary-details-body, .admin_page_view-touchpoint .summary-details-body {
     margin-top:5px;
     min-height:100px !important;
     padding-left:5px;
@@ -1255,7 +1273,7 @@ css for settings
     word-wrap:break-word;
 }
 
-.post-type-wp-type-activity .summary-assigned-to {
+.post-type-wp-type-activity .summary-assigned-to, .admin_page_view-touchpoint .summary-assigned-to {
     margin-top:15px;
     min-height: 185px !important;
     padding: 8px 0 15px 10px;
@@ -1265,15 +1283,15 @@ css for settings
 /*-------------responsive ---------------*/
 
 /*  SECTIONS  */
-.post-type-wp-type-activity .assigned-section {
-  clear: both;
-  padding-top: 10px;
-  margin: 0px;
-  height: 150px;
-  overflow-y: auto;
+.post-type-wp-type-activity .assigned-section, .admin_page_view-touchpoint .assigned-section {
+    clear: both;
+    padding-top: 10px;
+    margin: 0px;
+    height: 150px;
+    overflow-y: auto;
 }
 
-.post-type-wp-type-activity .custom-assigned-for-attachments-section {
+.post-type-wp-type-activity .custom-assigned-for-attachments-section, .admin_page_view-touchpoint .custom-assigned-for-attachments-section {
     clear: both;
     padding-top: 10px;
     margin: 0;
@@ -1281,114 +1299,114 @@ css for settings
     overflow-y: none !important;
 }
 
-.post-type-wp-type-activity .assigned-a {
-  min-height:165px !important;
+.post-type-wp-type-activity .assigned-a, .admin_page_view-touchpoint .assigned-a {
+    min-height:165px !important;
 }
 
-.post-type-wp-type-activity .assigned-b {
-  min-height:165px !important;
+.post-type-wp-type-activity .assigned-b, .admin_page_view-touchpoint .assigned-b {
+    min-height:165px !important;
 }
 
-.post-type-wp-type-activity .assigned-c {
-  min-height:165px !important;
+.post-type-wp-type-activity .assigned-c, .admin_page_view-touchpoint .assigned-c {
+    min-height:165px !important;
 }
 
 /*  GRID OF THREE           ============================================================================= */
 @media only screen and (min-width: 480px) {
-  .post-type-wp-type-activity .assigned-contact-3 {
-    width: 100%;
-  }
+.post-type-wp-type-activity .assigned-contact-3, .admin_page_view-touchpoint .assigned-contact-3 {
+	width: 100%;
+}
 
-  .post-type-wp-type-activity .assigned-contact-2 {
-    width: 66.1%;
-  }
+    .post-type-wp-type-activity .assigned-contact-2, .admin_page_view-touchpoint .assigned-contact-2 {
+	width: 66.1%;
+    }
 
-  .post-type-wp-type-activity .assigned-contact-1 {
-    width: 32.2%;
-  }
+.post-type-wp-type-activity .assigned-contact-1 {
+	width: 32.2%;
+}
 
-  .post-type-wp-type-activity .custom-assigned-for-attachments {
-      width: 20% !important;
-      overflow-y:none !important;
-  }
+    .post-type-wp-type-activity .custom-assigned-for-attachments, .admin_page_view-touchpoint .custom-assigned-for-attachments {
+	width: 20% !important;
+	overflow-y:none !important;
+    }
 
-  /*  COLUMN SETUP  */
-  .post-type-wp-type-activity .assigned-column {
-    display: block;
-    float: left;
-  }
+    /*  COLUMN SETUP  */
+    .post-type-wp-type-activity .assigned-column, .admin_page_view-touchpoint .assigned-column {
+	display: block;
+	float: left;
+    }
 
-  .post-type-wp-type-activity .assigned-column:first-child {
-    margin-left: 0;
-  }
+    .post-type-wp-type-activity .assigned-column:first-child, .admin_page_view-touchpoint .assigned-column:first-child {
+	margin-left: 0;
+    }
 }
 @media only screen and (max-width: 1280px) {
-  .post-type-wp-type-activity .assigned-section {
-    width: 100%; /* fix for Firefox */
-    display: -webkit-box;
-    display: -moz-box;
-    display: -webkit-flexbox;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -moz-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-  }
+    .post-type-wp-type-activity .assigned-section, .admin_page_view-touchpoint .assigned-section {
+	width: 100%; /* fix for Firefox */
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flexbox;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-moz-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+    }
 
-  .post-type-wp-type-activity .assigned-a {
-      margin-left:5px;
-      margin-bottom:5px;
-    -webkit-box-ordinal-group: 2;
-    -moz-box-ordinal-group: 2;
-    -webkit-flex-order: 1;
-    -ms-flex-order: 1;
-    -webkit-order: 1;
-    order: 1;
-    width:98%;
-  }
+    .post-type-wp-type-activity .assigned-a, .admin_page_view-touchpoint .assigned-a {
+	margin-left:5px;
+	margin-bottom:5px;
+	-webkit-box-ordinal-group: 2;
+	-moz-box-ordinal-group: 2;
+	-webkit-flex-order: 1;
+	-ms-flex-order: 1;
+	-webkit-order: 1;
+	order: 1;
+	width:98%;
+    }
 
-  .post-type-wp-type-activity .assigned-b {
-    -webkit-box-ordinal-group: 3;
-    -moz-box-ordinal-group: 3;
-    -webkit-flex-order: 2;
-    -ms-flex-order: 2;
-    -webkit-order: 2;
-    order: 2;
-    width:98%;
-  }
+    .post-type-wp-type-activity .assigned-b, .admin_page_view-touchpoint .assigned-b {
+	-webkit-box-ordinal-group: 3;
+	-moz-box-ordinal-group: 3;
+	-webkit-flex-order: 2;
+	-ms-flex-order: 2;
+	-webkit-order: 2;
+	order: 2;
+	width:98%;
+    }
 
-  .post-type-wp-type-activity .assigned-c {
-      margin-bottom:5px;
-      width:98%;
-  }
+    .post-type-wp-type-activity .assigned-c, .admin_page_view-touchpoint .assigned-c {
+	margin-bottom:5px;
+	width:98%;
+    }
 }
 
-.post-type-wp-type-activity .assigned-section {
+.post-type-wp-type-activity .assigned-section, .admin_page_view-touchpoint .assigned-section {
     min-height: 130px !important;
     padding: 5px;
 }
 
-.post-type-wp-type-activity .assigned-column assigned-contact-1 a , .assigned-column assigned-contact-2 , .assigned-column assigned-contact-3 {
+.post-type-wp-type-activity .assigned-column assigned-contact-1 a , .admin_page_view-touchpoint .assigned-column assigned-contact-1 a , .assigned-column assigned-contact-2 , .assigned-column assigned-contact-3 {
     padding:5px;
 }
 
-.post-type-wp-type-activity .assigned-image {
+.post-type-wp-type-activity .assigned-image, .admin_page_view-touchpoint .assigned-image {
     min-height: 125px !important;
 }
 
-.post-type-wp-type-activity .assigned-name {
+.post-type-wp-type-activity .assigned-name, .admin_page_view-touchpoint .assigned-name {
     display:block;
     padding-top:5px;
     color: #646464;
     font-weight:400;
 }
 
-.post-type-wp-type-activity .start-date-summary {
+.post-type-wp-type-activity .start-date-summary, .admin_page_view-touchpoint .start-date-summary {
     float:left;
     display:block;
     font-size:18px;
@@ -1475,18 +1493,18 @@ css for settings
 /* dashboard-widgets-wrap */
 
 /* summary touchpoints changes start */
-.post-type-wp-type-activity .under-image {
+.post-type-wp-type-activity .under-image, .admin_page_view-touchpoint .under-image {
     position:relative;
     z-index: 1;
 }
 
-.post-type-wp-type-activity .over-image {
+.post-type-wp-type-activity .over-image, .admin_page_view-touchpoint .over-image {
     position: absolute;
     z-index: 3;
     margin:28px;
 }
 
-.post-type-wp-type-activity .summary-activity-main div.inner-attachment-first {
+.post-type-wp-type-activity .summary-activity-main div.inner-attachment-first, .admin_page_view-touchpoint .summary-activity-main div.inner-attachment-first {
     background-color: #000;
     min-height: 120px !important;
     opacity: 0.1;
@@ -1495,15 +1513,20 @@ css for settings
     z-index: 2;
 }
 
-.post-type-wp-type-activity .edit-touchpoint {
+.post-type-wp-type-activity .edit-touchpoint, .admin_page_view-touchpoint .edit-touchpoint {
     min-height:20px !important;
     margin-top:30px;
     float:right;
 }
 
-.post-type-wp-type-activity .edit-touchpoint a {
+.post-type-wp-type-activity .edit-touchpoint a, .admin_page_view-touchpoint .edit-touchpoint a {
     text-decoration:none;
 }
+
+.over-image:hover {
+    display: block;
+}
+
 /* summary touchpoints changes end */
 
 input.disabled, input:disabled, select.disabled, select:disabled, textarea.disabled, textarea:disabled, .first-page, .pre-page, .last-page, .next-page {

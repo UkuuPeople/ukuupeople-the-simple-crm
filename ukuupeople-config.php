@@ -65,8 +65,10 @@ function create_post_type() {
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( ),
-		'capability_type'    => 'post',
+    'rewrite'            => array('slug' => 'ukuupeople'),
+		'capability_type'    => 'ukuupeople',
+    'capabilities'       => ukuupeople_capabilities(),
+    'map_meta_cap'       => false,
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => '',
@@ -99,8 +101,10 @@ function create_post_type() {
     'show_ui'            => true,
     'show_in_menu'       => true,
     'query_var'          => true,
-    'rewrite'            => array(),
-    'capability_type'    => 'post',
+    'rewrite'            => array( 'slug' => 'wp-type-activity' ),
+    'capability_type'    => 'wp-type-activity',
+    'capabilities'       => touchpoint_capabilities(),
+    'map_meta_cap'       => false,
     'has_archive'        => true,
     'hierarchical'       => false,
     'menu_position'      => '',
@@ -131,7 +135,7 @@ function create_post_type() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
-		'rewrite'           => array( ),
+		'rewrite'           => array(),
 	);
 
 	register_taxonomy( 'wp-type-group', array( 'wp-type-contacts' ), $args );
@@ -216,6 +220,45 @@ function create_post_type() {
   	delete_option( 'simple_fields_groups' );
 }
 
+function ukuupeople_capabilities() {
+  return array(
+    'edit_post'              => 'edit_ukuupeople',
+    'read_post'              => 'read_ukuupeople',
+    'delete_post'            => 'delete_ukuupeople',
+    'edit_posts'             => 'access_ukuupeoples',
+    'edit_others_posts'      => 'edit_all_ukuupeoples',
+    'publish_posts'          => 'access_ukuupeoples',
+    'read_private_posts'     => 'read_all_ukuupeoples',
+    'delete_posts'           => 'delete_own_ukuupeoples',
+    'delete_private_posts'   => 'delete_own_ukuupeoples',
+    'delete_published_posts' => 'delete_own_ukuupeoples',
+    'delete_others_posts'    => 'delete_all_ukuupeoples',
+    'edit_private_posts'     => 'edit_own_ukuupeoples',
+    'edit_published_posts'   => 'access_ukuupeoples',
+    'create_posts'           => 'create_ukuupeoples',
+  );
+}
+
+function touchpoint_capabilities() {
+  return array(
+	  'edit_post'              => 'edit_touchpoint',
+	  'read_post'              => 'read_touchpoint',
+	  'delete_post'            => 'delete_touchpoint',
+	  'edit_posts'             => 'access_touchpoints',
+	  'edit_others_posts'      => 'edit_all_touchpoints',
+	  'publish_posts'          => 'access_touchpoints',
+	  'read_private_posts'     => 'read_all_touchpoints',
+	  'delete_posts'           => 'delete_own_touchpoints',
+	  'delete_private_posts'   => 'delete_own_touchpoints',
+	  'delete_published_posts' => 'delete_own_touchpoints',
+	  'delete_others_posts'    => 'delete_all_touchpoints',
+	  'edit_private_posts'     => 'edit_own_touchpoints',
+	  'edit_published_posts'   => 'access_touchpoints',
+	  'create_posts'           => 'create_touchpoints',
+  );
+}
+
+
 /**
  * Define the metabox and field configurations.
  */
@@ -244,8 +287,6 @@ function ukuu_register_contact_metabox() {
 
   add_fields( $actual_fields , $cmb_demo);
 }
-
-
 
 /**
  * Define the metabox and field configurations.
@@ -357,7 +398,7 @@ function get_id_and_displayname() {
     'order' => 'ASC',
     'post_status' => array( 'publish', 'private' ),
     'post_type' => 'wp-type-contacts',
-    'suppress_filters' => 0,
+    'suppress_filters' => 1,
     'tax_query' => array(
       'relation' => 'AND',
       array(
@@ -374,7 +415,7 @@ function get_id_and_displayname() {
   );
   $items = (array) get_posts($args);
   $display_names = array();
-  foreach( $items as $item ) {
+  foreach ( $items as $item ) {
     $display_name = get_post_meta($item, 'wpcf-display-name', true);
     $display_names[$item] = $display_name;
   }
@@ -404,7 +445,7 @@ function get_related_org_value() {
   );
   $items = (array) get_posts($args);
   $display_names = array();
-  foreach( $items as $item ) {
+  foreach ( $items as $item ) {
     $display_name = get_post_meta($item, 'wpcf-display-name', true);
     $display_names[$item] = $display_name;
   }
