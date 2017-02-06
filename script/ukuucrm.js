@@ -161,6 +161,51 @@ jQuery(document).ready(function() {
     });
 
 
+  function split( val ) {
+    return val.split( /,\s*/ );
+  }
+
+  function extractLast( term ) {
+    return split( term ).pop();
+  }
+
+// autocomplete for quick add touchpoint "assign to" comma seprate.
+   jQuery( "#dashboard-widgets-wrap #ukuuCRM-dashboard-createactivity-widget .quickadd input[name='touchpoint_assign_name_display']" )
+    .autocomplete({
+	minLength: 0,
+   source: function( request, response ) {
+response( jQuery.ui.autocomplete.filter(
+assing_result, extractLast( request.term ) ) );
+},
+	focus: function( event, ui ) {
+	    return false;
+	},
+	select: function( event, ui ) {
+        var terms = split( this.value );
+        terms.pop();
+        this.value = terms.join( ", " );
+        var selected_label = ui.item.label;
+        var selected_value = ui.item.value;
+
+        var labels = jQuery(".quickadd input[name='touchpoint_assign_name_display']").val();
+        var values = jQuery( "#touchpoint_assign_id" ).val();
+
+        if(labels == "") {
+        jQuery(".quickadd input[name='touchpoint_assign_name_display']").val(selected_label);
+        jQuery( "#touchpoint_assign_id" ).val(selected_value);
+      }
+       else {
+        jQuery(".quickadd input[name='touchpoint_assign_name_display']").val(labels+","+selected_label);
+        jQuery( "#touchpoint_assign_id" ).val(values+","+selected_value);
+      }
+	    return false;
+	}
+    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+	return jQuery( "<li>" )
+	    .append( "<a>" + item.label + "</a>" )
+	    .appendTo( ul );
+    };
+
     // autocomplete for quick add touchpoint
     jQuery( "#dashboard-widgets-wrap #ukuuCRM-dashboard-createactivity-widget .quickadd input[name='dname']" ).autocomplete({
 	//source: availableTags,
@@ -233,6 +278,7 @@ jQuery(document).ready(function() {
 	jQuery('#quickAddform').trigger('reset');
 	jQuery(".quickadd #filename").hide();
 	jQuery(".quickadd #touchpoint_assign_name_display").hide();
+	jQuery(".quickadd .seprate").hide();
     });
 
     jQuery("#dashboard-widgets-wrap #ukuuCRM-dashboard-createactivity-widget .quickadd input[name='dupload']").click( function() {
@@ -267,6 +313,20 @@ jQuery(document).ready(function() {
     jQuery('#wpcf-startdate_time').removeAttr( "required" );
 
     jQuery("#wpcf_touchpoint_assigned_metabox .cmb-add-row-button.button").text('Add another Assignee');
+    /* Date of Birth Validation */
+    jQuery('input[name="publish"]').prop('disabled', false);
+    jQuery("#wpcf-ukuu-date-of-birth").change( function() {
+      var currentDateTime = new Date();
+      if( new Date(this.value) > new Date(currentDateTime) ) {
+	    jQuery('.invalidrange').remove();
+	    jQuery('<div class="invalidrange">Invalid date of birth</div>').insertAfter(".cmb2-id-wpcf-ukuu-date-of-birth .cmb-td");
+	    jQuery('.invalidrange').css('color','red');
+	    jQuery('input[id="publish"]').prop('disabled', true);
+	    } else {
+	    jQuery('.invalidrange').remove();
+	    jQuery('input[id="publish"]').prop('disabled', false);
+	  }
+  });
 });
 
 //graph on Contact and event list
@@ -449,6 +509,16 @@ jQuery( '#graph' ).ready(function() {
 	svg.append('g')
 	    .attr('class', 'y axis');
     }
+});
+
+ // Alter taxonomy field for single-selection in quick edit (for touchpoint only)
+ jQuery(".wp-type-activity-types-checklist input[type='checkbox']").on('click', function () {
+  var current_selection = jQuery(this).val();
+
+  jQuery(".cat-checklist input[type='checkbox']").each( function (index, value) {
+    if ( jQuery(this).val() != current_selection )
+      jQuery(this).prop('checked', false);
+  });
 });
 
 jQuery('.post-type-wp-type-activity #post').on('submit', function (e) {

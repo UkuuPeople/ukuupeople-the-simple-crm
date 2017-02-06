@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) OR exit;
  * @subpackage UKUU CRM Contacts
  */
 
-class UkuuPeople{
+class UkuuPeople {
 
 	public function __construct( $args = array() ) {
     /*
@@ -46,19 +46,19 @@ class UkuuPeople{
     add_filter( 'post_row_actions', array( $this , 'remove_row_actions'), 10, 1 );
 
     /* ajax call to get activity list*/
-    add_action( 'wp_ajax_get_act_lists', array( $this , 'prepare_query' )); //get lists via ajax call
-    add_action( 'wp_ajax_ukuu_add_to_fav', array( $this , 'ukuu_add_to_fav' )); //get lists via ajax call
+    add_action( 'wp_ajax_get_act_lists', array( $this , 'prepare_query' ) ); //get lists via ajax call
+    add_action( 'wp_ajax_ukuu_add_to_fav', array( $this , 'ukuu_add_to_fav' ) ); //get lists via ajax call
 
     add_action( 'wp_ajax_contact_list', array( $this , 'contact_list' ));
-    add_action( 'wp_ajax_assign_contact_list', array( $this , 'assign_contact_list' ));
+    add_action( 'wp_ajax_assign_contact_list', array( $this , 'assign_contact_list' ) );
     /* ajax call for quick add touchpoint dashlet */
-    add_action( 'wp_ajax_quick_add_touchpoint', array( $this , 'quick_add_touchpoint' )); //get lists via ajax call
+    add_action( 'wp_ajax_quick_add_touchpoint', array( $this , 'quick_add_touchpoint' ) ); //get lists via ajax call
 
     /*
      * Add custom filters for wp-type-contacts and wp-type-activity post listing
      * Add Contact type graph on wp-type-contacts post type listing
      */
-    add_action( 'restrict_manage_posts', array( $this , 'ukuu_custom_filters_posts' ), 1);
+    add_action( 'restrict_manage_posts', array( $this , 'ukuu_custom_filters_posts' ), 1 );
 
     /*
      * Add custom field columns on wp-type-contacts and wp-type-activity post listing page
@@ -137,16 +137,402 @@ class UkuuPeople{
     /*
      * add admin user to ukuupeople
      */
-    add_action ('user_register', array( $this,"test"));
+    add_action ('user_register', array( $this,"register_user"));
 
     /*
      *to remove dash(-)post-status from posttitle on posts listing page
      */
     add_filter('display_post_states', '__return_false');
+
+    /*
+     * Access control list
+     */
+    add_filter( 'map_meta_cap', array( $this, 'set_meta_cap_ukuupeople' ), 10, 4 );
+    add_filter( 'posts_clauses', array( $this, 'ukuupeople_query_clauses' ), 1, 2);
+    add_filter( 'map_meta_cap', array( $this,'touchpoint_map_meta_cap'), 10, 4 );
+    add_filter( 'posts_clauses', array( $this, 'touchpoint_query_clauses' ), 20, 2 );
+    add_action( 'do_meta_boxes' , array( $this, 'remove_post_custom_fields' ) );
+    /*
+     * Touchpoints Sorting
+     */
+
+    /* Sorting table columns of contacts and activity 
+     * This two filters is linked to posts_clauses filter
+     */
+    add_filter( 'manage_edit-wp-type-contacts_sortable_columns', array( $this, 'make_all_columns_sortable_contacts' ) );
+    add_filter( 'manage_edit-wp-type-activity_sortable_columns', array( $this, 'make_all_columns_sortable_activity' ) );
+
   }
 
-  function test() {
-    if (isset($_POST['role']) && $_POST['role'] == 'administrator') {
+
+  public function make_all_columns_sortable_contacts( $sortable_columns ) {
+    global $post_type;
+    $sortable_columns['wp-contact-full-name'] = 'wp-contact-full-name';
+    $sortable_columns['wp-email']             = 'wp-email';
+    $sortable_columns['wp-phone']             = 'wp-phone';
+    $sortable_columns['wp-type-activity']     = 'wp-type-activity';
+    $sortable_columns['wp-inactive_days']     = 'wp-inactive_days';
+    return $sortable_columns;
+  }
+
+  public function make_all_columns_sortable_activity( $sortable_columns ) {
+    global $post_type;
+    $sortable_columns['wp-startdate']    = 'wp-startdate';
+    $sortable_columns['wp-contact-type'] ='wp-contact-type';
+    $sortable_columns['wp-fullname']     = 'wp-fullname';
+    //$sortable_columns['wp-assigned']   = 'wp-assigned';
+    $sortable_columns['wp-status']       = 'wp-status';
+    return $sortable_columns;
+  }
+
+  function remove_post_custom_fields() {
+    remove_meta_box( 'members-cp' , 'wp-type-contacts' , 'advanced' );
+    remove_meta_box( 'members-cp' , 'wp-type-activity' , 'advanced' );
+  }
+
+  /*
+   * Access control list
+   */
+  function touchpoint_map_meta_cap( $caps, $cap, $user_id, $args ) {
+    if ( 'edit_touchpoint' == $cap || 'delete_touchpoint' == $cap || 'read_touchpoint' == $cap ) {
+      $postID = NULL;
+      if ( isset( $args[0] ) ) {
+        $post = get_post( $args[0] );
+      }
+      else if ( isset( $_GET['touchpoint_id'] ) ) {
+        $postID = $_GET['touchpoint_id'];
+        $post = get_post( $postID );
+      }
+      $post_type = get_post_type_object( $post->post_type );
+
+      /* Set an empty array for the caps. */
+      $caps = array();
+    }
+    if ( 'read_touchpoint' == $cap ) {
+      if ( $user_id == $post->post_author || $user_id == 1 || current_user_can( 'read_all_touchpoints')) {
+        $caps[] = 'read';
+      } else {
+        return false;
+      }
+    } elseif ( 'edit_touchpoint' == $cap ) {
+      if ( ( $user_id == $post->post_author && current_user_can('edit_own_touchpoints') ) || current_user_can('edit_all_touchpoints') || $user_id == 1  )
+        $caps[] = $post_type->cap->edit_posts;
+      else {
+        return false;
+      }
+    } elseif ( 'delete_touchpoint' == $cap ) {
+      if ( $user_id == 1 || current_user_can( 'delete_all_touchpoints' ) )
+        $caps[] = $post_type->cap->delete_others_posts;
+      elseif ( $user_id == $post->post_author && current_user_can('delete_own_touchpoints') )
+        $caps[] = $post_type->cap->delete_posts;
+      else {
+        return false;
+      }
+    } elseif ( $cap == 'edit_posts' && current_user_can( 'edit_own_touchpoints') && current_user_can( 'access_touchpoints') && isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wp-type-activity') {
+      return array();
+    }
+    /* Return the capabilities required by the user. */
+    return $caps;
+  }
+
+  function touchpoint_query_clauses( $pieces, $query ) {
+    global $wpdb, $user_info, $pagenow;
+    $user_info = wp_get_current_user();
+    // Filter Opportunities By Logged-In User
+    // Switch Condition implements this join but for remaining conditions we need to implement this
+     if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wp-type-activity' ) {
+      if ( strpos( $pieces['join'], $wpdb->postmeta ) == false ) {
+        $pieces['join'] .= " INNER JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id )";
+      }
+
+      if ( isset( $_GET['post_status'] ) && $_GET['post_status'] == 'trash' ) {
+        $pieces['where'] = " AND {$wpdb->posts}.post_type = 'wp-type-activity' AND ({$wpdb->posts}.post_status = 'trash')";
+      }
+      else if ( isset($_GET['s']) ) {
+        $search = $_GET['s'];
+        $pieces['where'] =  "AND ((({$wpdb->posts}.post_title LIKE '%{$search}%') OR ({$wpdb->posts}.post_content LIKE '%{$search}%')))  AND {$wpdb->posts}.post_type = 'wp-type-activity' AND ({$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_status = 'future' OR {$wpdb->posts}.post_status = 'draft' OR {$wpdb->posts}.post_status = 'pending' OR {$wpdb->posts}.post_status = 'private')";
+      }
+      else {
+        $pieces['where'] = " AND {$wpdb->posts}.post_type = 'wp-type-activity' AND ({$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_status = 'future' OR {$wpdb->posts}.post_status = 'draft' OR {$wpdb->posts}.post_status = 'pending' OR {$wpdb->posts}.post_status = 'private' )";
+      }
+      // If user has read_all_permissions OR edit_all_permissions OR delete_all_permissions then display all opportunities
+      $access_all = FALSE;
+      foreach ( array( 'read_all_touchpoints', 'edit_all_touchpoints', 'delete_all_touchpoints' ) as $permission ) {
+        if ( current_user_can( $permission ) ) {
+          $access_all = TRUE;
+          break;
+        }
+      }
+
+      if ( ! $access_all ) {
+        //$que = "SELECT spm.post_id FROM {$wpdb->postmeta} spm WHERE spm.meta_value = '{$user_info->user_email}' AND spm.meta_key = 'wpcf-email'";
+        $que = $wpdb->get_results( $wpdb->prepare(
+               "
+               SELECT $wpdb->postmeta.post_id
+               FROM $wpdb->postmeta
+               WHERE $wpdb->postmeta.meta_value = %s
+               AND $wpdb->postmeta.meta_key = 'wpcf-email'
+               ",
+               $user_info->user_email
+               ) ,ARRAY_A);
+        $data = explode( ",", $que[0]['post_id']);
+        $que = serialize($data);
+
+        $pieces['where'] .= " AND ( {$wpdb->posts}.post_author = {$user_info->ID} OR ( {$wpdb->postmeta}.meta_key = '_wpcf_belongs_wp-type-contacts_id' AND {$wpdb->postmeta}.meta_value = (SELECT spm.post_id FROM {$wpdb->postmeta} spm WHERE spm.meta_value = '{$user_info->user_email}' AND spm.meta_key = 'wpcf-email') ) OR ( {$wpdb->postmeta}.meta_key = 'wpcf_assigned_to' AND {$wpdb->postmeta}.meta_value = '{$que}' ) ) ";
+      }
+
+      // Similar scenario for groupby
+      if ( empty( $pieces['groupby'] ) ) {
+        $pieces['groupby'] .= " {$wpdb->posts}.ID";
+      }
+    }
+
+    if( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && 'wp-type-activity' == $_GET['post_type']  && $query->is_main_query() )  {
+      if(  ( isset($_GET['wp-type-activity-types']) && $_GET['wp-type-activity-types'] != '' ) ) {
+        $pieces['join'] .= " INNER JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id)";
+      }
+
+      if( 'wp-type-activity' == $_GET['post_type'] && isset( $_GET['wp-type-activity-types'] ) && $_GET['wp-type-activity-types'] != '' ) {
+        $subtype = $_GET['wp-type-activity-types'];
+        $pieces['where'] .= " AND ({$wpdb->terms}.slug = '$subtype')";
+      }
+    }
+    return $pieces;
+  }
+
+  /**
+   * Alter different parts of the query
+   *
+   * @param array $pieces
+   *
+   * @return array $pieces
+   */
+  function ukuupeople_query_clauses( $pieces, $query ) {
+    if ( ! isset( $_GET['post_type'] ) || ! in_array( $_GET['post_type'], array( 'wp-type-contacts', 'wp-type-activity' ) ) ) { 
+      return $pieces;
+    }
+
+    global $wpdb, $user_info, $pagenow;
+    $user_info = wp_get_current_user();
+    // Filter Opportunities By Logged-In User
+    // Switch Condition implements this join but for remaining conditions we need to implement this
+    if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wp-type-contacts' && !isset($_GET['s']) && !isset($_GET['page']) ) {
+      if ( strpos( $pieces['join'], $wpdb->postmeta ) == false ) {
+        $pieces['join'] .= " INNER JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id )";
+      }
+
+      $pieces['where'] = " AND ( {$wpdb->postmeta}.meta_key = 'wpcf-email' ) AND {$wpdb->posts}.post_type = 'wp-type-contacts' AND ({$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_status = 'future' OR {$wpdb->posts}.post_status = 'draft' OR {$wpdb->posts}.post_status = 'pending' OR {$wpdb->posts}.post_status = 'private' )";
+
+      if ( isset( $_GET['post_status'] ) && $_GET['post_status'] == 'trash' ) {
+        $pieces['where'] = " AND {$wpdb->posts}.post_type = 'wp-type-contacts' AND ({$wpdb->posts}.post_status = 'trash')";
+      }
+      else {
+        $pieces['where'] = " AND {$wpdb->posts}.post_type = 'wp-type-contacts' AND ({$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_status = 'future' OR {$wpdb->posts}.post_status = 'draft' OR {$wpdb->posts}.post_status = 'pending' OR {$wpdb->posts}.post_status = 'private' )";
+      }
+
+      // If user has read_all_permissions OR edit_all_permissions OR delete_all_permissions then display all opportunities
+      $access_all = FALSE;
+      foreach ( array( 'read_all_ukuupeoples', 'edit_all_ukuupeoples', 'delete_all_ukuupeoples' ) as $permission ) {
+        if ( current_user_can( $permission ) ) {
+          $access_all = TRUE;
+          break;
+        }
+      }
+      if ( !$access_all ) {
+        $pieces['where'] .= " AND ( {$wpdb->posts}.post_author = {$user_info->ID} OR ( {$wpdb->postmeta}.meta_key = 'wpcf-email' AND {$wpdb->postmeta}.meta_value = '{$user_info->user_email}' ) ) ";
+      }
+
+      // Similar scenario for groupby
+      if ( empty( $pieces['groupby'] ) )
+        $pieces['groupby'] .= " {$wpdb->posts}.ID";
+    }
+
+    if( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && 'wp-type-contacts' == $_GET['post_type']  && $query->is_main_query() )  {
+      $user = wp_get_current_user();
+      if( 'wp-type-contacts' == $_GET['post_type'] && ( !isset( $_GET['wp-type-tags'] ) && !isset( $_GET['wp-type-contacts-subtype'] ) && !isset( $_GET['wp-type-group'] ) ) ) {
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+      } elseif( 'wp-type-contacts' == $_GET['post_type'] && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) && ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] == '' ) && ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] == '' ) ) || ( !isset( $_GET['wp-type-tags'] ) && !isset( $_GET['wp-type-group'] ) ) ) {
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+        $subtype = $_GET['wp-type-contacts-subtype'];
+        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$subtype' )";
+      } elseif ( ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && 'wp-type-contacts' == $_GET['post_type'] && ( ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] == '' ) && ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] == '' ) ) || ( !isset( $_GET['wp-type-contacts-subtype'] ) && !isset( $_GET['wp-type-group'] ) ) ) {
+        $group = $_GET['wp-type-group'];
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group')";
+      } elseif ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && 'wp-type-contacts' == $_GET['post_type'] && ( ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] == '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] == '' ) ) || ( !isset( $_GET['wp-type-contacts-subtype'] ) && !isset( $_GET['wp-type-tags'] ) ) ) {
+        $tags = $_GET['wp-type-tags'];
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
+      } elseif( ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) ) && 'wp-type-contacts' == $_GET['post_type'] && ( isset( $_GET['filter_action']  ) && $_GET['filter_action'] == 'Filter' ) ) {
+        $tags = $_GET['wp-type-tags'];
+        $group = $_GET['wp-type-group'];
+        $contact_type = $_GET['wp-type-contacts-subtype'];
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->term_relationships} tags ON ({$wpdb->posts}.ID = tags.object_id) LEFT JOIN {$wpdb->term_relationships} tribe ON ({$wpdb->posts}.ID = tribe.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$contact_type') AND tags.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group') AND tribe.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
+      } elseif( ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) && ( $_GET['wp-type-group'] == '' && isset( $_GET['wp-type-group'] ) ) ) && 'wp-type-contacts' == $_GET['post_type'] ) {
+        $tags = $_GET['wp-type-tags'];
+        $contact_type = $_GET['wp-type-contacts-subtype'];
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} tags ON ({$wpdb->posts}.ID = tags.object_id) LEFT JOIN {$wpdb->term_relationships} tribe ON ({$wpdb->posts}.ID = tribe.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$contact_type') AND tags.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
+      } elseif( ( ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) && ( $_GET['wp-type-tags'] == '' && isset( $_GET['wp-type-tags'] ) ) ) && 'wp-type-contacts' == $_GET['post_type'] ) {
+        $group = $_GET['wp-type-group'];
+        $contact_type = $_GET['wp-type-contacts-subtype'];
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} type ON ({$wpdb->posts}.ID = type.object_id) LEFT JOIN {$wpdb->term_relationships} tribe ON ({$wpdb->posts}.ID = tribe.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$contact_type') AND tribe.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group')";
+      } elseif( ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && ( $_GET['wp-type-contacts-subtype'] == '' && isset( $_GET['wp-type-contacts-subtype'] ) ) ) && 'wp-type-contacts' == $_GET['post_type'] ) {
+        $tags = $_GET['wp-type-tags'];
+        $group = $_GET['wp-type-group'];
+        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->term_relationships} tags ON ({$wpdb->posts}.ID = tags.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
+        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group') AND tags.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
+      }
+    }
+
+    //Code for sorting contact and activity columns. (this function is linked to make_all_columns_sortable_activity() and make_all_columns_sortable_contacts())
+
+    if( isset( $_GET['orderby'] ) ) {
+      $orderby = $_GET['orderby'];
+    } else {
+      $orderby = $query->get('orderby');
+    }
+
+    if ($orderby == NULL && $_GET["post_type"] == "wp-type-activity" ) {
+      $orderby =  'wp-startdate';
+    }
+    // Check if order by column is not title, since title is not a metavalue
+    if ( $query->is_main_query() && $orderby != NULL ) {
+      if( isset( $_GET['order'] ) ) {
+        $order = strtoupper( $_GET['order'] );
+      } else {
+        $order = strtoupper( $query->get('order') );
+      }
+
+      if ( ! in_array( $order, array( 'ASC', 'DESC' ) ) )
+        $order = 'ASC';
+
+      switch( $orderby ) {
+        case 'wp-startdate' :
+          $pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = 'wpcf-startdate'";
+          $pieces['orderby'] = "wp_rd1.meta_value+0 $order, " . $pieces['orderby'];
+          break;
+        case 'wp-status' :
+          $pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = 'wpcf-status'";
+          $pieces['orderby'] = "wp_rd1.meta_value $order, " . $pieces['orderby'];
+          break;
+        case 'wp-fullname' :
+          $pieces['join'] .= " LEFT JOIN {$wpdb->postmeta} wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = '_wpcf_belongs_wp-type-activity_id' LEFT JOIN {$wpdb->postmeta} pm3 ON pm3.post_id = wp_rd1.meta_value AND pm3.meta_key = 'wpcf-display-name'";
+          $pieces['orderby'] = "pm3.meta_value $order, " . $pieces['orderby'];
+          break;
+        case 'wp-assigned' :
+          $pieces['join'] .= "LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = {$wpdb->posts}.ID AND pm1.meta_key = 'wpcf_assigned_to'
+LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, SUBSTRING( pm1.meta_value, 12)) AND pm1.meta_key = 'wpcf-display-name'";
+          $pieces['orderby'] = "pm1.meta_value $order, " . $pieces['orderby'];
+        case 'wp-contact-full-name' :
+          $pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = 'wpcf-display-name'";
+          $pieces['orderby'] = "wp_rd1.meta_value $order, " . $pieces['orderby'];
+          break;
+        case 'wp-email' :
+          $pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = 'wpcf-email'";
+          $pieces['orderby'] = "wp_rd1.meta_value $order, " . $pieces['orderby'];
+          break;
+        case 'wp-phone' :
+          $pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = 'wpcf-phone'";
+          $pieces['orderby'] = "wp_rd1.meta_value $order, " . $pieces['orderby'];
+          break;
+        case 'wp-phone' :
+          $pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = 'wpcf-phone'";
+          $pieces['orderby'] = "wp_rd1.meta_value $order, " . $pieces['orderby'];
+          break;
+        case 'wp-inactive_days' :
+          $pieces['fields']  .= " ,TIMESTAMPDIFF(DAY, MAX(p1.post_date), NOW() ) as inactive_days";
+          $pieces['join'] = " LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.meta_value ) LEFT JOIN {$wpdb->posts} p1 ON {$wpdb->postmeta}.post_id = p1.ID AND p1.post_type = 'wp-type-activity'";
+
+          $pieces['where'] = " AND {$wpdb->posts}.post_type = 'wp-type-contacts' AND ({$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_status = 'refunded' OR {$wpdb->posts}.post_status = 'failed' OR {$wpdb->posts}.post_status = 'revoked' OR {$wpdb->posts}.post_status = 'abandoned' OR {$wpdb->posts}.post_status = 'active' OR {$wpdb->posts}.post_status = 'inactive' OR {$wpdb->posts}.post_status = 'future' OR {$wpdb->posts}.post_status = 'draft' OR {$wpdb->posts}.post_status = 'pending' OR {$wpdb->posts}.post_status = 'private')";
+          $pieces['groupby'] = " {$wpdb->posts}.ID";
+          $pieces['orderby'] = " inactive_days $order";
+          break;
+        case 'wp-contact-type' :
+          $pieces['fields'] .= " ,(SELECT name FROM {$wpdb->terms} WHERE term_id = MAX(tr1.term_taxonomy_id)) as contact_type";
+          $pieces['join'] .= " LEFT JOIN {$wpdb->postmeta} pm2 ON {$wpdb->posts}.ID = pm2.post_id LEFT JOIN {$wpdb->posts} p11 ON p11.ID = pm2.meta_value AND p11.post_type IN ('wp-type-contacts', 'wp-type-opportunity') LEFT JOIN {$wpdb->term_relationships} tr1 ON tr1.object_id = p11.ID AND tr1.term_taxonomy_id IN ( SELECT term_id FROM {$wpdb->terms} WHERE slug IN ('wp-type-ind-contact', 'wp-type-org-contact'))";
+          $pieces['groupby'] = " {$wpdb->posts}.ID";
+          $pieces['orderby'] = " contact_type $order";
+          break;
+        default :
+          $pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd1 ON wp_rd1.post_id = {$wpdb->posts}.ID AND wp_rd1.meta_key = '" . $orderby . "'";
+          $pieces['orderby'] = "wp_rd1.meta_value $order, " . $pieces['orderby'];
+          break;
+      }
+    }
+    return $pieces;
+  }
+
+  function set_meta_cap_ukuupeople( $caps, $cap, $user_id, $args ) {
+    if ( 'edit_ukuupeople' == $cap || 'delete_ukuupeople' == $cap || 'read_ukuupeople' == $cap ) {
+      $postID = NULL;
+      if ( isset( $args[0] ) )
+        $postID = $args[0];
+      elseif ( isset( $_GET['cid'] ) )
+        $postID = $_GET['cid'];
+      else
+        return false;
+      $post = get_post( $postID );
+
+      if ( $post != NULL )
+        $post_type = get_post_type_object( $post->post_type );
+      else
+        return false;
+
+      /* Set an empty array for the caps. */
+      $caps = array();
+    }
+
+    if ( 'read_ukuupeople' == $cap ) {
+      if ( $user_id == $post->post_author || $user_id == 1 || current_user_can( 'read_all_ukuupeoples')) {
+        $caps[] = 'read';
+      } else {
+        if( $postID ) {
+          $current_user_email = wp_get_current_user()->user_email;
+          $post_author_email = get_post_meta( $args[0], 'wpcf-email', TRUE );
+          if ( $current_user_email == $post_author_email ) {
+            $caps[] = 'read';
+          } else {
+            return false;
+          }
+        }
+      }
+    } elseif ( 'edit_ukuupeople' == $cap ) {
+      if ( ( $user_id == $post->post_author && current_user_can('edit_own_ukuupeoples') ) || current_user_can('edit_all_ukuupeoples') || $user_id == 1 ) {
+        $caps[] = $post_type->cap->edit_posts;
+      } else {
+        $current_user_email = wp_get_current_user()->user_email;
+        $post_author_email = get_post_meta( $args[0], 'wpcf-email', TRUE );
+        if ( $current_user_email == $post_author_email && current_user_can('edit_own_ukuupeoples') ) {
+          $caps[] = $post_type->cap->edit_posts;
+        } else {
+          return false;
+        }
+      }
+    } elseif ( 'delete_ukuupeople' == $cap ) {
+      if ( $user_id == 1 || current_user_can( 'delete_all_ukuupeoples' ) )
+        $caps[] = $post_type->cap->delete_others_posts;
+      elseif ( $user_id == $post->post_author && current_user_can('delete_own_ukuupeoples') )
+        $caps[] = $post_type->cap->delete_posts;
+      else {
+        $current_user_email = wp_get_current_user()->user_email;
+        $post_author_email = get_post_meta( $args[0], 'wpcf-email', TRUE );
+        if ( $current_user_email == $post_author_email && current_user_can('delete_own_ukuupeoples') ) {
+          $caps[] = $post_type->cap->delete_posts;
+        } else {
+          return false;
+        }
+      }
+    } elseif ( 'edit_posts' == $cap && isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wp-type-contacts' && ( current_user_can( 'edit_own_ukuupeoples') || current_user_can( 'edit_all_ukuupeoples' ) ) && current_user_can( 'access_ukuupeoples' ) ) {
+      return array();
+    }
+    return $caps;
+  }
+
+  function register_user() {
+    if ( isset( $_POST['email'] ) ) {
       $people_post = array(
         'post_title'    => $_POST['email'],
         'post_type'     => 'wp-type-contacts',
@@ -199,7 +585,7 @@ class UkuuPeople{
     return $translated_text;
   }
 
-  function contact_list( ){
+  function contact_list() {
     $list = array();
     $args = array(
       'fields' => 'ids',
@@ -245,21 +631,21 @@ class UkuuPeople{
         )
       )
     );
-    $items = get_posts($args);
+    $items = get_posts( $args );
     if ( !empty ( $items ) ) {
       foreach ( $items as $temp_post => $val ) {
         $display = get_post_meta( $val , 'wpcf-display-name', true );
-        $list[] = array('id' => $val, 'name' => $display);
+        $list[] = array( 'id' => $val, 'name' => $display );
       }
     }
-    echo json_encode($list);
+    echo json_encode( $list );
     wp_die();
   }
 
   function change_placeholder( $label, $post ){
 
-    if( $post->post_type == 'wp-type-activity')
-      $label= __('Enter Touchpoint Short Description', 'UkuuPeople');
+    if( $post->post_type == 'wp-type-activity' )
+      $label= __( 'Enter Touchpoint Short Description', 'UkuuPeople' );
 
     return $label;
   }
@@ -367,16 +753,16 @@ class UkuuPeople{
    * custom action for tab info in organization view
    */
   function custom_human_info( $edit , $slug ) {
-    wp_enqueue_script('jquery-ui-tabs');
+    wp_enqueue_script( 'jquery-ui-tabs' );
     $tab_filter = array();
     // version dependent code
     $plugin_info = get_plugins();
-    if(class_exists('UKUUGIVE')){
+    if( class_exists( 'UKUUGIVE' ) ){
       $plugin_exist = array_key_exists(UKUUGIVE_BASENAME,$plugin_info);
-      if ($plugin_exist){
+      if ( $plugin_exist ){
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
         $plugin_active = is_plugin_active(UKUUGIVE_BASENAME);
-        if ($plugin_active){
+        if ( $plugin_active ){
           $plugin_version = $plugin_info[UKUUGIVE_BASENAME]['Version'];
           if($plugin_version <= '1.0.2'){
             $tab_filter['contribution'] =array(
@@ -396,48 +782,48 @@ class UkuuPeople{
         'action' => '',
         'icon' => 'ukuumembership',
       );
-      wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css');
+      wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css' );
       echo '<div id="third-sidebar-contact">';
       echo "<ul>";
       $count = 0;
       $jsn_tab_filter = htmlspecialchars(json_encode($tab_filter));
-      foreach (array_reverse($tab_filter) as $key => $value){
-        if ( $value['action'] == '' || ($value['action'] != '' && has_action($value['action'])) ) {
+      foreach ( array_reverse( $tab_filter ) as $key => $value ) {
+        if ( $value['action'] == '' || ( $value['action'] != '' && has_action($value['action'] ) ) ) {
           $count++;
-          if ($count == 1) $value['icon'] = $value['icon'].'-blue';
+          if ( $count == 1 ) $value['icon'] = $value['icon'].'-blue';
           echo '<li class="tab'.$key.'" onclick="tab_filter(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
         }
       }
       ?></ul><div id="org-members">
-      <span class='org-title'><?php _e('Organization', 'UkuuPeople') ?> <?php _e('Team Members' , 'UkuuPeople' ) ?></span>
+      <span class='org-title'><?php _e( 'Organization', 'UkuuPeople' ) ?> <?php _e( 'Team Members' , 'UkuuPeople' ) ?></span>
       <?php $this->org_members( $edit->ID );
          echo "</div>";
-         foreach ($tab_filter as $key => $value){
+         foreach ( $tab_filter as $key => $value ){
            echo '<div id="'.$value['id'].'">';
            do_action( $value['action'] , $edit );
            echo '</div>';
          }
          echo "</div>";
-    } elseif( $slug == 'wp-type-ind-contact' && $tab_filter) {
+    } elseif( $slug == 'wp-type-ind-contact' && $tab_filter ) {
       $flag= false;
-      foreach ($tab_filter as $key => $value){
-        if ( $value['action'] != '' && has_action($value['action']) ) {
+      foreach ( $tab_filter as $key => $value ){
+        if ( $value['action'] != '' && has_action($value['action'] ) ) {
           $flag= true;
         }
       }
-      if ($flag){
-        wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css');
+      if ( $flag ) {
+        wp_enqueue_style( 'ukuutab style', UKUUPEOPLE_RELPATH.'/css/ukuutab.css' );
         echo '<div id="third-sidebar-contact">';
         echo "<ul>";
         $count = 0;
-        $jsn_tab_filter = htmlspecialchars(json_encode($tab_filter));
-        foreach ($tab_filter as $key => $value){
+        $jsn_tab_filter = htmlspecialchars( json_encode( $tab_filter ) );
+        foreach ( $tab_filter as $key => $value ) {
           $count++;
-          if ($count == 1) $value['icon'] = $value['icon'].'-blue';
+          if ( $count == 1 ) $value['icon'] = $value['icon'].'-blue';
           echo '<li class="tab'.$key.'" onclick="tab_filter(\''.$key.'\','.$jsn_tab_filter.')"><a href="#'.$value['id'].'"><span class="'.$value['icon'].'"></span></a></li>';
         }
         echo "</ul>";
-        foreach ($tab_filter as $key => $value){
+        foreach ( $tab_filter as $key => $value ){
           echo '<div id="'.$value['id'].'">';
           do_action( $value['action'] , $edit );
           echo "</div>";
@@ -484,11 +870,11 @@ class UkuuPeople{
     }
 
     // Dialog box for Contact and touchpoint page
-    if ( $screen->id == 'wp-type-activity' || $screen->id == 'edit-wp-type-activity' || $screen->id == 'wp-type-contacts' || $screen->id == 'edit-wp-type-contacts') {
+    if ( $screen->id == 'wp-type-activity' || $screen->id == 'edit-wp-type-activity' || $screen->id == 'wp-type-contacts' || $screen->id == 'edit-wp-type-contacts' ) {
       // Common scripts
-      wp_enqueue_script('jquery-ui-dialog');
+      wp_enqueue_script( 'jquery-ui-dialog' );
       // Common styles
-      wp_enqueue_style("wp-jquery-ui-dialog");
+      wp_enqueue_style( "wp-jquery-ui-dialog" );
       global $wp_version;
       if ( $wp_version >= '4.7' ) {?>
       <script>
@@ -537,12 +923,12 @@ class UkuuPeople{
          </div>
       <?php
     }
-    if ( $screen->id == 'wp-type-contacts' || $screen->id == 'edit-wp-type-contacts') {
+    if ( $screen->id == 'wp-type-contacts' || $screen->id == 'edit-wp-type-contacts' ) {
       $indUrl = admin_url( 'post-new.php?post_type=wp-type-contacts&ctype=wp-type-ind-contact' );
       $orgUrl = admin_url( 'post-new.php?post_type=wp-type-contacts&ctype=wp-type-org-contact');
       ?>
       <div style="display:none" id="dialog" title="<?php _e( 'Add New','UkuuPeople') ?>">
-      <label for="wp-type-ind-contact"><input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" id="wp-type-ind-contact" redirect="<?php echo $indUrl?>"><?php _e('Human', 'UkuuPeople'); ?></label><br/>      <label for="wp-type-org-contact"><input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" id="wp-type-org-contact" redirect="<?php echo $orgUrl?>"><?php _e('Organization', 'UkuuPeople'); ?></label><br/>                                                                                                                                                    </div>
+      <label for="wp-type-ind-contact"><input name="wp-contact-type-select" type="radio" value="wp-type-ind-contact" id="wp-type-ind-contact" redirect="<?php echo $indUrl?>"><?php _e('Human', 'UkuuPeople'); ?></label><br/> <label for="wp-type-org-contact"><input name="wp-contact-type-select" type="radio" value="wp-type-org-contact" id="wp-type-org-contact" redirect="<?php echo $orgUrl?>"><?php _e('Organization', 'UkuuPeople'); ?></label><br/> </div>
     <?php
     }
     // Dialog box for Contact and touchpoint page
@@ -550,22 +936,25 @@ class UkuuPeople{
 
   function remove_box()
   {
-    remove_post_type_support('wp-type-contacts', 'title');
-    remove_post_type_support('wp-type-contacts', 'editor');
-    remove_post_type_support('wp-type-activity', 'editor');
+    remove_post_type_support( 'wp-type-contacts', 'title' );
+    remove_post_type_support( 'wp-type-contacts', 'editor' );
+    remove_post_type_support( 'wp-type-activity', 'editor' );
   }
 
   function ukuupeople_menu() {
-    add_submenu_page( NULL, __( 'Add New Contact', 'UkuuPeople' ), __( 'Add New Contact', 'UkuuPeople' ), 'manage_options', 'add-new-contact', array( $this, 'add_new_contact_type'));
-    add_submenu_page( 'edit.php?post_type=wp-type-contacts' , __( 'Touchpoint', 'UkuuPeople' ), __( 'Touchpoints', 'UkuuPeople' ), 'manage_options', 'edit.php?post_type=wp-type-activity', '');
-    require_once(UKUUPEOPLE_ABSPATH.'/includes/add-ons.php');
+    add_submenu_page( 'edit.php?post_type=wp-type-contacts', __( 'Add New Contact', 'UkuuPeople' ), __( 'Add New Contact', 'UkuuPeople' ), 'access_ukuupeoples', 'add-new-contact', array( $this, 'add_new_contact_type') );
+    add_submenu_page( 'edit.php?post_type=wp-type-contacts' , __( 'Touchpoint', 'UkuuPeople' ), __( 'Touchpoints', 'UkuuPeople' ), 'access_touchpoints', 'edit.php?post_type=wp-type-activity', '' );
+    require_once( UKUUPEOPLE_ABSPATH.'/includes/add-ons.php' );
     $ukuupeople_add_ons_page = add_submenu_page( 'edit.php?post_type=wp-type-contacts', __( 'UkuuPeople Add-ons', 'UkuuPeople' ), __( 'Add-ons', 'UkuuPeople' ), 'install_plugins', 'ukuupeople-addons', 'ukuupeople_add_ons_page' );
-    if ( current_user_can('manage_categories') ) {
+    if ( current_user_can( 'manage_categories' ) ) {
       require_once( UKUUPEOPLE_ABSPATH.'/includes/settings.php' );
-      add_submenu_page('edit.php?post_type=wp-type-contacts', __( 'setting', 'UkuuPeople' ), __( 'Settings', 'UkuuPeople' ), 'manage_options','settings' , 'settings');
-      add_submenu_page( null, '', 'Google App Integration', 'manage_options', 'licenses', 'licenses' );
-      add_submenu_page( NULL , '', 'googleapp', 'manage_options', 'googleapp', 'googleapp' );
+      add_submenu_page( 'edit.php?post_type=wp-type-contacts', __( 'setting', 'UkuuPeople' ), __( 'Settings', 'UkuuPeople' ), 'access_ukuupeoples','settings' , 'settings' );
+      add_submenu_page( null, '', 'Google App Integration', 'access_ukuupeoples', 'licenses', 'licenses' );
+      add_submenu_page( NULL , '', 'googleapp', 'access_ukuupeoples', 'googleapp', 'googleapp' );
     }
+
+    add_submenu_page( NULL , '', 'View Ukuu People', 'access_ukuupeoples', 'view-ukuupeople', array($this,'view_ukuu_people') );
+    add_submenu_page( NULL , '', 'View Ukuu Touchpoint', 'access_touchpoints', 'view-touchpoint', array($this,'view_touchpoint') );
   }
 
   function ukuuCRM_dashboard_setup() {
@@ -590,7 +979,7 @@ class UkuuPeople{
 	}
 
   // Function for adding color option for Touchpoints
-  function add_color_fields($taxonomy_name) {
+  function add_color_fields( $taxonomy_name ) {
     ?>
     <div>
       <label><?php __( 'Choose color for', 'UkuuPeople' ); ?> Touchpoint</label>
@@ -609,20 +998,20 @@ class UkuuPeople{
    *
    * @param type $term_id
    */
-  function save_color_fields($term_id) {
+  function save_color_fields( $term_id ) {
     //collect all term related data for this new taxonomy
-    $term_item = get_term($term_id,'wp-type-activity-types');
+    $term_item = get_term( $term_id,'wp-type-activity-types' );
     $term_slug = $term_item->slug;
-    if (isset($_POST['category-radio'])) {
+    if ( isset( $_POST['category-radio'] ) ) {
       //collect our custom fields
-      $term_category_radio = sanitize_text_field($_POST['category-radio']);
+      $term_category_radio = sanitize_text_field( $_POST['category-radio'] );
       //save our custom fields as wp-options
-      update_option('term_category_radio_' . $term_slug, $term_category_radio);
+      update_option( 'term_category_radio_' . $term_slug, $term_category_radio );
     }
   }
 
   function publish_post_privately( $new_status, $old_status, $post ) {
-    if ( ($post->post_type == 'wp-type-contacts' || $post->post_type == 'wp-type-activity') && $new_status == 'publish' && $old_status  != $new_status ) {
+    if ( ( $post->post_type == 'wp-type-contacts' || $post->post_type == 'wp-type-activity' ) && $new_status == 'publish' && $old_status  != $new_status ) {
       $post->post_status = 'private';
       wp_update_post( $post );
     }
@@ -647,7 +1036,8 @@ class UkuuPeople{
    */
   function remove_row_actions( $actions ) {
     if ( get_post_type() === 'wp-type-activity' ) {
-      unset( $actions['view'] );
+      $viewURL = admin_url('admin.php?page=view-touchpoint&touchpoint_id='.get_the_ID());
+      $actions['view'] = "<a href={$viewURL}>View</a>";
     }
     if( get_post_type() === 'wp-type-contacts' ) {
       unset( $actions['edit'] );
@@ -664,7 +1054,7 @@ class UkuuPeople{
    * @param type $simple_field_setting
    * @return type
    */
-  function hide_simple_side_field_settings($simple_field_setting, $post) {
+  function hide_simple_side_field_settings( $simple_field_setting, $post ) {
     if ( $post->post_type == 'wp-type-activity' || $post->post_type == 'wp-type-contacts' ) {
       $simple_field_setting = false;
     }
@@ -696,7 +1086,7 @@ class UkuuPeople{
    * @return type
    */
   function change_related_org_value( $title, $id = NULL ) {
-    if ( !empty($id) && 'wp-type-contacts' == get_post_type($id) ) {
+    if ( !empty( $id ) && 'wp-type-contacts' == get_post_type( $id ) ) {
       $display = get_post_meta( $id , 'wpcf-display-name', true );
       $title = $display;
     }
@@ -711,17 +1101,16 @@ class UkuuPeople{
   function posts_filter_touchpoint_contact( $query ) {
     $qv = &$query->query_vars;//grab a reference to manipulate directly
     Global $pagenow;
-    if( $pagenow=='edit.php' && isset($_GET['post_type']) && 'wp-type-activity' ==$_GET['post_type']  && $query->is_main_query() ) {
-      if( !empty ( $_GET['touchpoint-contact'] ) )
-        {
-          $qv['meta_query'][] = array('value' => $_GET['touchpoint-contact']);
-        }
+    if( $pagenow=='edit.php' && isset( $_GET['post_type'] ) && 'wp-type-activity' == $_GET['post_type']  && $query->is_main_query() ) {
+      if( !empty ( $_GET['touchpoint-contact'] ) ) {
+        $qv['meta_query'][] = array( 'value' => $_GET['touchpoint-contact'] );
+      }
     }
-    if( $pagenow=='edit.php' && isset($_GET['post_type']) && 'wp-type-contacts' ==$_GET['post_type']  && $query->is_main_query() ) {
+    if( $pagenow =='edit.php' && isset( $_GET['post_type'] ) && 'wp-type-contacts' == $_GET['post_type']  && $query->is_main_query() ) {
       /* If this drop-down has been affected, add a meta query to the query
        *
        */
-      if( !empty ( $_GET['s'] ) ) {
+      if( !empty( $_GET['s'] ) ) {
         global $wpdb;
         // custom filter for display name //
         $meta_value = $_GET['s'];
@@ -740,7 +1129,8 @@ class UkuuPeople{
                $meta_value,
 	        $meta_value,
                $meta_value
-        ) , OBJECT);
+        ) , OBJECT );
+
         global $wp_version;
         if ( !empty( $terms ) ) {
           $postID = array_map ( function ( $v ){ return $v->ID; }, $terms );
@@ -774,11 +1164,11 @@ class UkuuPeople{
   function ukuu_custom_touchpoint() {
     //To hide screen options
     global $wp_meta_boxes;
-    unset($wp_meta_boxes['wp-type-contacts']['side']['high']['wpcf-marketing']);
-    unset($wp_meta_boxes['wp-type-activity']['side']['high']['wpcf-marketing']);
-    unset($wp_meta_boxes['wp-type-contacts']['side']['core']['categorydiv']);
-    unset($wp_meta_boxes['wp-type-contacts']['normal']['default']['wpcf-post-relationship']);
-    unset($wp_meta_boxes['wp-type-contacts']['normal']['core']['slugdiv']);
+    unset( $wp_meta_boxes['wp-type-contacts']['side']['high']['wpcf-marketing'] );
+    unset( $wp_meta_boxes['wp-type-activity']['side']['high']['wpcf-marketing'] );
+    unset( $wp_meta_boxes['wp-type-contacts']['side']['core']['categorydiv'] );
+    unset( $wp_meta_boxes['wp-type-contacts']['normal']['default']['wpcf-post-relationship'] );
+    unset( $wp_meta_boxes['wp-type-contacts']['normal']['core']['slugdiv'] );
 
     $screens = array( 'wp-type-activity' );
     foreach ( $screens as $screen ) {
@@ -795,7 +1185,7 @@ class UkuuPeople{
    * Content callback for custom metabox Touchpoint list.
    */
   function ukuu_custom_touchpoint_list( $post ) {
-    if ( isset($post->ID) && $post->post_type == 'wp-type-activity'  ) {
+    if ( isset( $post->ID ) && $post->post_type == 'wp-type-activity' ) {
       // To change Dropdown email list to display name//
       global $wpdb;
       //  To change Dropdown email list to display name //
@@ -807,14 +1197,13 @@ class UkuuPeople{
       $post_term = wp_get_post_terms( $post->ID, 'wp-type-activity-types', array("fields" => "names") );
       $acttype = get_terms( 'wp-type-activity-types' ,'hide_empty=0' );
       echo '<select name="touchpoint-list" id="touchpoint-list" class="postbox form-control" required="">';
-      if( empty( $post_term )  ){
+      if( empty( $post_term ) ){
         echo "<option value='' selected>".__( 'Select Touchpoint type', 'UkuuPeople' )."..</option>";
       }
       foreach ($acttype as $key => $value ) {
         if( isset( $post_term[0] ) && $value->name == $post_term[0] ){
           echo "<option value=".$value->slug." selected>".$value->name."</option>";
-        }
-        else {
+        } else {
           echo "<option value=".$value->slug.">".$value->name."</option>";
         }
       }
@@ -856,21 +1245,22 @@ class UkuuPeople{
     global $base_url;
     echo "<div class='activity-wrapper'>";
     while ( $loop->have_posts() ) : $loop->the_post();
-    $iduser=get_the_author();
+    $iduser = get_the_author();
     $custom = get_post_custom( get_the_ID() );
-    if (isset($custom['wpcf-startdate'][0]) && !empty($custom['wpcf-startdate'][0]) && isset($custom['wpcf-status'][0]) && $custom['wpcf-status'][0] == 'scheduled' ) {
+    if ( isset( $custom['wpcf-startdate'][0] ) && !empty( $custom['wpcf-startdate'][0] ) && isset( $custom['wpcf-status'][0] ) && $custom['wpcf-status'][0] == 'scheduled' ) {
       $URL = get_edit_post_link( get_the_ID() );
       echo "<div class='user_activity' style='overflow:auto;'><div class='activity_date' style='background-color:#0074a2;'><div class='month-act'>";
-      echo date('F' ,$custom['wpcf-startdate'][0] );echo "</div><div class='day-act'>";
-      echo date('d' ,$custom['wpcf-startdate'][0] );
+      echo date( 'F' ,$custom['wpcf-startdate'][0] );
+      echo "</div><div class='day-act'>";
+      echo date( 'd' ,$custom['wpcf-startdate'][0] );
       echo "</div></div>";
       echo "<div class='activity_info'>";
-      if(!wp_is_mobile()) {
+      if( !wp_is_mobile() ) {
         echo "<div><a href='$URL'><strong>";
         the_title();echo "</a></strong></div>";
       } else {
         echo "<div><a href='$URL'><strong>";
-        echo substr( get_the_title(), 0, 15).'...';echo "</a></strong></div>";
+        echo substr( get_the_title(), 0, 15 ).'...';echo "</a></strong></div>";
       }
       _e('created by', 'UkuuPeople');
       echo " <span><a href='#'>$iduser</a></span>";
@@ -881,8 +1271,8 @@ class UkuuPeople{
         echo "<div>" . __('with', 'UkuuPeople') . " <span><a href='$contact_view_url'>".$display_name."</a></span></div>";
       }
       echo "</div><div class='activity_time' style='background-color:#0074a2;'><div class='dayName'>";
-      echo date('l' ,$custom['wpcf-startdate'][0] );echo "</div><div class='time'>";
-      echo date('g:i a' ,$custom['wpcf-startdate'][0] );
+      echo date( 'l' ,$custom['wpcf-startdate'][0] );echo "</div><div class='time'>";
+      echo date( 'g:i a' ,$custom['wpcf-startdate'][0] );
       echo "</div></div></div>";
     }
     endwhile;
@@ -893,19 +1283,19 @@ class UkuuPeople{
    * Touchpoint favorites list for dashboard.
    */
   public static function ukuuCRM_dashboard_favorites_content() {
-    $user_id= get_current_user_id();
+    $user_id = get_current_user_id();
     $posts = self::retrieve_favorites();
     global $base_url;
     echo "<div class='dashboard-favorites-wrapper'>";
-    if (!empty($posts)) {
-      foreach ($posts as $k => $postID) {
+    if ( !empty( $posts ) ) {
+      foreach ( $posts as $k => $postID ) {
         $custom = get_post_custom( $postID );
         echo "<div class='dashboard-favorites-list'>";
         echo "<div class='contact-image'>";
         if ( ! empty( $custom['wpcf-contactimage'][0] ) ) {
           echo "<img src='".$custom['wpcf-contactimage'][0]."' width='69' height='69'>";
         } else {
-          $avatar = get_avatar( $custom['wpcf-email'][0] ,69);
+          $avatar = get_avatar( $custom['wpcf-email'][0] ,69 );
           echo $avatar;
         }
         echo "</div>";
@@ -913,10 +1303,10 @@ class UkuuPeople{
         echo "<span class='contact-name'>";
         $URL = get_edit_post_link( $postID );
         echo "<a href='{$URL}'><b>";
-        if( isset($custom['wpcf-display-name'][0]  )) echo $custom['wpcf-display-name'][0];
+        if( isset( $custom['wpcf-display-name'][0]  ) ) echo $custom['wpcf-display-name'][0];
         echo "</b></a></span>";
-        if( isset($custom['wpcf-email'][0]  )) echo "<br/><span class='dashboard-email'><a href='mailto:{$custom['wpcf-email'][0]}' title='email'><u>{$custom['wpcf-email'][0]}</u></a></span>";
-        if( isset($custom['wpcf-phone'][0]  )) echo "<br/><span class='dashboard-email'>{$custom['wpcf-phone'][0]}</span>";
+        if( isset( $custom['wpcf-email'][0] ) ) echo "<br/><span class='dashboard-email'><a href='mailto:{$custom['wpcf-email'][0]}' title='email'><u>{$custom['wpcf-email'][0]}</u></a></span>";
+        if( isset( $custom['wpcf-phone'][0] ) ) echo "<br/><span class='dashboard-email'>{$custom['wpcf-phone'][0]}</span>";
 
         echo '</div>';
         echo "<div class='phone'>";
@@ -933,17 +1323,17 @@ class UkuuPeople{
    * Quick Add Touchpoint
    */
   public static function ukuuCRM_dashboard_createactivity_content() {
-    wp_enqueue_script('media-upload');
-    wp_enqueue_script('thickbox');
-    wp_enqueue_style('thickbox');
+    wp_enqueue_script( 'media-upload' );
+    wp_enqueue_script( 'thickbox' );
+    wp_enqueue_style( 'thickbox' );
     wp_enqueue_script( 'ukuucrm', UKUUPEOPLE_RELPATH.'/script/ukuucrm.js' , array('jquery','media-upload','thickbox') );
     // Common scripts
-    wp_enqueue_script('jquery-ui-dialog');
+    wp_enqueue_script( 'jquery-ui-dialog' );
 		// Common styles
-    wp_enqueue_style("wp-jquery-ui-dialog");
-    wp_enqueue_script('jquery-ui-datepicker');
-    wp_enqueue_script( 'timepicker ui' , UKUUPEOPLE_RELPATH.'/includes/CMB2/js/jquery-ui-timepicker-addon.min.js');
-    wp_enqueue_style( 'datetimepicker css' , UKUUPEOPLE_RELPATH.'/includes/CMB2/css/cmb2.min.css');
+    wp_enqueue_style( "wp-jquery-ui-dialog" );
+    wp_enqueue_script( 'jquery-ui-datepicker' );
+    wp_enqueue_script( 'timepicker ui' , UKUUPEOPLE_RELPATH.'/includes/CMB2/js/jquery-ui-timepicker-addon.min.js' );
+    wp_enqueue_style( 'datetimepicker css' , UKUUPEOPLE_RELPATH.'/includes/CMB2/css/cmb2.min.css' );
     $acttype = get_terms( 'wp-type-activity-types' ,'hide_empty=0' );
     $args = array(
       'fields' => 'ids',
@@ -967,11 +1357,11 @@ class UkuuPeople{
         )
       )
     );
-    $items = (array) get_posts($args);
+    $items = (array) get_posts( $args );
     $data  = "<select name='touchpoint_assign_name'>";
     $data .= "<option value='' selected>".__( 'Select', 'UkuuPeople' )."..</option>";
     foreach( $items as $item ) {
-      $display_name = get_post_meta( $item, 'wpcf-display-name' , true);
+      $display_name = get_post_meta( $item, 'wpcf-display-name' , true );
       $data .= "<option value=".$item.">".$display_name."</option>";
     }
     $data .= "</select>";
@@ -1031,20 +1421,20 @@ class UkuuPeople{
     <form name="quickaddform" enctype="multipart/form-data" method="post" id="quickAddform">
     <table class="quickadd">
       <tr>
-      <td class="quickadd-label"><?php _e('Contact*', 'UkuuPeople') ?></td>
-      <td><input type="text" name="dname" required placeholder="<?php _e('Start typing name', 'UkuuPeople') ?>"><input id="dcontact_id" type="hidden" name="contact_id"></td>
+      <td class="quickadd-label"><?php _e( 'Contact*', 'UkuuPeople' ) ?></td>
+      <td><input type="text" name="dname" required placeholder="<?php _e( 'Start typing name', 'UkuuPeople' ) ?>"><input id="dcontact_id" type="hidden" name="contact_id"></td>
       </tr>
 
       <tr>
-      <td class="quickadd-label"><?php _e('Subject*', 'UkuuPeople') ?></td>
-      <td><input type="text" name="dsubject" required placeholder="<?php _e('Enter subject', 'UkuuPeople') ?>"></td>
+      <td class="quickadd-label"><?php _e( 'Subject*', 'UkuuPeople' ) ?></td>
+      <td><input type="text" name="dsubject" required placeholder="<?php _e( 'Enter subject', 'UkuuPeople' ) ?>"></td>
       </tr>
 
       <tr>
-      <td class="quickadd-label"><?php _e('Type*', 'UkuuPeople') ?></td>
+      <td class="quickadd-label"><?php _e( 'Type*', 'UkuuPeople' ) ?></td>
       <td><select class="form-control" required="" name="dtype"><?php
       echo "<option value='' selected>".__( 'Select TouchPoint type', 'UkuuPeople' )."..</option>";
-      foreach ($acttype as $key => $value ) {
+      foreach ( $acttype as $key => $value ) {
         echo "<option value=".$value->slug.">".$value->name."</option>";
       }
       ?>
@@ -1052,7 +1442,7 @@ class UkuuPeople{
       </tr>
 
       <tr>
-      <td class="quickadd-label"><?php _e('Start*', 'UkuuPeople') ?></td>
+      <td class="quickadd-label"><?php _e( 'Start*', 'UkuuPeople' ) ?></td>
       <td>
       <input type="text" name="dsdate" required><span class="ukuucalendar"></span>
       <input type="text" name="dstime"><span class="ukuuclock"></span>
@@ -1083,6 +1473,7 @@ class UkuuPeople{
       <td class="quickadd-label"></td>
       <td><input type="button" name="dassign" value="<?php _e('Click to Select Assignee', 'UkuuPeople') ?>">
       <input type="text" id="touchpoint_assign_name_display" name="touchpoint_assign_name_display" style="display:none">
+      <p id="new-tag-post_tag-desc" class="seprate" style ="color:#666;font-style:italic;display:none;">Separate assigness with commas</p>
       <input type="hidden" id="touchpoint_assign_id" name="touchpoint_assign_id"></td>
       </tr>
 
@@ -1097,7 +1488,6 @@ class UkuuPeople{
    */
   public static function retrieve_favorites() {
     global $wpdb;
-
     $uid = $user_ID = get_current_user_id();
     $table_name = $wpdb->prefix . "ukuu_favorites";
     $retrieve_data = $wpdb->get_results( $wpdb->prepare(
@@ -1113,8 +1503,8 @@ class UkuuPeople{
       $is_fav = array();
       foreach( $retrieve_data as $k => $v ) {
         $post_id = $v->user_favs;
-        $postttt = get_post($post_id);
-        if ( get_post_status( $post_id ) == 'trash' || (FALSE === get_post_status( $post_id )) ) {
+        $postttt = get_post( $post_id );
+        if ( get_post_status( $post_id ) == 'trash' || ( FALSE === get_post_status( $post_id ) ) ) {
           $wpdb->delete(
             $table_name,
             array(
@@ -1128,7 +1518,6 @@ class UkuuPeople{
       }
       return $is_fav;
     }
-
     return NULL;
   }
 
@@ -1142,7 +1531,7 @@ class UkuuPeople{
     global $wpdb;
     $table_name = $wpdb->prefix . 'ukuu_favorites';
     $uid = $user_ID = get_current_user_id();
-    if ($entry == "del") {
+    if ( $entry == "del" ) {
       $message = "Removed as favorite";
       $wpdb->delete(
         $table_name,
@@ -1151,7 +1540,7 @@ class UkuuPeople{
           'user_favs' => $post_id,
         )
       );
-      wp_die($message);
+      wp_die( $message );
     } elseif ( $entry == "add" ) {
       $wpdb->insert(
         $table_name,
@@ -1162,7 +1551,7 @@ class UkuuPeople{
       );
       $message = "Added as favorite";
     }
-    wp_die($message);
+    wp_die( $message );
   }
 
   /* ajax call to get activity list
@@ -1189,7 +1578,7 @@ class UkuuPeople{
       $custom = get_post_custom( $value->ID );
       $title = $value->post_title;
       $ids = $value->ID;
-      if ( $count%2 == 0)  $listdata .= "<tr><th class='check-column' scope='row'><input type='checkbox'></th><td>"; else $listdata .= "<tr class='alternate'><th class='check-column' scope='row'><input type='checkbox'></th><td>";
+      if ( $count%2 == 0 )  $listdata .= "<tr><th class='check-column' scope='row'><input type='checkbox'></th><td>"; else $listdata .= "<tr class='alternate'><th class='check-column' scope='row'><input type='checkbox'></th><td>";
       $listdata .= $this->activity_startdate ( $ids );
       $listdata .= "</td><td>";
       $URL = get_edit_post_link( $ids );
@@ -1220,9 +1609,9 @@ class UkuuPeople{
     $lists = $this->get_contact_activity_list( 5 , 0 , get_the_ID() );
     $activity_listcount = sizeof( $lists );
     $total_list_value = $this->get_contact_activity_list( -1, 0 , get_the_ID() );
-    $total_list_count = ceil(sizeof($total_list_value)/5);
+    $total_list_count = ceil(sizeof( $total_list_value )/5);
     $button_disable = '';
-    if( $total_list_count == 1 ) {
+    if ( $total_list_count == 1 ) {
       $button_disable = 'disabled';
     }
     echo '<div id="activity"><div class="inside">';
@@ -1296,16 +1685,16 @@ class UkuuPeople{
    */
   function insert_taxonomy_terms() {
     // To add custom taxonomy terms
-    $cTypes = array('ind' => array('name' => 'Individual', 'slug' => 'wp-type-ind-contact'),'org' => array('name' => 'Organization', 'slug' => 'wp-type-org-contact') ) ;
+    $cTypes = array( 'ind' => array('name' => 'Individual', 'slug' => 'wp-type-ind-contact'),'org' => array('name' => 'Organization', 'slug' => 'wp-type-org-contact') ) ;
     self::add_taxonomies($cTypes, 'wp-type-contacts-subtype');
-    $aTypes = array('meeting' => array('name' => 'Meeting', 'slug' => 'wp-type-activity-meeting'),'phone' => array('name' => 'Phone', 'slug' => 'wp-type-activity-phone') , 'note' => array('name' => 'Note', 'slug' => 'wp-type-activity-note') , 'contact-form' => array('name' => 'Contact Form', 'slug' => 'wp-type-contactform'));
-    self::add_taxonomies($aTypes, 'wp-type-activity-types');
+    $aTypes = array( 'meeting' => array( 'name' => 'Meeting', 'slug' => 'wp-type-activity-meeting' ),'phone' => array( 'name' => 'Phone', 'slug' => 'wp-type-activity-phone') , 'note' => array('name' => 'Note', 'slug' => 'wp-type-activity-note' ) , 'contact-form' => array('name' => 'Contact Form', 'slug' => 'wp-type-contactform'));
+    self::add_taxonomies( $aTypes, 'wp-type-activity-types' );
     $gTypes = array( 'our-team' => array( 'name' => 'Our Team', 'slug' => 'wp-type-our-team' ) );
-    self::add_taxonomies($gTypes, 'wp-type-group');
-  if (!get_option('ukuupeople_admin_integrate')) {
+    self::add_taxonomies( $gTypes, 'wp-type-group' );
+  if ( !get_option( 'ukuupeople_admin_integrate') ) {
     // To update adminstrator to ukuupeople contacts
     $users = get_users( array( 'role' => 'administrator') );
-    foreach ($users as $key => $value ) {
+    foreach ( $users as $key => $value ) {
       $args = array(
         'post_type' => 'wp-type-contacts',
         'post_status' => array( 'publish', 'private' ),
@@ -1378,18 +1767,78 @@ class UkuuPeople{
    */
   function ukuu_custom_filters_posts() {
     global $typenow;
-    if( $typenow == "wp-type-contacts" ) {
+    $user_ID = get_current_user_id();
+
+    $full_access = FALSE;
+    if ( $user_ID == 1 || user_can( $user_ID, 'edit_all_ukuupeoples' ) || user_can( $user_ID, 'read_all_ukuupeoples' ) || user_can( $user_ID, 'delete_all_ukuupeoples' ) || user_can( $user_ID, 'read_all_touchpoints' ) || user_can( $user_ID, 'edit_all_touchpoints' ) || user_can( $user_ID, 'delete_all_touchpoints' ))
+    $full_access = TRUE;
+
+    if ( $typenow == "wp-type-contacts" ) {
       wp_enqueue_script( 'd3', UKUUPEOPLE_RELPATH.'/script/d3/d3.min.js' , array() );
       wp_enqueue_script( 'ukuucrm', UKUUPEOPLE_RELPATH.'/script/ukuucrm.js' , array() );
-      $url = admin_url('edit.php');
+      $url = admin_url( 'edit.php' );
       $string = $graph = array();
       $filters = array( 'wp-type-group', 'wp-type-tags', 'wp-type-contacts-subtype' );
       foreach ( $filters as $tax_slug ) {
         $tax_obj = get_taxonomy( $tax_slug );
         $tax_name = $tax_obj->labels->name;
-        global $wpdb;
-        $terms = $wpdb->get_results( $wpdb->prepare(
+        global $wpdb, $current_user;
+
+        if ( ! $full_access ) {
+          $terms = $wpdb->get_results( $wpdb->prepare(
+                     "
+               SELECT $wpdb->terms.term_id, $wpdb->terms.slug , $wpdb->terms.name, COALESCE(s.count ,0) AS count
+               FROM $wpdb->terms
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id)
+               LEFT JOIN (SELECT  COUNT($wpdb->posts.ID) as count, slug , name , $wpdb->terms.term_id FROM $wpdb->posts
+               LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+               LEFT JOIN $wpdb->terms ON ($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
+               WHERE (post_status = 'publish' OR  post_status = 'private')
+               AND post_type = 'wp-type-contacts'
+               AND ( post_author = %d OR post_title = %s )
+               AND slug IS NOT NULL
+               AND taxonomy= %s group by slug ) as s
+               ON ($wpdb->term_taxonomy.term_id = s.term_id)
+               WHERE taxonomy= %s ORDER BY $wpdb->terms.term_id ASC
+               ",
+                     $user_ID,
+                     $current_user->user_email,
+                     $tax_slug ,
+                     $tax_slug
+                   ) , OBJECT);
+
+           $get_trash = $wpdb->get_results( $wpdb->prepare(
                "
+               SELECT $wpdb->terms.term_id, $wpdb->terms.slug , $wpdb->terms.name, COALESCE(s.count ,0) AS count
+               FROM $wpdb->terms
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id)
+               LEFT JOIN (SELECT  COUNT($wpdb->posts.ID) as count, slug , name , $wpdb->terms.term_id FROM $wpdb->posts
+               LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+               LEFT JOIN $wpdb->terms ON ($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
+               WHERE (post_status = 'trash')
+               AND post_type = 'wp-type-contacts'
+               AND ( post_author = %d OR post_title = %s )
+               AND slug IS NOT NULL
+               AND taxonomy= %s group by slug ) as s
+               ON ($wpdb->term_taxonomy.term_id = s.term_id)
+               WHERE taxonomy= %s ORDER BY $wpdb->terms.term_id ASC
+               ",
+                     $user_ID,
+                     $current_user->user_email,
+                     $tax_slug ,
+                     $tax_slug
+                   ) , OBJECT);
+
+          $trashCount = 0;
+          foreach ( $get_trash as $trash_object ) {
+            $trashCount += $trash_object->count;
+          }
+        }
+        else {
+          $terms = $wpdb->get_results( $wpdb->prepare(
+                     "
                SELECT $wpdb->terms.term_id, $wpdb->terms.slug , $wpdb->terms.name, COALESCE(s.count ,0) AS count
                FROM $wpdb->terms
                LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id)
@@ -1404,32 +1853,39 @@ class UkuuPeople{
                ON ($wpdb->term_taxonomy.term_id = s.term_id)
                WHERE taxonomy= %s ORDER BY $wpdb->terms.term_id ASC
                ",
-               $tax_slug ,
-               $tax_slug
-        ) , OBJECT);
-        echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
-        echo "<option value=''>".__( 'Show All','UkuuPeople' )." $tax_name</option>";
-        foreach ( $terms as $term ) {
-          $selected = isset($_GET[$tax_slug]) ? $_GET[$tax_slug] : null;
-          echo '<option value='. $term->slug, $selected == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>';
-          if ($tax_slug == "wp-type-contacts-subtype" ) {
-            $graph[] = $term->count;
-            if ( isset( $_GET['wp-type-contacts-subtype'] ) && $term->slug == $_GET['wp-type-contacts-subtype'] ) {
-              $class = ' class="current"';
-            } else {
-              $class = '';
-            }
-            $string[]  = "<li class='{$term->slug}'><a href=' ". add_query_arg( array('post_type' => 'wp-type-contacts', 'wp-type-contacts-subtype' => $term->slug) ,$url )."' $class'>{$term->name} </a>($term->count)</li>";
-          }
+                     $tax_slug ,
+                     $tax_slug
+                   ) , OBJECT);
         }
-        echo "</select>";
+          echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
+          echo "<option value=''>".__( 'Show All','UkuuPeople' )." $tax_name</option>";
+          foreach ( $terms as $term ) {
+            $selected = isset($_GET[$tax_slug]) ? $_GET[$tax_slug] : null;
+            echo '<option value='. $term->slug, $selected == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>';
+            if ( $tax_slug == "wp-type-contacts-subtype" ) {
+              $graph[] = $term->count;
+              if ( isset( $_GET['wp-type-contacts-subtype'] ) && $term->slug == $_GET['wp-type-contacts-subtype'] ) {
+                $class = ' class="current"';
+              } else {
+                $class = '';
+              }
+              $string[]  = "<li class='{$term->slug}'><a href=' ". add_query_arg( array('post_type' => 'wp-type-contacts', 'wp-type-contacts-subtype' => $term->slug) ,$url )."' $class'>{$term->name} </a>($term->count)</li>";
+            }
+          }
+          echo "</select>";
+        }
+      $count_posts = (array) wp_count_posts( $typenow, 'readable', false );
+      unset( $count_posts['auto-draft'] );
+      $counts = $count_posts['private'];
+     if ( ! $full_access ) {
+        $counts = 0;
+        foreach( $terms as $k => $v ){
+          $counts += $v->count;
+        }
       }
-      $count_posts = (array) wp_count_posts($typenow, 'readable', false);
-      unset($count_posts['auto-draft']);
-      $counts = array_sum($count_posts);
-      $selected = (count($_GET) == 1) ? 'current' : '';
-      $string[]  = "<li class='all'><a href='". add_query_arg( array('post_type' => 'wp-type-contacts') ,$url )."' class='$selected'>".__( 'All','UkuuPeople' )."</a>($counts)</li>";
-      $trashCount = $count_posts['trash'];
+      $selected = ( count( $_GET ) == 1 ) ? 'current' : '';
+      $string[]  = "<li class='all'><a href='". add_query_arg( array( 'post_type' => 'wp-type-contacts' ) ,$url )."' class='$selected'>".__( 'All','UkuuPeople' )."</a>($counts)</li>";
+      $trashCount = isset( $trashCount ) ? $trashCount : $count_posts['trash'];
       $selected = isset($_GET['post_status']) && $_GET['post_status'] == 'trash' ? 'current' : '';
       $string[]  = "<li class='trash'><a href=' ". add_query_arg( array('post_type' => 'wp-type-contacts', 'post_status' => 'trash') ,$url)."' class='$selected'>".__( 'Trash', 'UkuuPeople' )."</a>($trashCount)</li>";
       if ( !empty($graph) ) {
@@ -1453,12 +1909,26 @@ class UkuuPeople{
           echo "</tr></table>";
           echo "</div></div>";
           echo "<div  id='chart' type='".json_encode( $contacts_count )."' color='".json_encode( array_values($color) )."'></div></div></div>";
-           echo "<ul class='subsubsub'>$str</ul>";
+          echo "<ul class='subsubsub'>$str</ul>";
         }
         echo "</div></div>";
       }
     }
-    if( $typenow == "wp-type-activity" ) {
+    if ( $typenow == "wp-type-activity" ) {
+      global $current_user;
+      $args = array(
+        'fields' => 'ids',
+        'post_type' => 'wp-type-contacts',
+        'post_status' => array( 'private' , 'publish' ),
+        'posts_per_page'=> 1,
+        'meta_query' => array(
+          array(
+            'key' => 'wpcf-email',
+            'value' => $current_user->user_email,
+          )
+        )
+      );
+      $postslist = get_posts( $args );
       wp_enqueue_script( 'd3', UKUUPEOPLE_RELPATH.'/script/d3/d3.min.js' , array() );
       wp_enqueue_script( 'ukuucrm', UKUUPEOPLE_RELPATH.'/script/ukuucrm.js' , array() );
       $filters = array('wp-type-activity-types');
@@ -1466,12 +1936,81 @@ class UkuuPeople{
       $string = $graph = array();
       $graphTouchpoint = array();
       $li_color = array( 'wp-type-activity-meeting' => '#377CB6' , 'wp-type-activity-phone' => '#771D78'  , 'wp-type-activity-note' => '#3DA999' , 'wp-type-contactform' => '#E6397A' , 'other' => '#d3d3d3');
-      foreach ($filters as $tax_slug) {
-        $tax_obj = get_taxonomy($tax_slug);
+      foreach ( $filters as $tax_slug ) {
+        $tax_obj = get_taxonomy( $tax_slug );
         $tax_name = $tax_obj->labels->name;
         global $wpdb;
-        $terms = $wpdb->get_results( $wpdb->prepare(
+         if ( ! $full_access ) {
+          $que = $wpdb->get_results( $wpdb->prepare(
+                   "
+               SELECT $wpdb->postmeta.post_id
+               FROM $wpdb->postmeta
+               WHERE $wpdb->postmeta.meta_value = %s
+               AND $wpdb->postmeta.meta_key = 'wpcf-email'
+               ",
+               $current_user->user_email
+               ) ,ARRAY_A);
+         $data = explode( ",", $que[0]['post_id']);
+         $que = serialize($data);
+
+          $terms = $wpdb->get_results( $wpdb->prepare(
                "
+               SELECT $wpdb->terms.term_id, $wpdb->terms.slug , $wpdb->terms.name, COALESCE(s.count ,0) AS count
+               FROM $wpdb->terms
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id)
+               LEFT JOIN (SELECT  COUNT($wpdb->posts.ID) as count, slug , name , $wpdb->terms.term_id FROM $wpdb->users
+               LEFT JOIN $wpdb->posts ON ($wpdb->posts.post_author = $wpdb->users.ID)
+               LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+               LEFT JOIN $wpdb->terms ON ($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
+               WHERE (post_status = 'publish' OR  post_status = 'private')
+               AND (post_author = %d OR $wpdb->posts.ID IN (SELECT $wpdb->posts.ID FROM $wpdb->postmeta LEFT JOIN $wpdb->posts ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id) WHERE ( ($wpdb->postmeta.meta_key = '_wpcf_belongs_wp-type-contacts_id' AND $wpdb->postmeta.meta_value = %d) OR ($wpdb->postmeta.meta_key = 'wpcf_assigned_to' AND $wpdb->postmeta.meta_value = '{$que}') ) AND $wpdb->posts.post_author != %d ))
+               AND post_type = 'wp-type-activity'
+               AND slug IS NOT NULL
+               AND taxonomy= %s group by slug ) as s
+               ON ($wpdb->term_taxonomy.term_id = s.term_id)
+               WHERE taxonomy= %s ORDER BY $wpdb->terms.term_id ASC
+               ",
+               $user_ID,
+               $postslist[0],
+               $user_ID,
+               $tax_slug,
+               $tax_slug
+               ) , OBJECT );
+
+          $get_trash = $wpdb->get_results( $wpdb->prepare(
+               "
+               SELECT $wpdb->terms.term_id, $wpdb->terms.slug , $wpdb->terms.name, COALESCE(s.count ,0) AS count
+               FROM $wpdb->terms
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id)
+               LEFT JOIN (SELECT  COUNT($wpdb->posts.ID) as count, slug , name , $wpdb->terms.term_id FROM $wpdb->users
+               LEFT JOIN $wpdb->posts ON ($wpdb->posts.post_author = $wpdb->users.ID)
+               LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+               LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+               LEFT JOIN $wpdb->terms ON ($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
+               WHERE (post_status = 'trash')
+               AND (post_author = %d OR $wpdb->posts.ID IN (SELECT $wpdb->posts.ID FROM $wpdb->postmeta LEFT JOIN $wpdb->posts ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id) WHERE ( ($wpdb->postmeta.meta_key = '_wpcf_belongs_wp-type-contacts_id' AND $wpdb->postmeta.meta_value = %d) OR ($wpdb->postmeta.meta_key = 'wpcf_assigned_to' AND $wpdb->postmeta.meta_value = '{$que}') ) AND $wpdb->posts.post_author != %d ))
+               AND post_type = 'wp-type-activity'
+               AND slug IS NOT NULL
+               AND taxonomy= %s group by slug ) as s
+               ON ($wpdb->term_taxonomy.term_id = s.term_id)
+               WHERE taxonomy= %s ORDER BY $wpdb->terms.term_id ASC
+               ",
+               $user_ID,
+               $postslist[0],
+               $user_ID,
+               $tax_slug,
+               $tax_slug
+               ) , OBJECT );
+
+          $trashCount = 0;
+          foreach ( $get_trash as $trash_object ) {
+            $trashCount += $trash_object->count;
+          }
+
+        } else {
+          $terms = $wpdb->get_results( $wpdb->prepare(
+                     "
                SELECT $wpdb->terms.term_id, $wpdb->terms.slug , $wpdb->terms.name, COALESCE(s.count ,0) AS count
                FROM $wpdb->terms
                LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id)
@@ -1488,11 +2027,12 @@ class UkuuPeople{
                ",
                $tax_slug ,
                $tax_slug
-        ) , OBJECT);
+               ) , OBJECT);
+        }
         echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
         echo "<option value=''>Show All $tax_name</option>";
-        foreach ($terms as $term) {
-          $selected = isset($_GET[$tax_slug]) ? $_GET[$tax_slug] : null;
+        foreach ( $terms as $term ) {
+          $selected = isset( $_GET[$tax_slug] ) ? $_GET[$tax_slug] : null;
           echo '<option value='. $term->slug, $selected == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>';
           if ($tax_slug == "wp-type-activity-types" ) {
             $graphTouchpoint[] = $term->count;
@@ -1529,19 +2069,28 @@ class UkuuPeople{
         echo '<option value='. $values->ID , $selected == $values->ID ? ' selected="selected"' : '','>' . $display .'</option>';
       }
       echo "</select>";
-      $count_posts = (array) wp_count_posts($typenow, 'readable', false);
+      $count_posts = (array) wp_count_posts( $typenow, 'readable', false );
       unset($count_posts['auto-draft']);
-      $counts = array_sum($count_posts);
-      $selected = (count($_GET) == 1) ? 'current' : '';
-      $string[]  = "<li class='all'><a href=' ". add_query_arg( array('post_type' => 'wp-type-activity') ,$url )."' class='$selected'>".__( 'All', 'UkuuPeople' )." </a>($counts)</li>";
-      $trashCount = $count_posts['trash'];
-      $selected = isset($_GET['post_status']) && $_GET['post_status'] == 'trash' ? 'current' : '';
-      $string[]  = "<li class='trash'><a href=' ". add_query_arg( array('post_type' => 'wp-type-activity', 'post_status' => 'trash') ,$url)."' class='$selected'>".__( 'Trash', 'UkuuPeople' )."</a>($trashCount)</li>";
-      if (!empty($graphTouchpoint)) {
+      $counts = $count_posts['private'];
+      // backward compatibility
+      if ( isset( $count_posts['publish'] ) )
+        $counts += $count_posts['publish'];
+      if ( ! $full_access ) {
+        $counts = 0;
+        foreach( $terms as $k => $v ){
+          $counts += $v->count;
+        }
+      }
+      $selected = ( count( $_GET ) == 1 ) ? 'current' : '';
+      $string[]  = "<li class='all'><a href=' ". add_query_arg( array( 'post_type' => 'wp-type-activity' ) ,$url )."' class='$selected'>".__( 'All', 'UkuuPeople' )." </a>($counts)</li>";
+      $trashCount = isset( $trashCount ) ? $trashCount : $count_posts['trash'];
+      $selected = isset( $_GET['post_status'] ) && $_GET['post_status'] == 'trash' ? 'current' : '';
+      $string[]  = "<li class='trash'><a href=' ". add_query_arg( array('post_type' => 'wp-type-activity', 'post_status' => 'trash') ,$url )."' class='$selected'>".__( 'Trash', 'UkuuPeople' )."</a>($trashCount)</li>";
+      if ( !empty( $graphTouchpoint ) ) {
         echo '<div class="graph-main-container" style="width:70% !important">';
         $str = implode($string, ' | ');
         echo '<div class="graph-container clear">';
-        if(!wp_is_mobile()) {
+        if ( !wp_is_mobile() ) {
           echo "<div id='graph'><div id='graph-container' style=''>";
           $touchpoint_count = $graphTouchpoint;
           $colors = array_merge($selectedColor, $li_color);
@@ -1617,29 +2166,37 @@ class UkuuPeople{
           $viewURL = get_permalink( $ids );
           $deleteURL = get_delete_post_link( $ids );
           $permDeleteURL = get_delete_post_link( $ids, null, true );
-          echo "<a href=$URL>".$display."</a>";
+          if ( current_user_can( 'edit_all_ukuupeoples' ) )
+            echo "<a href=$URL>".$display."</a>";
+          else
+            echo $display;
           if ( get_post_status ( $ids ) == 'trash' ) {
             $_wpnonce = wp_create_nonce( 'untrash-post_' . $ids );
             $url = admin_url( 'post.php?post=' . $ids . '&action=untrash&_wpnonce=' . $_wpnonce ); ?>
             <div class="row-actions">
-            <?php if ( current_user_can('edit_post', $ids) ) { ?>
+            <?php if ( current_user_can('delete_ukuupeople', $ids) ) { ?>
             <span class="untrash"><a href="<?php echo $url; ?>" title="<?php _e( 'Restore this item from the Trash','UkuuPeople' ); ?> "><?php _e( 'Restore','UkuuPeople' ); ?></a>
             <?php } ?>
-            <?php if ( current_user_can('delete_post', $ids) ) { ?>
+            <?php if ( current_user_can('delete_ukuupeople', $ids) ) { ?>
             |</span><span class="delete"><a class="submitdelete" href="<?php echo $permDeleteURL; ?>" title="<?php _e( 'Delete this item permanently','UkuuPeople' ); ?>"><?php _e( 'Delete Permanently', 'UkuuPeople' ); ?></a></span>
             <?php } else echo "</span>"; ?>
             </div><?php
           }
           else { ?>
             <div class="row-actions">
-            <?php if ( current_user_can('edit_post', $ids) ) { ?>
-            <span class="edit"><a title="Edit this item" href="<?php echo $URL; ?>"><?php _e( 'View', 'UkuuPeople' ); ?></a>|</span>
-            <span class="inline hide-if-no-js"><a class="editinline" title="Edit this item inline" href="#"><?php _e( 'Quick Edit', 'UkuuPeople' ); ?></a>
+              <?php if ( current_user_can('edit_ukuupeople', $ids) ) { ?>
+            <span class="edit"><a title="Edit this item" href="<?php echo $URL; ?>"><?php _e( 'Edit', 'UkuuPeople' ); ?></a>|</span>
+            <span class="inline hide-if-no-js"><a class="editinline" title="Edit this item inline" href="#"><?php _e( 'Quick Edit', 'UkuuPeople' ); ?></a>|
             <?php } ?>
-            <?php if ( current_user_can('delete_post', $ids) ) { ?>
-            |</span><span class="trash"><a class="submitdelete" href="<?php echo $deleteURL; ?>" title="<?php _e( 'Move this item to the Trash', 'UkuuPeople' ); ?>"><?php _e( 'Trash', 'UkuuPeople' ); ?></a></span>
+            <?php if ( current_user_can('delete_ukuupeople', $ids) ) { ?>
+            </span><span class="trash"><a class="submitdelete" href="<?php echo $deleteURL; ?>" title="<?php _e( 'Move this item to the Trash', 'UkuuPeople' ); ?>"><?php _e( 'Trash', 'UkuuPeople' ); ?></a></span>|
             <?php } else echo "</span>"; ?>
-            </div><?php
+            <?php
+            // View Ukuupeople COde
+            if ( current_user_can('read_ukuupeople', $ids) ) { ?>
+            <span class="view"><a title="View this item" href="<?php echo admin_url('admin.php?page=view-ukuupeople&cid='.$ids); ?>"><?php _e( 'View', 'UkuuPeople' ); ?></a></span>
+            <?php }
+            echo '</div>'; // row-actions closed
           }
         }
         break;
@@ -1668,7 +2225,7 @@ class UkuuPeople{
 
         $color = array( 'Individual' => '#0072BB','Organization' => '#30A08B' );
         $type = get_the_terms( get_the_ID(), 'wp-type-contacts-subtype');
-        if ($type) {
+        if ( $type ) {
           foreach ( $type as $key => $value ) {
             $contacttype = $value->name;
           }
@@ -1695,11 +2252,11 @@ class UkuuPeople{
                   ),
                 ));
         $loop = get_posts( $args );
-        if(isset($loop[0]->ID)) {
+        if( isset( $loop[0]->ID ) ) {
           $post_obj = get_post( $loop[0]->ID );
-          $created_date  = new DateTime($post_obj-> post_date);
-          $currentDateTime = new DateTime(date('Y-m-d H:i:s'));
-          $inactive_days =  date_diff($currentDateTime,$created_date);
+          $created_date  = new DateTime( $post_obj->post_date );
+          $currentDateTime = new DateTime( date('Y-m-d H:i:s' ) );
+          $inactive_days =  date_diff( $currentDateTime, $created_date );
           if ( $inactive_days->days > 100 ) {
             echo "> 100";
           }
@@ -1785,7 +2342,7 @@ class UkuuPeople{
     $defaults['wp-favorites'] = __('');
     $defaults['ulm-inactive_days'] = __('Inactive Days', 'UkuuPeople' );
     $Order = array( 'cb' ,'wp-color-code' , 'wp-contact-full-name' , 'wp-email' , 'wp-phone' , 'wp-type-activity','wp-favorites','ulm-inactive_days');
-    foreach ($Order as $colname){
+    foreach ( $Order as $colname ) {
       $new[$colname] = $defaults[$colname];
     }
     $defaults = $new;
@@ -1805,7 +2362,7 @@ class UkuuPeople{
    * @param type $defaults
    * @return type
    */
-  function ukku_activity_custom_fields_list_view($defaults) {
+  function ukku_activity_custom_fields_list_view( $defaults ) {
     unset( $defaults['title'] );
     unset( $defaults['date'] );
     $defaults['cb'] = __('input id="cb-select-all-1" type="checkbox"');
@@ -1816,7 +2373,7 @@ class UkuuPeople{
     $defaults['wp-assigned'] = __('Assigned to', 'UkuuPeople' );
     $defaults['wp-status'] = __('Status', 'UkuuPeople' );
     $Order = array('cb','wp-startdate', 'title', 'wp-contact-type', 'wp-fullname', 'wp-assigned','wp-status');
-    foreach ($Order as $colname){
+    foreach ( $Order as $colname ) {
       $new[$colname] = $defaults[$colname];
     }
     $defaults = $new;
@@ -1836,7 +2393,7 @@ class UkuuPeople{
         $data[] = get_post_meta( $val , 'wpcf-display-name', true );
       }
     }
-    $data = implode (',', $data );
+    $data = implode ( ',', $data );
     return $data;
   }
 
@@ -1848,20 +2405,20 @@ class UkuuPeople{
   function activity_startdate ( $id ) {
     $data ='';
     $time = $month = $datenum = '';
-    $atype ='';
+    $atype = '';
     $termType = $acttype = get_the_terms( $id , 'wp-type-activity-types');
     $termSlug = '';
-    if (!empty($acttype)){
-      $term = array_shift( $termType);
+    if ( !empty( $acttype ) ) {
+      $term = array_shift( $termType );
       $termSlug = $term->slug;
     }
-    $selectedColor = get_option('term_category_radio_' . $termSlug);
+    $selectedColor = get_option( 'term_category_radio_' . $termSlug );
     $color = array( 'Meeting' => '#377CB6' , 'Phone' => '#771D78'  , 'Note' => '#3DA999' , 'Contact Form' => '#E6397A' );
     if ( !empty ( $acttype ) ) {
       $atype = array_map( function($a) { return $a->name; }, $acttype );
-      $atype = reset($atype);
+      $atype = reset( $atype );
     }
-    $date = get_post_meta( $id, 'wpcf-startdate', true);
+    $date = get_post_meta( $id, 'wpcf-startdate', true );
     if ( !empty ( $date ) ) {
       $time = date('h:i a', $date);
       $month = date('F', $date);
@@ -1957,7 +2514,7 @@ class UkuuPeople{
     if ( !isset ( $_GET['ctype'] ) && $typenow == "wp-type-contacts" && !isset( $_REQUEST['action'] )) {
       wp_set_object_terms( $post_ID, 'wp-type-ind-contact', 'wp-type-contacts-subtype', true );
     }
-    if ($typenow == "wp-type-contacts") {
+    if ( $typenow == "wp-type-contacts" ) {
       $type = get_the_terms( $post_ID, 'wp-type-contacts-subtype');
       $meta_data = get_post_meta($post_ID);
       if ( !empty( $type ) && $type[0]->slug == 'wp-type-ind-contact' ) {
@@ -1971,7 +2528,7 @@ class UkuuPeople{
       $postVal = get_post($post_ID, ARRAY_A);
       $validEmail = get_post_meta( $post_ID, 'wpcf-email');
       $meta_data = get_post_meta($post_ID);
-      if ( isset( $postVal['post_status'] ) && $postVal['post_status'] != 'auto-draft' && isset( $validEmail ) && !empty($meta_data)) {
+      if ( isset( $postVal['post_status'] ) && $postVal['post_status'] != 'auto-draft' && isset( $validEmail ) && !empty($meta_data) ) {
         $title = $postVal['post_title'];
         $userdata = array(
           'first_name' => isset( $meta_data['wpcf-first-name'][0] ) ? $meta_data['wpcf-first-name'][0] : '',
@@ -2011,12 +2568,12 @@ class UkuuPeople{
         }
       }
     }
-    if ($typenow == "wp-type-activity") {
-      $type = get_the_terms( $post_ID, 'wp-type-activity-types');
-      $meta_data = get_post_meta($post_ID);
+    if ( $typenow == "wp-type-activity" ) {
+      $type = get_the_terms( $post_ID, 'wp-type-activity-types' );
+      $meta_data = get_post_meta( $post_ID );
       if ( !empty( $type ) && $type[0]->slug == 'wp-type-activity-note' ) {
-        update_post_meta( $post_ID, 'wpcf-startdate', strtotime(get_the_date('Y-m-d H:i:s')) );
-        update_post_meta( $post_ID, 'wpcf-enddate', strtotime(get_the_date('Y-m-d H:i:s')));
+        update_post_meta( $post_ID, 'wpcf-startdate', strtotime(get_the_date('Y-m-d H:i:s') ) );
+        update_post_meta( $post_ID, 'wpcf-enddate', strtotime(get_the_date('Y-m-d H:i:s') ) );
         update_post_meta( $post_ID, 'wpcf-status', '' );
       }
       if ( isset( $_POST['wpcf-pr-belongs'] ) && empty( $_POST['hidden_cid'] ) )
@@ -2038,20 +2595,21 @@ class UkuuPeople{
       if ( $_GET['ctype'] == 'wp-type-ind-contact' )
         $postLabels->add_new_item = __('Add New Human', 'UkuuPeople');
       if ( $_GET['ctype'] == 'wp-type-org-contact' )
-        $postLabels->add_new_item = __('Add New Organization', 'UkuuPeople');
+        $postLabels->add_new_item = __('Add New Organization', 'UkuuPeople'); 
     }
 
     //Hide Contact post title
-    remove_post_type_support('wp-type-contacts', 'title');
+    remove_post_type_support( 'wp-type-contacts', 'title' );
     //Hide Contact/Actiivty Types meta box
-    remove_meta_box('wp-type-contacts-subtypediv', 'wp-type-contacts' , 'side' );
-    remove_meta_box('wp-type-activity-typesdiv', 'wp-type-activity' , 'side' );
+    remove_meta_box( 'wp-type-contacts-subtypediv', 'wp-type-contacts' , 'side' );
+    remove_meta_box( 'wp-type-activity-typesdiv', 'wp-type-activity' , 'side' );
     remove_menu_page( 'edit.php?post_type=wp-type-activity' );
     remove_submenu_page( 'edit.php?post_type=wp-type-contacts', 'post-new.php?post_type=wp-type-contacts' );
-    remove_submenu_page('edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=category&amp;post_type=wp-type-contacts');
-    remove_submenu_page('edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=wp-type-group&amp;post_type=wp-type-contacts');
-    remove_submenu_page('edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=wp-type-tags&amp;post_type=wp-type-contacts');
-    remove_submenu_page('edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=wp-type-contacts-subtype&amp;post_type=wp-type-contacts');
+    remove_submenu_page( 'edit.php?post_type=wp-type-contacts', 'edit.php?post_type=wp-type-contacts&page=add-new-contact' );
+    remove_submenu_page( 'edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=category&amp;post_type=wp-type-contacts' );
+    remove_submenu_page( 'edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=wp-type-group&amp;post_type=wp-type-contacts' );
+    remove_submenu_page( 'edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=wp-type-tags&amp;post_type=wp-type-contacts' );
+    remove_submenu_page( 'edit.php?post_type=wp-type-contacts','edit-tags.php?taxonomy=wp-type-contacts-subtype&amp;post_type=wp-type-contacts' );
   }
 
   /*
@@ -2064,7 +2622,7 @@ class UkuuPeople{
     global $post;
     if ( isset($post->ID) && $post->filter == 'edit' ) {
       $closed = array( 'wpcf-group-edit-contact-info', 'wpcf-group-edit_contact_address', 'wpcf-group-edit_contact_privacy_settings' , 'wpcf-related-org-metabox' );
-    } elseif ( isset($post->ID) && $post->filter == 'raw' ) {
+    } elseif ( isset( $post->ID ) && $post->filter == 'raw' ) {
       $closed = array();
     }
     return $closed;
@@ -2076,7 +2634,7 @@ class UkuuPeople{
    * @param type $edit post id
    */
   function ukuu_custom_summary_view($edit) {
-    if ( isset($edit->ID) && $edit->post_type == 'wp-type-contacts' ) {
+    if ( isset( $edit->ID ) && $edit->post_type == 'wp-type-contacts' ) {
       wp_enqueue_script( 'ukuucrm', UKUUPEOPLE_RELPATH.'/script/ukuucrm.js' , array() );
       $type = get_the_terms( $edit->ID , 'wp-type-contacts-subtype');
       // Custom fields update for ukuupeople organization //
@@ -2105,7 +2663,7 @@ class UkuuPeople{
       if ( $edit->filter == 'edit' ) {
         $custom = get_post_custom( $edit->ID );
         $contactdetails_keys = array( 'wpcf-phone' => '' , 'wpcf-mobile'  =>'' );
-        if(isset($custom['wpcf-phone'][0]) && !preg_match('/[^0-9]/', $custom['wpcf-phone'][0]) ) {
+        if( isset( $custom['wpcf-phone'][0] ) && !preg_match( '/[^0-9]/', $custom['wpcf-phone'][0] ) ) {
           $phoneNumber = $custom['wpcf-phone'][0];
           $phoneNumber = substr($phoneNumber, 0, 3).'-'.substr($phoneNumber, 3, 3).'-'.substr($phoneNumber, 6);
           $phoneNumber = rtrim($phoneNumber , '-');
@@ -2114,7 +2672,7 @@ class UkuuPeople{
 
         $contactdetailsblock = array_intersect_key ( $custom, $contactdetails_keys ) ;
         $ctags = wp_get_post_terms($edit->ID, 'wp-type-tags', array("fields" => "names"));
-        echo '<div id="first-sidebar-contact"> <div id="user-images">';
+        echo '<div class="sidebar-contact"><div id="first-sidebar-contact"> <div class="profiledetailsblock"><div id="user-images">';
         if ( ! empty( $custom['wpcf-contactimage'][0] ) ) {
           echo "<img src='".$custom['wpcf-contactimage'][0]."' width='150' height='150'>";
         } else {
@@ -2126,15 +2684,15 @@ class UkuuPeople{
         $action = 'add';
         $posts = self::retrieve_favorites();
         echo '<input type="hidden" name="star-ajax-nonce" id="star-ajax-nonce" value="' . wp_create_nonce( 'star-ajax-nonce' ) . '" />';
-        if ( $posts && in_array($edit->ID, $posts) ) {
+        if ( $posts && in_array( $edit->ID, $posts ) ) {
           $action = "del";
-          echo "<div class='remove_fav_star' style='float:left;'><div id='fav-star' class='remove-star' onclick=\"addToFav($edit->ID, '{$action}');\"></div></div>";
+          echo "<div class='remove_fav_star' style='display:inline-block;vertical-align:top;'><div id='fav-star' class='remove-star' onclick=\"addToFav($edit->ID, '{$action}');\"></div></div>";
         } else {
-          echo "<div class='add_to_fav_star' style='float:left;'><div id='fav-star' class='add-star' onclick=\"addToFav($edit->ID, '{$action}');\" /></div></div>";
+          echo "<div class='add_to_fav_star' style='display:inline-block;vertical-align:top;'><div id='fav-star' class='add-star' onclick=\"addToFav($edit->ID, '{$action}');\" /></div></div>";
         }
 
         echo '<div class="display-name"><div id="display-name">';
-        if( isset($custom['wpcf-display-name'][0]  ) ) {
+        if( isset($custom['wpcf-display-name'][0] ) ) {
           if ( isset( $type[0]->slug ) && $type[0]->slug == 'wp-type-org-contact' )
             echo '<font color="#30A08B">'.$custom['wpcf-display-name'][0].'</font>';
           else
@@ -2150,14 +2708,14 @@ class UkuuPeople{
         $contact_id = get_the_ID();
         echo "<div class='edit_contact'><a href='#wpcf-group-edit-contact-info' class='button button-primary'>Edit Contact</a></div>";
         echo "<div><a href='".admin_url()."post-new.php?post_type=wp-type-activity&cid=$contact_id' class='button button-primary'>Add Touchpoints</a></div>";
-        echo '</div></div>';
+        echo '</div></div></div>';
         echo '<div id="contactdetailsblock"><table id="contactdetail-table">';
 
         if ( isset( $custom['wpcf-email'] ) ) {
           echo "<tr><td><span class='contactdetailhead'>".__( 'Email', 'UkuuPeople' ) ."</span></td><td class='title-value'><a href='mailto:".$custom['wpcf-email'][0]. "'>".$custom['wpcf-email'][0]."</a></td></tr>";
         }
 
-        foreach( $contactdetailsblock as $key => $value ) {
+        foreach ( $contactdetailsblock as $key => $value ) {
           echo "<tr><td><span class='contactdetailhead'>".ucfirst(substr($key, 5))."</span></td><td class='title-value'>".$value[0]."</td></tr>";
         }
 
@@ -2181,10 +2739,10 @@ class UkuuPeople{
         echo '</table></div></div><div id="second-sidebar-contact"><div id="addressblock">';
         $html = "<table id='contactdetail-table'><tr><td><span class='contactdetailhead'>".__( 'Address', 'UkuuPeople' ) ."</span></td></tr>";
         $streetaddress = $city = $country = $postalcode = $state ='';
-        if( isset ( $custom['wpcf-streetaddress'] ) ) {
+        if ( isset ( $custom['wpcf-streetaddress'] ) ) {
           $html .= "<tr><td>".$custom['wpcf-streetaddress'][0]."</td></tr>";
         }
-        if( isset ( $custom['wpcf-streetaddress2'] ) ) {
+        if ( isset ( $custom['wpcf-streetaddress2'] ) ) {
           $html .= "<tr><td>".$custom['wpcf-streetaddress2'][0]."</td></tr>";
         }
 
@@ -2203,6 +2761,7 @@ class UkuuPeople{
         $html .= "<td><p class='title-value'>$tags</p></td></tr></table>";
         echo $html.'</div></div>';
         do_action( 'tab_info' , $edit ,$type[0]->slug );
+        echo '</div>';
         $this->ukuu_activity_list_meta_box();
       }
     }
@@ -2225,46 +2784,46 @@ class UkuuPeople{
         $details = $custom['wpcf-details'][0];
       }
       $termType = $acttype = get_the_terms( $edit->ID , 'wp-type-activity-types');
-      if (!empty($acttype)){
+      if ( !empty( $acttype ) ) {
         $term = array_shift( $termType);
         $termSlug = $term->slug;
         $activity_name = $term->name;
       }
-      $selectedColor = get_option('term_category_radio_' . $termSlug);
+      $selectedColor = get_option( 'term_category_radio_' . $termSlug );
       if( $activity_name == 'Donation' ) {
         $selectedColor = '#d3d3d3';
       }
       $color = array( 'Meeting' => '#377CB6' , 'Phone' => '#771D78'  , 'Note' => '#3DA999' , 'Contact Form' => '#E6397A' );
       foreach( $color as $key => $value ) {
-        if( $key == $activity_name ) {
+        if ( $key == $activity_name ) {
           $selectedColor = $value;
         }
       }
-      $assigned_to = get_post_meta($edit->ID, 'wpcf_assigned_to', true);
+      $assigned_to = get_post_meta( $edit->ID, 'wpcf_assigned_to', true );
       $contact_id = $custom['_wpcf_belongs_wp-type-contacts_id'][0];
-      $display_name = get_post_meta($contact_id,'wpcf-display-name', true);
-      $related_org = get_post_meta($contact_id, 'wpcf-related-org', true);
-      $org_name = get_post_meta($related_org,'wpcf-display-name', true);
-      $contact_dash_url = get_edit_post_link($contact_id );
-      $contact_image = get_post_meta($contact_id,'wpcf-contactimage', true);
+      $display_name = get_post_meta( $contact_id,'wpcf-display-name', true );
+      $related_org = get_post_meta( $contact_id, 'wpcf-related-org', true );
+      $org_name = get_post_meta( $related_org,'wpcf-display-name', true );
+      $contact_dash_url = get_edit_post_link( $contact_id );
+      $contact_image = get_post_meta( $contact_id,'wpcf-contactimage', true );
       if ( empty( $contact_image ) ) {
         $email = get_post_meta( $contact_id,'wpcf-email', true);
         $contact_image = get_avatar( $email ,150 );
       } else {
         $contact_image = "<img src='".$contact_image."' width='150' height='150'>";
       }
-      if(isset($custom['wpcf-status'][0])) {
+      if ( isset( $custom['wpcf-status'][0] ) ) {
         $status = $custom['wpcf-status'][0];
       }
       $statusColor = array( 'completed' => '#39b54a', 'scheduled' => '#2272BB', 'cancel' => '#FF0000' );
-      foreach( $statusColor as $statusC => $colorC ) {
-        if($status == $statusC) {
+      foreach ( $statusColor as $statusC => $colorC ) {
+        if ( $status == $statusC ) {
           $status_color = $colorC;
         }
       }
       $statusImage = array( 'completed' => '../images/tick.png', 'scheduled' => '../images/event.png', 'cancel' => '../images/cross.png' );
       foreach( $statusImage as $statusI => $imageI ) {
-        if($status == $statusI) {
+        if ( $status == $statusI ) {
           $status_image = $imageI;
         }
       }
@@ -2278,14 +2837,14 @@ class UkuuPeople{
       	<span class='summary-org-name'><?php echo $org_name ?></span>
  <?php  $activity_id = get_post($edit->ID);
         $meta_value_id = get_post_meta($activity_id->ID, '_wpcf_belongs_wp-type-activity_id', true);$post_type_name = get_post($meta_value_id);
-        if( $contact_id != 0  && $post_type_name->post_type == 'wp-type-contacts' ) { ?>
+        if ( $contact_id != 0  && $post_type_name->post_type == 'wp-type-contacts' ) { ?>
         <span class='contact-dashboard'><a href='<?php echo $contact_dash_url ?>' class='button button-primary'>Contact Dashboard</a></span>
    <?php } ?>
      	</div>
       <div class='subject-summary'><span class='label-subject'>Subject </span><span class='subject-content' style="<?php echo 'color:'.$selectedColor ?>"><?php echo $subject ?></span></div>
       <div class='type-summary'>
       	<span class='label-subject'>Type </span>
-   <?php  if( isset($activity_name ) && !empty($activity_name) ) { ?>
+   <?php  if ( isset($activity_name ) && !empty($activity_name) ) { ?>
       	<svg height='18' width='20'><circle cx='10' cy='10' r='7' fill='<?php echo $selectedColor ?>' /></svg>
   <?php    } ?>
       	<span class='type-content'><?php echo $activity_name ?></span>
@@ -2301,14 +2860,14 @@ class UkuuPeople{
       <div class='attachment-summary label-subject' >Attachments</div>
       <div class='custom-assigned-for-attachments-section' >
    <?php
-      if( !empty( $custom['wpcf-attachments'][0] ) ) {
+      if ( !empty( $custom['wpcf-attachments'][0] ) ) {
      $attachments = $custom['wpcf-attachments'][0];
      $attachment = unserialize($attachments);
-     foreach( $attachment as $key => $attach ) {
+     foreach ( $attachment as $key => $attach ) {
        $explode = explode(".",$attach );
        $extension = end($explode);
        echo "<div class='assigned-column assigned-contact-1 assigned-a custom-assigned-for-attachments'  >";
-       if( $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'png' || $extension == 'bmp' || $extension == 'tiff' ) {
+       if ( $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'png' || $extension == 'bmp' || $extension == 'tiff' ) {
          echo "<a href='".$attach."' download ><div class='attachment-first' id='".$key."'><img src='".plugins_url( '../images/save.gif', __FILE__ )."' class='over-image'  width='60' height='60' /><div class='inner-attachment-first'></div><img class='under-image' src='".$attach."' width='118' height='116' /></div></a>";
        } else if ( ( $extension == '' ) && !isset( $custom['wpcf-attachments'][0] ) ) {
        } else {
@@ -2327,8 +2886,8 @@ class UkuuPeople{
   	<div class='summary-assigned-to'><div class='summary-details-head label-subject'><?php _e( 'Assigned to', 'UkuuPeople' ) ?></div>
     <div class='assigned-section' >
    <?php
-      if( isset( $assigned_to ) && !empty( $assigned_to ) ) {
-        foreach( $assigned_to as $assigned ) {
+      if ( isset( $assigned_to ) && !empty( $assigned_to ) ) {
+        foreach ( $assigned_to as $assigned ) {
           $contact_url = get_edit_post_link($assigned );
           $assigned_display_name = get_post_meta( $assigned,'wpcf-display-name', true );
           $assigned_contact_image = get_post_meta( $assigned,'wpcf-contactimage', true );
@@ -2390,7 +2949,7 @@ class UkuuPeople{
    */
   function custom_enter_title( $input ) {
     global $post_type, $typenow;
-    if( is_admin() && (('Title' == $input && 'wp-type-activity' == $post_type) ||
+    if ( is_admin() && ( ( 'Title' == $input && 'wp-type-activity' == $post_type ) ||
         ('Post Title' == $input && 'wp-type-contacts' == $typenow)) ) {
       return 'Subject';
     }
@@ -2432,4 +2991,56 @@ class UkuuPeople{
     wp_delete_post($postID);
   }
 
+  function view_ukuu_people( ) {
+    if ( ! isset( $_GET['cid'] ) ||  $_GET['cid'] == NULL )
+      return;
+
+    $id = $_GET['cid'];
+    $people_object = get_post( $_GET['cid'] );
+
+    if ( isset ( $people_object->post_type ) && $people_object->post_type == 'wp-type-contacts' ) {
+      wp_enqueue_style( 'ukuupeople-style', UKUUPEOPLE_ABSPATH.'/css/ukuupeople.css');
+      require_once( 'view-ukuupeople.php' );
+    }
+    else
+      echo 'Ukuupeople doesnot exist';
+  }
+
+ function view_touchpoint( ) {
+    if( ! isset( $_GET['touchpoint_id'] ) ||  $_GET['touchpoint_id'] == NULL )
+   return;
+
+    $touchpoint_id = $_GET['touchpoint_id'];
+   $touchpoint_object = get_post( $_GET['touchpoint_id'] );
+
+   if ( isset ( $touchpoint_object->post_type ) && $touchpoint_object->post_type == 'wp-type-activity' ) {
+      wp_enqueue_style( 'ukuupeople-style', UKUUPEOPLE_ABSPATH.'/css/ukuupeople.css');
+      wp_enqueue_script( 'ukuucrm', UKUUPEOPLE_RELPATH.'/script/ukuucrm.js' , array() );
+     require_once( 'view-touchpoint.php' );
+   }
+    else
+      echo 'Touchpoint doesnot exist';
+  }
+
+  function manage_wp_posts_be_qe_posts_clauses( $pieces, $query ) {
+     global $wpdb;
+     $query->set( 'orderby', 'wp-startdate' );
+
+     if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
+       // Get the order query variable - ASC or DESC
+       $order = strtoupper( $query->get( 'order' ) );
+       // Make sure the order setting qualifies. If not, set default as ASC
+       if ( ! in_array( $order, array( 'ASC', 'DESC' ) ) )
+         $order = 'ASC';
+       switch( $orderby ) {
+         // ordering by date
+         case 'wp-startdate':
+           //We have to join the postmeta table to include our date in the query.
+           $pieces[ 'join' ] .= " LEFT JOIN {$wpdb->postmeta} wp_sd ON wp_sd.post_id = {$wpdb->posts}.ID AND wp_sd.meta_key = 'wpcf-startdate'";
+           $pieces[ 'orderby' ] = " wp_sd.meta_value $order";
+ 		break;
+       }
+     }
+     return $pieces;
+   }
 }

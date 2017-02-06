@@ -118,12 +118,12 @@ class ukuupeople_update {
     }
     $post_table = $wpdb->prefix . 'posts';
     $author_table = $wpdb->prefix . 'users';
-    $wpdb->query("ALTER TABLE $table_name
+    $wpdb->query( "ALTER TABLE $table_name
       MODIFY user_id BIGINT( 20 ) UNSIGNED NOT NULL,
       MODIFY user_favs BIGINT( 20 ) UNSIGNED NOT NULL,
       ADD INDEX (user_favs),
       ADD CONSTRAINT Favourite FOREIGN KEY (user_favs) REFERENCES $post_table (ID) ON UPDATE CASCADE ON DELETE CASCADE,
-      ADD CONSTRAINT Author FOREIGN KEY (user_id) REFERENCES $author_table (ID) ON UPDATE CASCADE ON DELETE CASCADE");
+      ADD CONSTRAINT Author FOREIGN KEY (user_id) REFERENCES $author_table (ID) ON UPDATE CASCADE ON DELETE CASCADE" );
     update_option( "ukuupeople_db_version", $ukuupeople_db_version );
     return true;
   }
@@ -165,8 +165,8 @@ class ukuupeople_update {
                "
      );
      if ( !empty( $retrieve ) ) {
-       foreach ($retrieve as $key => $value ) {
-         $image_url = maybe_serialize( array($value->attachment_id => $value->meta_value) );
+       foreach ( $retrieve as $key => $value ) {
+         $image_url = maybe_serialize( array( $value->attachment_id => $value->meta_value ) );
          $post_id = $value->post_id;
          $wpdb->update(
            $table_name,

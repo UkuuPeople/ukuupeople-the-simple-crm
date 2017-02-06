@@ -84,6 +84,24 @@ function on_activation() {
   dbDelta( $sql );
   global $ukuupeople_db_version;
   update_option( "ukuupeople_db_version", $ukuupeople_db_version );
+  require_once( UKUUPEOPLE_ABSPATH . '/ukuupeople-config.php' );
+  $capabilities_ukuupeople = ukuupeople_capabilities();
+  $capabilities_touchpoint = touchpoint_capabilities();
+  if ( is_admin() ) {
+    $user_role = get_role( 'administrator' );
+    foreach( $capabilities_ukuupeople as $key => $value ) {
+      $user_role->add_cap( $value );
+    }
+    foreach( $capabilities_touchpoint as $key => $value ) {
+      $user_role->add_cap( $value );
+    }
+    $user_role->remove_cap('edit_ukuupeople');
+    $user_role->remove_cap('read_ukuupeople');
+    $user_role->remove_cap('delete_ukuupeople');
+    $user_role->remove_cap('edit_touchpoint');
+    $user_role->remove_cap('read_touchpoint');
+    $user_role->remove_cap('delete_touchpoint');
+  }
 }
 
 /**
@@ -94,8 +112,8 @@ function on_activation() {
 function on_deactivation() {
   if ( ! current_user_can( 'activate_plugins' ) )
     return;
-  delete_option('ukuupeople_plugin_deferred_admin_notices');
-  delete_option('ukuupeople_license_verify_notices');
+  delete_option( 'ukuupeople_plugin_deferred_admin_notices' );
+  delete_option( 'ukuupeople_license_verify_notices' );
   $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
 }
 
@@ -129,11 +147,11 @@ function set_my_locale( $lang ) {
   return $lang;
 }
 
-add_action('admin_notices', 'ukuupeople_admin_notices');
+add_action( 'admin_notices', 'ukuupeople_admin_notices' );
 function ukuupeople_admin_notices() {
-  if ($notices = get_option('ukuupeople_deferred_admin_notices')) {
-    delete_option('ukuupeople_deferred_admin_notices');
-    foreach ($notices as $notice)
+  if ( $notices = get_option( 'ukuupeople_deferred_admin_notices' ) ) {
+    delete_option( 'ukuupeople_deferred_admin_notices' );
+    foreach ( $notices as $notice )
       echo "<div class='updated'><p>$notice</p></div>";
   }
 }
