@@ -1243,7 +1243,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
       array(
         'key'     => 'wpcf-startdate',
         'value'   => strtotime(date('Y-m-d')),
-        'compare' => '>',
+        'compare' => '>=',
       ),
       'suppress_filters' => true,
     ));
