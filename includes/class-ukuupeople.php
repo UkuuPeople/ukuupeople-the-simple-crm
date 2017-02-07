@@ -1240,6 +1240,12 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
         'value'   => $postslist[0]->ID,
         'compare' => 'LIKE'
       ),
+      array(
+        'key'     => 'wpcf-startdate',
+        'value'   => strtotime(date('Y-m-d')),
+        'compare' => '>=',
+      ),
+      'suppress_filters' => true,
     ));
     $loop = new WP_Query( $args );
     global $base_url;
