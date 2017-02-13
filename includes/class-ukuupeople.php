@@ -290,11 +290,19 @@ class UkuuPeople {
     if( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && 'wp-type-activity' == $_GET['post_type']  && $query->is_main_query() )  {
       if(  ( isset($_GET['wp-type-activity-types']) && $_GET['wp-type-activity-types'] != '' ) ) {
         $pieces['join'] .= " INNER JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id)";
-      }
 
-      if( 'wp-type-activity' == $_GET['post_type'] && isset( $_GET['wp-type-activity-types'] ) && $_GET['wp-type-activity-types'] != '' ) {
         $subtype = $_GET['wp-type-activity-types'];
         $pieces['where'] .= " AND ({$wpdb->terms}.slug = '$subtype')";
+      }
+
+      if ( isset( $_GET['touchpoint-assignee'] ) && $_GET['touchpoint-assignee'] != '' ) {
+        $pieces['join']  .= " INNER JOIN {$wpdb->postmeta} ON ({$wpdb->posts}.id = {$wpdb->postmeta}.post_id)";
+
+        // Build serialized text
+        $filter_text_length = strlen( $_GET['touchpoint-assignee'] ); // get text length
+        $serialized_text    = 's:' . $filter_text_length . ':"'. $_GET['touchpoint-assignee'] . '"';
+
+        $pieces['where'] .= " AND ({$wpdb->postmeta}.meta_key = 'wpcf_assigned_to' AND {$wpdb->postmeta}.meta_value LIKE '%{$serialized_text}%')";
       }
     }
     return $pieces;
@@ -1101,11 +1109,6 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   function posts_filter_touchpoint_contact( $query ) {
     $qv = &$query->query_vars;//grab a reference to manipulate directly
     Global $pagenow;
-    if( $pagenow=='edit.php' && isset( $_GET['post_type'] ) && 'wp-type-activity' == $_GET['post_type']  && $query->is_main_query() ) {
-      if( !empty ( $_GET['touchpoint-contact'] ) ) {
-        $qv['meta_query'][] = array( 'value' => $_GET['touchpoint-contact'] );
-      }
-    }
     if( $pagenow =='edit.php' && isset( $_GET['post_type'] ) && 'wp-type-contacts' == $_GET['post_type']  && $query->is_main_query() ) {
       /* If this drop-down has been affected, add a meta query to the query
        *
@@ -2061,18 +2064,13 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
         echo "</select>";
       }
       // Filter post by Touchpoint Contact
-      wp_reset_query();  // Restore global post data stomped by the_post().
-      $args = array(
-        'post_type' => 'wp-type-contacts',
-        //'post_status' => 'publish',
-      );
-      $loop = new WP_Query( $args );
-      echo "<select name='touchpoint-contact' id='touchpoint-contact' class='postform'>";
-      echo "<option value=''>".__( 'Show All', 'UkuuPeople' )." Touchpoint Contact</option>";
-      foreach ( $loop->posts as $keys => $values ) {
-        $selected = isset($_GET['touchpoint-contact']) ? $_GET['touchpoint-contact'] : null;
-        $display = get_post_meta( $values->ID , 'wpcf-display-name', true);
-        echo '<option value='. $values->ID , $selected == $values->ID ? ' selected="selected"' : '','>' . $display .'</option>';
+      $assignee_contacts = get_id_and_displayname(); // Get assignee_contact
+      echo "<select name='touchpoint-assignee' id='touchpoint-assignee' class='postform'>";
+      echo "<option value=''>".__( 'Show All', 'UkuuPeople' )." Assignees</option>";
+      foreach ( $assignee_contacts as $assignee_contact_id => $assignee_contact_name ) {
+        $selected = isset($_GET['touchpoint-assignee']) ? $_GET['touchpoint-assignee'] : null;
+
+        echo '<option value='. $assignee_contact_id , $selected == $assignee_contact_id ? ' selected="selected"' : '','>' . $assignee_contact_name .'</option>';
       }
       echo "</select>";
       $count_posts = (array) wp_count_posts( $typenow, 'readable', false );
