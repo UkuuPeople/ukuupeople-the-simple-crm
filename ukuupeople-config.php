@@ -78,20 +78,20 @@ function create_post_type() {
   register_post_type( 'wp-type-contacts', $args );
 
   $labels =  array(
-    'name'               => _x( 'Touchpoints', 'post type general name', 'UkuuPeople' ),
-    'singular_name'      => _x( 'Touchpoint', 'post type singular name', 'UkuuPeople' ),
-    'menu_name'          => _x( 'Touchpoints', 'admin menu', 'UkuuPeople' ),
-    'name_admin_bar'     => _x( 'Touchpoints', 'add new on admin bar', 'UkuuPeople' ),
-    'add_new'            => _x( 'Add New', 'Touchpoint', 'UkuuPeople' ),
-    'add_new_item'       => __( 'Add New Touchpoint', 'UkuuPeople' ),
-    'new_item'           => __( 'New Touchpoint', 'UkuuPeople' ),
-    'edit_item'          => __( 'Touchpoint', 'UkuuPeople' ),
-    'view_item'          => __( 'View Touchpoint', 'UkuuPeople' ),
-    'all_items'          => __( 'All Touchpoints', 'UkuuPeople' ),
-    'search_items'       => __( 'Search Touchpoints', 'UkuuPeople' ),
+    'name'               => _x( 'TouchPoints', 'post type general name', 'UkuuPeople' ),
+    'singular_name'      => _x( 'TouchPoint', 'post type singular name', 'UkuuPeople' ),
+    'menu_name'          => _x( 'TouchPoints', 'admin menu', 'UkuuPeople' ),
+    'name_admin_bar'     => _x( 'TouchPoints', 'add new on admin bar', 'UkuuPeople' ),
+    'add_new'            => _x( 'Add New', 'TouchPoint', 'UkuuPeople' ),
+    'add_new_item'       => __( 'Add New TouchPoint', 'UkuuPeople' ),
+    'new_item'           => __( 'New TouchPoint', 'UkuuPeople' ),
+    'edit_item'          => __( 'TouchPoint', 'UkuuPeople' ),
+    'view_item'          => __( 'View TouchPoint', 'UkuuPeople' ),
+    'all_items'          => __( 'All TouchPoints', 'UkuuPeople' ),
+    'search_items'       => __( 'Search TouchPoints', 'UkuuPeople' ),
     'parent_item_colon'  => __( 'Parent text:', 'UkuuPeople' ),
-    'not_found'          => __( 'No Touchpoints found.', 'UkuuPeople' ),
-    'not_found_in_trash' => __( 'No Touchpoints found in Trash.', 'UkuuPeople' )
+    'not_found'          => __( 'No TouchPoints found.', 'UkuuPeople' ),
+    'not_found_in_trash' => __( 'No TouchPoints found in Trash.', 'UkuuPeople' )
   );
 
   $args = array(
