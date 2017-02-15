@@ -162,8 +162,38 @@ class UkuuPeople {
     add_filter( 'manage_edit-wp-type-contacts_sortable_columns', array( $this, 'make_all_columns_sortable_contacts' ) );
     add_filter( 'manage_edit-wp-type-activity_sortable_columns', array( $this, 'make_all_columns_sortable_activity' ) );
 
+    // Alter Quick edit options
+    add_action( 'quick_edit_custom_box', array( $this,'ukuupeople_alter_quick_edit_options'), 10, 2 );
   }
 
+  // Alter quick edit options in Ukuupeople & Touchpoints
+  public function ukuupeople_alter_quick_edit_options( $column_name, $post_type ) {
+    if ( ! in_array( $post_type, array('wp-type-contacts', 'wp-type-activity') ) ) {
+      return;
+    }
+
+    // Added condition so that script get included once only
+    if ( in_array( $column_name, array('wp-contact-full-name', 'wp-fullname') ) ) {
+      // Remove Date, Password and Status fields using jquery. Wordpress doesnot provide any other option :(
+      echo "
+        <script>
+          jQuery(document).ready(function () {
+            // Remove date field
+            if ( jQuery('fieldset.inline-edit-date').length )
+              jQuery('fieldset.inline-edit-date').remove();
+
+            // Remove password field
+            if ( jQuery('div.inline-edit-group').length )
+              jQuery('div.inline-edit-group').remove();
+
+            // Remove post status field
+            if ( jQuery('fieldset.inline-edit-col-right').length )
+              jQuery('fieldset.inline-edit-col-right').remove();
+          })
+        </script>
+      ";
+    }
+  }
 
   public function make_all_columns_sortable_contacts( $sortable_columns ) {
     global $post_type;
