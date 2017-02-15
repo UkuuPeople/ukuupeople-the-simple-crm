@@ -1374,40 +1374,17 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     wp_enqueue_script( 'timepicker ui' , UKUUPEOPLE_RELPATH.'/includes/CMB2/js/jquery-ui-timepicker-addon.min.js' );
     wp_enqueue_style( 'datetimepicker css' , UKUUPEOPLE_RELPATH.'/includes/CMB2/css/cmb2.min.css' );
     $acttype = get_terms( 'wp-type-activity-types' ,'hide_empty=0' );
-    $args = array(
-      'fields' => 'ids',
-      'numberposts' => -1,
-      'orderby' => 'title',
-      'order' => 'ASC',
-      'post_status' => array( 'publish', 'private' ),
-      'post_type' => 'wp-type-contacts',
-      'suppress_filters' => 0,
-      'tax_query' => array(
-        'relation' => 'AND',
-        array(
-          'taxonomy' => 'wp-type-contacts-subtype',
-          'field' => 'slug',
-          'terms' => 'wp-type-ind-contact'
-        ),
-        array(
-          'taxonomy' => 'wp-type-group',
-          'field' => 'slug',
-          'terms' => 'wp-type-our-team'
-        )
-      )
-    );
-    $items = (array) get_posts( $args );
+    $items = get_id_and_displayname();
     $data  = "<select name='touchpoint_assign_name'>";
     $data .= "<option value='' selected>".__( 'Select', 'UkuuPeople' )."..</option>";
-    foreach( $items as $item ) {
-      $display_name = get_post_meta( $item, 'wpcf-display-name' , true );
-      $data .= "<option value=".$item.">".$display_name."</option>";
+    foreach( $items as $item_id => $item_value ) {
+      $data .= "<option value=".$item_id.">".$item_value."</option>";
     }
     $data .= "</select>";
     ?>
     <div id="dialog" title="<?php _e( 'Add New','UkuuPeople') ?>">
        <table>
-       <tr><td><?php echo __( 'Touchpoint Contact', 'UkuuPeople' ); ?></td><td><?php echo $data; ?></td></tr>
+       <tr><td><?php echo __( 'Assigned To', 'UkuuPeople' ); ?></td><td><?php echo $data; ?></td></tr>
        </table>
     </div>
     <script>
