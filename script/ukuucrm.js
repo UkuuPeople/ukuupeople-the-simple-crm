@@ -287,9 +287,17 @@ assing_result, extractLast( request.term ) ) );
 	return false;
     });
 
-    window.send_to_editor = function(html) {
-	imgurl = jQuery('img',html).attr('src');
-	jQuery('.quickadd #filename').val(imgurl);
+  window.send_to_editor = function(html) {
+	imgurl = jQuery(html).attr('src');
+    fileurl = jQuery(html).attr('href');
+    var url;
+    if (imgurl == undefined) {
+      url = fileurl;
+    }
+   else {
+    url = imgurl;
+    }
+	jQuery('.quickadd #filename').val(url);
 	jQuery(".quickadd #filename").show();
 	tb_remove();
     }

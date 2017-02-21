@@ -688,6 +688,12 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     return $label;
   }
 
+  function get_AttachedImageID($image_url) {
+    global $wpdb;
+    $attachment = $wpdb->get_results(($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )),OBJECT);
+    return $attachment[0];
+  }
+
   function quick_add_touchpoint(){
     // Create post object
     global $current_user , $wpdb;
@@ -708,7 +714,9 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     if ( $_POST['dedate'] || $_POST['detime'] ) update_post_meta( $post_ID, 'wpcf-enddate', strtotime( $enddate ));
     update_post_meta( $post_ID, 'wpcf-status', 'scheduled' );
     if ( $_POST['ddetails'] ) update_post_meta( $post_ID, 'wpcf-details', $_POST['ddetails'] );
-    if ( $_POST['filename'] ) update_post_meta( $post_ID, 'wpcf-attachments', $_POST['filename'] );
+    $image_id = $this->get_AttachedImageID($_POST['filename']);
+    $imgID = $image_id->ID;
+    if ( $_POST['filename'] ) update_post_meta( $post_ID, 'wpcf-attachments', array($imgID => $_POST['filename']) );
     if ( $_POST['contact_id'] ) update_post_meta( $post_ID, "_wpcf_belongs_wp-type-activity_id", $_POST['contact_id'] );
     if ( $_POST['contact_id'] ) update_post_meta( $post_ID, "_wpcf_belongs_wp-type-contacts_id", $_POST['contact_id'] );
 
