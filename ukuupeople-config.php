@@ -432,7 +432,8 @@ function get_related_org_value() {
   $args = array(
     'fields' => 'ids',
     'numberposts' => -1,
-    'orderby' => 'title',
+    'meta_key' => 'wpcf-display-name',
+    'orderby' => 'meta_value title',
     'order' => 'ASC',
     'post_status' => array( 'publish', 'private' ),
     'post_type' => 'wp-type-contacts',
