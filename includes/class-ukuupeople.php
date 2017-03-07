@@ -707,8 +707,10 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     // Insert the Touchpoint into the database
     $post_ID = wp_insert_post( $my_post );
 
-    $startdate = $_POST['dsdate']." ".$_POST['dstime'];
-    $enddate = $_POST['dedate']." ".$_POST['detime'];
+    // NOTE : Dates in the m/d/y or d-m-y formats are disambiguated by looking at the separator between the various components: if the separator is a slash (/), then the American m/d/y is assumed; whereas if the separator is a dash (-) or a dot (.), then the European d-m-y format is assumed.
+    $startdate = str_replace( '-', '/', $_POST['dsdate'] ) . " " . $_POST['dstime'];
+    $enddate   = str_replace( '-', '/', $_POST['dedate'] ) . " " . $_POST['detime'];
+
     // update post meta for peeple
     update_post_meta( $post_ID, 'wpcf-startdate', strtotime( $startdate ));
     if ( $_POST['dedate'] || $_POST['detime'] ) update_post_meta( $post_ID, 'wpcf-enddate', strtotime( $enddate ));
@@ -1425,7 +1427,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
                $( "#dialog" ).dialog( "open" );
              });
            var datearr = {
-           dateFormat : 'dd-mm-yy',
+           dateFormat : 'mm-dd-yy',
            showButtonPanel: true,
            changeMonth: true,
            changeYear: true,
