@@ -2203,7 +2203,11 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
             <?php } else echo "</span>"; ?>
             </div><?php
           }
-          else { ?>
+          else {
+            // Build info for quick edit
+            if ( current_user_can('edit_ukuupeople', $ids) ) {
+              get_inline_data($post);
+            } ?>
             <div class="row-actions">
               <?php if ( current_user_can('edit_ukuupeople', $ids) ) { ?>
             <span class="edit"><a title="Edit this item" href="<?php echo $URL; ?>"><?php _e( 'Edit', 'UkuuPeople' ); ?></a>|</span>
