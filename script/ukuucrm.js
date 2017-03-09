@@ -523,7 +523,7 @@ jQuery( '#graph' ).ready(function() {
  jQuery(".wp-type-activity-types-checklist input[type='checkbox']").on('click', function () {
   var current_selection = jQuery(this).val();
 
-  jQuery("input[type='checkbox']", ".wp-type-activity-subtype-checklist").each( function (index, value) {
+  jQuery("input[type='checkbox']", ".wp-type-activity-types-checklist").each( function (index, value) {
     if ( jQuery(this).val() != current_selection )
       jQuery(this).prop('checked', false);
   });
