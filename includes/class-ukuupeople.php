@@ -1272,24 +1272,29 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
       )
     );
     $postslist = get_posts( $args );
-    $args = array('post_type' => 'wp-type-activity' , 'posts_per_page'=> 4, 'meta_query' => array(
-     'relation' => 'AND',
-      array(
-        'key'     => 'wpcf-status',
-        'value'   => 'scheduled',
+    $args = array(
+      'post_type' => 'wp-type-activity', 'posts_per_page'=> 4, 'meta_query' => array(
+        'relation' => 'AND',
+        array(
+          'key'     => 'wpcf-status',
+          'value'   => 'scheduled',
+        ),
+        array(
+          'key'     => 'wpcf_assigned_to',
+          'value'   => $postslist[0]->ID,
+          'compare' => 'LIKE'
+        ),
+        array(
+          'key'     => 'wpcf-startdate',
+          'value'   => strtotime(date('Y-m-d')),
+          'compare' => '>=',
+        ),
       ),
-      array(
-        'key'     => 'wpcf_assigned_to',
-        'value'   => $postslist[0]->ID,
-        'compare' => 'LIKE'
-      ),
-      array(
-        'key'     => 'wpcf-startdate',
-        'value'   => strtotime(date('Y-m-d')),
-        'compare' => '>=',
-      ),
+      'meta_key'         => 'wpcf-startdate',
+      'orderby'          => 'meta_value_num',
+      'order'            => 'ASC',
       'suppress_filters' => true,
-    ));
+    );
     $loop = new WP_Query( $args );
     global $base_url;
     echo "<div class='activity-wrapper'>";
