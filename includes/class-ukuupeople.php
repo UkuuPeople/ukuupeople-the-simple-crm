@@ -164,6 +164,24 @@ class UkuuPeople {
 
     // Alter Quick edit options
     add_action( 'quick_edit_custom_box', array( $this,'ukuupeople_alter_quick_edit_options'), 10, 2 );
+    // Change view post message.
+    add_filter( 'post_updated_messages', array( $this,'post_published_notice' ));
+  }
+
+  // Change view post message.
+  public function post_published_notice( $messages ) {
+    global $post;
+    if ($post->post_type == "wp-type-activity") {
+      $link = get_post_permalink($post->ID);
+      $messages["post"][1] = "Touchpoint updated. <a href = '{$link}' > View touchpoint</a>";
+      $messages["post"][6] = "Touchpoint created. <a href = '{$link}' > View touchpoint</a>";
+    }
+    else if ($post->post_type == "wp-type-contacts") {
+      $link = get_post_permalink($post->ID);
+      $messages["post"][1] = "Contact updated.<a href = '{$link}' > View contact</a>";
+      $messages["post"][6] = "Contact created. <a href = '{$link}' > View contact</a>";
+    }
+    return $messages;
   }
 
   // Alter quick edit options in Ukuupeople & Touchpoints
