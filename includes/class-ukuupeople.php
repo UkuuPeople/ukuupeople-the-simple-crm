@@ -1008,7 +1008,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   }
 
   function ukuupeople_menu() {
-    add_submenu_page( 'edit.php?post_type=wp-type-contacts', __( 'Add New Contact', 'UkuuPeople' ), __( 'Add New Contact', 'UkuuPeople' ), 'access_ukuupeoples', 'add-new-contact', array( $this, 'add_new_contact_type') );
+    add_submenu_page( null, __( 'Add New Contact', 'UkuuPeople' ), __( 'Add New Contact', 'UkuuPeople' ), 'access_ukuupeoples', 'add-new-contact', array( $this, 'add_new_contact_type') );
     add_submenu_page( 'edit.php?post_type=wp-type-contacts' , __( 'TouchPoint', 'UkuuPeople' ), __( 'TouchPoints', 'UkuuPeople' ), 'access_touchpoints', 'edit.php?post_type=wp-type-activity', '' );
     require_once( UKUUPEOPLE_ABSPATH.'/includes/add-ons.php' );
     $ukuupeople_add_ons_page = add_submenu_page( 'edit.php?post_type=wp-type-contacts', __( 'UkuuPeople Add-ons', 'UkuuPeople' ), __( 'Add-ons', 'UkuuPeople' ), 'install_plugins', 'ukuupeople-addons', 'ukuupeople_add_ons_page' );
