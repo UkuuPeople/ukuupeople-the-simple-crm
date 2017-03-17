@@ -499,7 +499,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
           $pieces['orderby'] = "wp_rd1.meta_value $order, " . $pieces['orderby'];
           break;
         case 'wp-inactive_days' :
-          $pieces['fields']  .= " ,TIMESTAMPDIFF(DAY, MAX(p1.post_date), NOW() ) as inactive_days";
+          $pieces['fields']  .= " , IFNULL( TIMESTAMPDIFF( DAY, MAX(p1.post_date), NOW() ), 0 ) as inactive_days";
           $pieces['join'] = " LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.meta_value ) LEFT JOIN {$wpdb->posts} p1 ON {$wpdb->postmeta}.post_id = p1.ID AND p1.post_type = 'wp-type-activity'";
 
           $pieces['where'] = " AND {$wpdb->posts}.post_type = 'wp-type-contacts' AND ({$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_status = 'refunded' OR {$wpdb->posts}.post_status = 'failed' OR {$wpdb->posts}.post_status = 'revoked' OR {$wpdb->posts}.post_status = 'abandoned' OR {$wpdb->posts}.post_status = 'active' OR {$wpdb->posts}.post_status = 'inactive' OR {$wpdb->posts}.post_status = 'future' OR {$wpdb->posts}.post_status = 'draft' OR {$wpdb->posts}.post_status = 'pending' OR {$wpdb->posts}.post_status = 'private')";
@@ -2289,7 +2289,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
           echo "<div class='add_to_fav_star' style='float:left;'><div id='fav-star' class='remove-star'></div></div>";
         }
         break;
-      case 'ulm-inactive_days' :
+      case 'wp-inactive_days' :
         $args = array('post_type' => 'wp-type-activity' , 'posts_per_page'=> -1, 'post_status' => array( 'publish', 'private' ) ,
                 'meta_query' => array(
                   'relation' => 'AND',
@@ -2300,18 +2300,20 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
                   ),
                 ));
         $loop = get_posts( $args );
+        $inactive_days_default = 0;
         if( isset( $loop[0]->ID ) ) {
           $post_obj = get_post( $loop[0]->ID );
-          $created_date  = new DateTime( $post_obj->post_date );
-          $currentDateTime = new DateTime( date('Y-m-d H:i:s' ) );
-          $inactive_days =  date_diff( $currentDateTime, $created_date );
-          if ( $inactive_days->days > 100 ) {
-            echo "> 100";
+          $created_date  = strtotime( $post_obj->post_date );
+          $currentDateTime = strtotime( date('Y-m-d H:i:s' ) );
+          $inactive_days = round(($currentDateTime - $created_date) /60/60/24);
+          if ( $inactive_days > 100 ) {
+            $inactive_days_default = "> 100";
           }
           else {
-            echo $inactive_days->days;
+            $inactive_days_default = $inactive_days;
           }
         }
+        echo $inactive_days_default;
         break;
       case 'wp-type-activity': // Activity chart
         $monthsArray[date('Y')][date('n')] =  date( 'n' );
@@ -2388,8 +2390,8 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     $defaults['wp-phone'] = __('Phone','UkuuPeople');
     $defaults['wp-type-activity'] = __('TouchPoint','UkuuPeople');
     $defaults['wp-favorites'] = __('');
-    $defaults['ulm-inactive_days'] = __('Inactive Days', 'UkuuPeople' );
-    $Order = array( 'cb' ,'wp-color-code' , 'wp-contact-full-name' , 'wp-email' , 'wp-phone' , 'wp-type-activity','wp-favorites','ulm-inactive_days');
+    $defaults['wp-inactive_days'] = __('Inactive Days', 'UkuuPeople' );
+    $Order = array( 'cb' ,'wp-color-code' , 'wp-contact-full-name' , 'wp-email' , 'wp-phone' , 'wp-type-activity','wp-favorites','wp-inactive_days');
     foreach ( $Order as $colname ) {
       $new[$colname] = $defaults[$colname];
     }
