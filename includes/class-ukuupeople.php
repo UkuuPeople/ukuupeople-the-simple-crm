@@ -2296,7 +2296,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
                   array(
                     'key'     => '_wpcf_belongs_wp-type-activity_id',
                     'value'   => $post_id,
-                    'compare' => 'LIKE',
+                    'compare' => '=',
                   ),
                 ));
         $loop = get_posts( $args );
