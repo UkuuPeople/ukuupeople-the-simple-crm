@@ -372,7 +372,7 @@ class UkuuPeople {
     $user_info = wp_get_current_user();
     // Filter Opportunities By Logged-In User
     // Switch Condition implements this join but for remaining conditions we need to implement this
-    if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wp-type-contacts' && !isset($_GET['s']) && !isset($_GET['page']) ) {
+    if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wp-type-contacts' && !isset($_GET['s']) && ! empty( $_GET['s'] ) && !isset($_GET['page']) ) {
       if ( strpos( $pieces['join'], $wpdb->postmeta ) == false ) {
         $pieces['join'] .= " INNER JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id )";
       }
@@ -401,46 +401,6 @@ class UkuuPeople {
       // Similar scenario for groupby
       if ( empty( $pieces['groupby'] ) )
         $pieces['groupby'] .= " {$wpdb->posts}.ID";
-    }
-
-    if( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && 'wp-type-contacts' == $_GET['post_type']  && $query->is_main_query() )  {
-      $user = wp_get_current_user();
-      if( 'wp-type-contacts' == $_GET['post_type'] && ( !isset( $_GET['wp-type-tags'] ) && !isset( $_GET['wp-type-contacts-subtype'] ) && !isset( $_GET['wp-type-group'] ) ) ) {
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-      } elseif( 'wp-type-contacts' == $_GET['post_type'] && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) && ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] == '' ) && ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] == '' ) ) || ( !isset( $_GET['wp-type-tags'] ) && !isset( $_GET['wp-type-group'] ) ) ) {
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-        $subtype = $_GET['wp-type-contacts-subtype'];
-        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$subtype' )";
-      } elseif ( ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && 'wp-type-contacts' == $_GET['post_type'] && ( ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] == '' ) && ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] == '' ) ) || ( !isset( $_GET['wp-type-contacts-subtype'] ) && !isset( $_GET['wp-type-group'] ) ) ) {
-        $group = $_GET['wp-type-group'];
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group')";
-      } elseif ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && 'wp-type-contacts' == $_GET['post_type'] && ( ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] == '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] == '' ) ) || ( !isset( $_GET['wp-type-contacts-subtype'] ) && !isset( $_GET['wp-type-tags'] ) ) ) {
-        $tags = $_GET['wp-type-tags'];
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
-      } elseif( ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) ) && 'wp-type-contacts' == $_GET['post_type'] && ( isset( $_GET['filter_action']  ) && $_GET['filter_action'] == 'Filter' ) ) {
-        $tags = $_GET['wp-type-tags'];
-        $group = $_GET['wp-type-group'];
-        $contact_type = $_GET['wp-type-contacts-subtype'];
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->term_relationships} tags ON ({$wpdb->posts}.ID = tags.object_id) LEFT JOIN {$wpdb->term_relationships} tribe ON ({$wpdb->posts}.ID = tribe.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$contact_type') AND tags.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group') AND tribe.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
-      } elseif( ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) && ( $_GET['wp-type-group'] == '' && isset( $_GET['wp-type-group'] ) ) ) && 'wp-type-contacts' == $_GET['post_type'] ) {
-        $tags = $_GET['wp-type-tags'];
-        $contact_type = $_GET['wp-type-contacts-subtype'];
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} tags ON ({$wpdb->posts}.ID = tags.object_id) LEFT JOIN {$wpdb->term_relationships} tribe ON ({$wpdb->posts}.ID = tribe.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$contact_type') AND tags.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
-      } elseif( ( ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && ( isset( $_GET['wp-type-contacts-subtype'] ) && $_GET['wp-type-contacts-subtype'] != '' ) && ( $_GET['wp-type-tags'] == '' && isset( $_GET['wp-type-tags'] ) ) ) && 'wp-type-contacts' == $_GET['post_type'] ) {
-        $group = $_GET['wp-type-group'];
-        $contact_type = $_GET['wp-type-contacts-subtype'];
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} type ON ({$wpdb->posts}.ID = type.object_id) LEFT JOIN {$wpdb->term_relationships} tribe ON ({$wpdb->posts}.ID = tribe.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$contact_type') AND tribe.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group')";
-      } elseif( ( ( isset( $_GET['wp-type-tags'] ) && $_GET['wp-type-tags'] != '' ) && ( isset( $_GET['wp-type-group'] ) && $_GET['wp-type-group'] != '' ) && ( $_GET['wp-type-contacts-subtype'] == '' && isset( $_GET['wp-type-contacts-subtype'] ) ) ) && 'wp-type-contacts' == $_GET['post_type'] ) {
-        $tags = $_GET['wp-type-tags'];
-        $group = $_GET['wp-type-group'];
-        $pieces['join'] = " LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id) LEFT JOIN {$wpdb->term_relationships} tags ON ({$wpdb->posts}.ID = tags.object_id) LEFT JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ) LEFT JOIN {$wpdb->terms} ON ({$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->terms}.term_id) LEFT JOIN {$wpdb->postmeta} wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'meta_value'";
-        $pieces['where'] .= " AND {$wpdb->term_relationships}.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$group') AND tags.term_taxonomy_id = (SELECT term_id FROM {$wpdb->terms} WHERE slug = '$tags')";
-      }
     }
 
     //Code for sorting contact and activity columns. (this function is linked to make_all_columns_sortable_activity() and make_all_columns_sortable_contacts())
