@@ -54,7 +54,17 @@ if ( !empty( $installed_ver ) &&  $installed_ver != $ukuupeople_db_version ) {
   $ukuupeople_updater->onUpdate();
   update_option( "ukuupeople_db_version", $ukuupeople_db_version );
 }
-
+/* Activate welcome page */
+add_action('admin_init', 'welcome_screen_do_activation_redirect');
+function welcome_screen_do_activation_redirect() {
+  if ( ! get_transient( '_welcome_screen_activation_redirect' ) ) {
+    return;
+  }
+  // Delete the redirect transient
+  delete_transient( '_welcome_screen_activation_redirect' );
+  // Redirect to bbPress about page
+  wp_safe_redirect( add_query_arg( array( 'page' => 'ukuu-about' ), admin_url( 'index.php' ) ) );
+}
 
 /**
  * Activation hook.
@@ -101,6 +111,10 @@ function on_activation() {
     $user_role->remove_cap('edit_touchpoint');
     $user_role->remove_cap('read_touchpoint');
     $user_role->remove_cap('delete_touchpoint');
+  }
+  //Welcome page display only when ukuupeople activated
+  if (isset($_GET['plugin']) && $_GET['plugin'] == "ukuupeople-the-simple-crm/ukuupeople.php") {
+    set_transient( '_welcome_screen_activation_redirect', true, 30 );
   }
 }
 
