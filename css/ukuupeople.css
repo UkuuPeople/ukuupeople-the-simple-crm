@@ -1549,3 +1549,356 @@ input.disabled, input:disabled, select.disabled, select:disabled, textarea.disab
 .post-type-wp-type-activity #misc-publishing-actions #visibility {
     display: none !important;
 }
+
+/* Ukuu Welcome Page Dashboard */
+
+.ukuu-about {
+font-size : 15.5px;
+}
+.ukuu-content-p {
+font-size : 15px;
+margin-top: 12px;
+}
+
+.div-about-content > h2 {
+  line-height: 30px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dashboard_page_ukuu-about , .dashboard_page_ukuu-get-started, .dashboard_page_ukuu-add-ons .ukuu-welcome {
+    color: #32373c;
+    font-size: 2.8em;
+    font-weight: 400;
+    line-height: 1.2em;
+    padding: 0;
+}
+
+.ukuu-social-items-wrap , .ukuu-social-items-wrap > div, .ukuu-welcome-h1 {
+  display: inline;
+}
+
+.ukuu-dahsboard-right {
+  display: inline-block;
+  width: 15%;
+	vertical-align:top;
+}
+
+.dashboard_page_ukuu-about , .dashboard_page_ukuu-get-started, .dashboard_page_ukuu-add-ons .ukuu-about {
+  font-size: 1.1em;
+}
+
+.div-cafe-mockup {
+  display: inline-block;
+  width: 25%;
+  margin-right: 25px;
+}
+.div-about-content  h3 {
+  line-height: 30px;
+  margin-top: 0 !important;
+}
+.div-about-content {
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+}
+.ukuu-cafe-mockup {
+  margin-bottom: 50px;
+}
+.button-secondary, #mc-embedded-subscribe {
+  background: #4c91cc none repeat scroll 0 0 !important;
+  color: #fff !important;
+}
+.dashboard_page_ukuu-about .ukuu-newsletter-intro, .dashboard_page_ukuu-get-started .ukuu-newsletter-intro, .dashboard_page_ukuu-add-ons .ukuu-newsletter-intro  {
+    color: #777;
+    font-size: 13px;
+    font-style: italic;
+}
+.ukuu-welcome {
+  display: inline;
+  margin-right: 20px;
+}
+.div-cafe-mockup > img {
+  height: auto;
+  width: 100%;
+}
+.ukuu-dahsboard-left{
+  display: inline-block;
+  width: 75%;
+  margin-right: 30px;
+}
+.ukuu-dahsboard-left-inside, #ukuu-dashboard-subscribe-form {margin-left: 10px;}
+.ukuu-dahsboard-top, .ukuu-dahsboard-bottom-right {
+  margin-left: 8px;
+}
+.ukuu-dahsboard-bottom {
+  margin-left: 13px;
+}
+.div-subscribe-email, .div-subscribe-fname, .div-subscribe-lname {
+  display: inline-block;
+  padding-right: 20px;
+  width: 22%;
+}
+.div-subscribe-button {width: 10%;display: inline-block; vertical-align: top;}
+
+.ukuu-get-h3 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  width: 61%;
+}
+.p-ukuu-get-started, .ukuu-get-start-img {width: 50%;}
+
+.ukuu-dahsboard-top {width: 80%; margin-bottom: 40px;}
+
+.ukuu-add-on-img {
+  display: inline-block;
+  margin-bottom: 50px;
+  margin-right: 15px;
+  width: 30%;
+  vertical-align: top;
+}
+.ukuu-add-on-img-main {
+  margin-top: 30px;
+  width: 65%;
+}
+.add-on-text {
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-left: 10px;
+}
+
+/* navbar*/
+.dashboard_page_ukuu-about .nav-tab-wrapper, .dashboard_page_ukuu-get-started .nav-tab-wrapper, .dashboard_page_ukuu-add-ons .nav-tab-wrapper{
+  border-bottom: 1px solid #ccc;
+  margin-left: 8px;
+  width: 67%;
+}
+.dashboard_page_ukuu-about .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-get-started .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-add-ons  .nav-tab-wrapper .nav-tab{
+  margin-left: 0!important;
+}
+
+/* end of navbar*/
+.ukuu-add-on-img > img, .ukuu-dahsboard-right > img {
+  width: 100%;
+  height: auto;
+}
+.ukuu-get-start-img > img {
+  width: 100%;
+  height: auto;
+}
+
+/*Media*/
+@media (min-width: 1200px) and (max-width: 1499px){
+.ukuu-dahsboard-left {width: 80%!important;}
+.div-subscribe-fname, .div-subscribe-lname {width: 20%!important;}
+.div-subscribe-fname > input , .required.email, .div-subscribe-lname > input{
+  width: 100% !important;
+}
+.div-subscribe-email, .div-subscribe-fname, .div-subscribe-lname {
+  padding-right: 5px !important;
+  width: 30% !important;
+}
+.ukuu-welcome {
+  font-size: 27px !important;
+  font-weight: bold !important;
+}
+.div-subscribe-email, .div-subscribe-fname, .div-subscribe-lname {width: 27%!important;}
+}
+
+@media (min-width: 961px) and (max-width: 1199px){
+
+.ukuu-welcome {
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+.ukuu-dahsboard-top {width: 90%!important;}
+.div-subscribe-fname > input , .required.email, .div-subscribe-lname > input{
+  width: 100% !important;
+}
+.div-subscribe-button {
+  margin: 15px 0!important;
+  width: 20%!important;
+}
+#mc-embedded-subscribe {width: 100%;}
+.ukuu-dahsboard-left {width: 80%!important;}
+.div-subscribe-email, .div-subscribe-fname, .div-subscribe-lname {
+  padding-right: 5px!important;
+  width: 30%!important;
+}
+.ukuu-add-on-img-main {
+  width: 70%!important;
+}
+.div-about-content {width: 60%!important;}
+.div-cafe-mockup {width: 35%!important; margin-right: 20px!important;}
+}
+
+@media (min-width: 783px) and (max-width: 960px){
+.ukuu-dahsboard-top {width: 90%!important;}
+.ukuu-dahsboard-right {width: 20%!important;}
+.ukuu-dahsboard-left {
+  margin-right: 25px!important;
+  width: 75%!important;
+}
+.ukuu-welcome {
+  font-size: 28px !important;
+  font-weight: bold !important;
+  margin-right: 0 !important;
+  width: 90% !important;
+  display: inline-block!important;
+  margin-top: 0!important;
+}
+.div-subscribe-fname > input , .required.email, .div-subscribe-lname > input{
+  width: 100% !important;
+}
+.div-subscribe-email, .div-subscribe-fname, .div-subscribe-lname {
+  padding-right: 2px!important;
+  width: 32%!important;
+}
+.ukuu-add-on-img-main {width: 85%!important;}
+.div-subscribe-button {
+  margin: 15px 0!important;
+  width: 20%!important;
+}
+
+input::-webkit-input-placeholder { font-size: 12px; color: #555; }
+input::-moz-placeholder { font-size: 12px; color: #555; }
+input:-ms-input-placeholder { font-size: 12px; color: #555; }
+input:-moz-placeholder { font-size: 12px; color: #555; }
+
+.ukuu-get-h3 {width: 70%!important;}
+.p-ukuu-get-started, .ukuu-get-start-img {width: 70%!important;}
+
+.div-about-content {width: 60%!important;}
+.div-cafe-mockup {width: 35%!important; margin-right: 20px!important;}
+
+}
+
+@media (min-width: 481px) and (max-width: 782px){
+  .ukuu-welcome {
+  display: inline-block !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  font-size: 30px!important;
+  font-weight: 600!important;
+}
+.div-subscribe-email, .div-subscribe-fname, .div-subscribe-lname {
+  display: block !important;
+  margin-bottom: 12px;
+  padding-right: 0 !important;
+  width: 100%;
+}
+.ukuu-dahsboard-right {
+  margin: 0 auto;
+  vertical-align: top;
+  width: 25%!important;
+  display: block!important;
+}
+.ukuu-dahsboard-left {
+  display: block !important;
+  margin-bottom: 35px;
+  margin-right: 0 !important;
+  padding: 0 15px 0 5px;
+  width: auto;
+}
+.ukuu-dahsboard-top {
+  margin-left: 0px !important;
+  width: 100% !important;
+}
+.dashboard_page_ukuu-about .nav-tab-wrapper, .dashboard_page_ukuu-get-started .nav-tab-wrapper, .dashboard_page_ukuu-add-ons .nav-tab-wrapper {width: 95%!important; margin-left: 0!important;}
+.ukuu-add-on-img-main {width: 100%!important;}
+.ukuu-add-on-img {width: 46%!important; margin-bottom: 25px!important;}
+.ukuu-get-h3 {width: 92%!important;}
+.p-ukuu-get-started, .ukuu-get-start-img {width: 90%!important;}
+
+.ukuu-dahsboard-top, .ukuu-dahsboard-bottom-right {
+  margin-left: 0!important;
+}
+
+.div-about-content {
+  display: block !important;
+  margin-top: 20px;
+  padding: 0 15px !important;
+  vertical-align: top;
+  width: auto !important;
+}
+.div-cafe-mockup {
+  display: block !important;
+  margin-right: 0 !important;
+  padding: 0 20px 0 0;
+  width: auto !important;
+}
+}
+
+@media (min-width: 280px) and (max-width: 480px){
+.ukuu-welcome {
+  display: inline-block !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  font-size: 30px!important;
+  font-weight: 600!important;
+  line-height: 38px;
+}
+.div-subscribe-email, .div-subscribe-fname, .div-subscribe-lname {
+  display: block !important;
+  margin-bottom: 12px;
+  padding-right: 0 !important;
+  width: 100%;
+}
+.ukuu-dahsboard-right {
+  margin: 0 auto;
+  vertical-align: top;
+  width: 35%!important;
+  display: block!important;
+}
+.ukuu-dahsboard-left {
+  display: block !important;
+  margin-bottom: 35px;
+  margin-right: 0 !important;
+  padding: 0 15px 0 5px;
+  width: auto;
+}
+.ukuu-dahsboard-bottom {margin-left: 0!important;}
+.dashboard_page_ukuu-about .nav-tab-wrapper, .dashboard_page_ukuu-get-started .nav-tab-wrapper, .dashboard_page_ukuu-add-ons .nav-tab-wrapper {border-bottom:0!important; margin-left: 0!important; width: 100%!important;}
+.ukuu-add-on-img-main {padding: 0 20px 0 10px!important; width: auto!important;}
+.add-on-text {
+  margin-left: 0!important;
+  text-align: center;
+}
+.dashboard_page_ukuu-about .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-get-started .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-add-ons .nav-tab-wrapper .nav-tab {
+  width: auto !important;
+  display: block!important;
+  float: none!important;
+}
+.ukuu-dahsboard-top {width: 100%!important; margin-left: 0!important;}
+.ukuu-add-on-img {
+  display: block!important;
+  margin-right: 0!important;
+  width: 100%!important;
+}
+.p-ukuu-get-started, .ukuu-get-start-img {
+  width: auto!important;
+  padding: 0 15px 0 0!important;
+}
+.ukuu-get-h3 {width: auto!important; padding: 0 20px 0 10px!important;}
+.div-about-content {
+  display: block !important;
+  margin-top: 20px;
+  padding: 0 15px !important;
+  vertical-align: top;
+  width: auto !important;
+}
+.div-cafe-mockup {
+  display: block !important;
+  margin-right: 0 !important;
+  padding: 0 20px 0 0;
+  width: auto !important;
+}
+}
+#emailErrID {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 0;
+    margin-top: 9px;
+}

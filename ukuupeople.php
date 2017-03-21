@@ -102,6 +102,10 @@ function on_activation() {
     $user_role->remove_cap('read_touchpoint');
     $user_role->remove_cap('delete_touchpoint');
   }
+  //Welcome page display only when ukuupeople activated
+  if (isset($_GET['plugin']) && $_GET['plugin'] == "ukuupeople-the-simple-crm/ukuupeople.php") {
+    set_transient( '_welcome_screen_activation_redirect', true, 30 );
+  }
 }
 
 /**

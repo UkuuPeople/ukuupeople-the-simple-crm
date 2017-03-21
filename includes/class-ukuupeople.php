@@ -15,7 +15,7 @@ class UkuuPeople {
      * Insert Contact Type and Activity Type taxonomy terms on plugin activation
      */
     add_action( 'admin_init', array( $this , 'insert_taxonomy_terms' ));
-    add_action( "admin_init", array ( $this,"remove_box" ));
+
     add_action( 'wp_dashboard_setup', array( $this, 'ukuuCRM_dashboard_setup' ) );
 
     /* metabox for custom activity list */
@@ -156,7 +156,7 @@ class UkuuPeople {
      * Touchpoints Sorting
      */
 
-    /* Sorting table columns of contacts and activity 
+    /* Sorting table columns of contacts and activity
      * This two filters is linked to posts_clauses filter
      */
     add_filter( 'manage_edit-wp-type-contacts_sortable_columns', array( $this, 'make_all_columns_sortable_contacts' ) );
@@ -364,7 +364,7 @@ class UkuuPeople {
    * @return array $pieces
    */
   function ukuupeople_query_clauses( $pieces, $query ) {
-    if ( ! isset( $_GET['post_type'] ) || ! in_array( $_GET['post_type'], array( 'wp-type-contacts', 'wp-type-activity' ) ) ) { 
+    if ( ! isset( $_GET['post_type'] ) || ! in_array( $_GET['post_type'], array( 'wp-type-contacts', 'wp-type-activity' ) ) ) {
       return $pieces;
     }
 
@@ -958,13 +958,6 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     <?php
     }
     // Dialog box for Contact and touchpoint page
-  }
-
-  function remove_box()
-  {
-    remove_post_type_support( 'wp-type-contacts', 'title' );
-    remove_post_type_support( 'wp-type-contacts', 'editor' );
-    remove_post_type_support( 'wp-type-activity', 'editor' );
   }
 
   function ukuupeople_menu() {
@@ -1692,14 +1685,14 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   /*
    * Insert taxonomy terms for custom taxonomy on plugin activation.
    */
-  function insert_taxonomy_terms() {
-    // To add custom taxonomy terms
-    $cTypes = array( 'ind' => array('name' => 'Individual', 'slug' => 'wp-type-ind-contact'),'org' => array('name' => 'Organization', 'slug' => 'wp-type-org-contact') ) ;
-    self::add_taxonomies($cTypes, 'wp-type-contacts-subtype');
-    $aTypes = array( 'meeting' => array( 'name' => 'Meeting', 'slug' => 'wp-type-activity-meeting' ),'phone' => array( 'name' => 'Phone', 'slug' => 'wp-type-activity-phone') , 'note' => array('name' => 'Note', 'slug' => 'wp-type-activity-note' ) , 'contact-form' => array('name' => 'Contact Form', 'slug' => 'wp-type-contactform'));
-    self::add_taxonomies( $aTypes, 'wp-type-activity-types' );
-    $gTypes = array( 'our-team' => array( 'name' => 'Our Team', 'slug' => 'wp-type-our-team' ) );
-    self::add_taxonomies( $gTypes, 'wp-type-group' );
+function insert_taxonomy_terms() {
+  // To add custom taxonomy terms
+  $cTypes = array( 'ind' => array('name' => 'Individual', 'slug' => 'wp-type-ind-contact'),'org' => array('name' => 'Organization', 'slug' => 'wp-type-org-contact') ) ;
+  self::add_taxonomies($cTypes, 'wp-type-contacts-subtype');
+  $aTypes = array( 'meeting' => array( 'name' => 'Meeting', 'slug' => 'wp-type-activity-meeting' ),'phone' => array( 'name' => 'Phone', 'slug' => 'wp-type-activity-phone') , 'note' => array('name' => 'Note', 'slug' => 'wp-type-activity-note' ) , 'contact-form' => array('name' => 'Contact Form', 'slug' => 'wp-type-contactform'));
+  self::add_taxonomies( $aTypes, 'wp-type-activity-types' );
+  $gTypes = array( 'our-team' => array( 'name' => 'Our Team', 'slug' => 'wp-type-our-team' ) );
+  self::add_taxonomies( $gTypes, 'wp-type-group' );
   if ( !get_option( 'ukuupeople_admin_integrate') ) {
     // To update adminstrator to ukuupeople contacts
     $users = get_users( array( 'role' => 'administrator') );
@@ -1749,6 +1742,19 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     }
     update_option( "ukuupeople_admin_integrate", true );
   }
+  //Code to remove default title and editor form contact and touchpoint.
+  remove_post_type_support( 'wp-type-contacts', 'title' );
+  remove_post_type_support( 'wp-type-contacts', 'editor' );
+  remove_post_type_support( 'wp-type-activity', 'editor' );
+
+  // Activate welcome page
+  if ( ! get_transient( '_welcome_screen_activation_redirect' ) ) {
+    return;
+  }
+  // Delete the redirect transient
+  delete_transient( '_welcome_screen_activation_redirect' );
+  // Redirect to bbPress about page
+  wp_safe_redirect( add_query_arg( array( 'page' => 'ukuu-about' ), admin_url( 'index.php' ) ) );
 }
 
   /*
@@ -2605,7 +2611,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
       if ( $_GET['ctype'] == 'wp-type-ind-contact' )
         $postLabels->add_new_item = __('Add New Human', 'UkuuPeople');
       if ( $_GET['ctype'] == 'wp-type-org-contact' )
-        $postLabels->add_new_item = __('Add New Organization', 'UkuuPeople'); 
+        $postLabels->add_new_item = __('Add New Organization', 'UkuuPeople');
     }
 
     //Hide Contact post title
