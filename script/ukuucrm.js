@@ -544,26 +544,6 @@ jQuery( '#graph' ).ready(function() {
     }
 });
 
- // Alter taxonomy field for single-selection in quick edit (for touchpoint only)
- jQuery(".wp-type-activity-types-checklist input[type='checkbox']").on('click', function () {
-  var current_selection = jQuery(this).val();
-
-  jQuery("input[type='checkbox']", ".wp-type-activity-types-checklist").each( function (index, value) {
-    if ( jQuery(this).val() != current_selection )
-      jQuery(this).prop('checked', false);
-  });
-});
-
- // Alter taxonomy field for single-selection in quick edit (for Contacts only)
- jQuery(".wp-type-contacts-subtype-checklist input[type='checkbox']").on('click', function () {
-  var current_selection = jQuery(this).val();
-
-  jQuery("input[type='checkbox']", ".wp-type-contacts-subtype-checklist").each( function (index, value) {
-    if ( jQuery(this).val() != current_selection )
-      jQuery(this).prop('checked', false);
-  });
-});
-
 jQuery('.post-type-wp-type-activity #post').on('submit', function (e) {
     var datavalue = jQuery('input[name="post_title"]').val();
     if ( datavalue == "" ) {

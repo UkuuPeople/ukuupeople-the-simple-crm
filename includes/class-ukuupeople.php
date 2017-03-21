@@ -162,10 +162,46 @@ class UkuuPeople {
     add_filter( 'manage_edit-wp-type-contacts_sortable_columns', array( $this, 'make_all_columns_sortable_contacts' ) );
     add_filter( 'manage_edit-wp-type-activity_sortable_columns', array( $this, 'make_all_columns_sortable_activity' ) );
 
-    // Alter Quick edit options
+    // Alter Quick / Bulk edit options
+    add_action( 'bulk_edit_custom_box', array( $this,'ukuupeople_alter_quick_edit_options'), 10, 2 );
     add_action( 'quick_edit_custom_box', array( $this,'ukuupeople_alter_quick_edit_options'), 10, 2 );
+
     // Change view post message.
     add_filter( 'post_updated_messages', array( $this,'post_published_notice' ));
+
+    add_action( 'admin_enqueue_scripts', array( $this, 'ukuupeople_enqueue_scripts' ) );
+
+    // Get Quick Edit Field Data
+    add_action( 'wp_ajax_ukuu_quick_edit_get_field_data', array( $this , 'ukuu_get_field_data' ) );
+  }
+
+  // Add js to admin pages
+  public function ukuupeople_enqueue_scripts( $hook ) {
+    $current_page = get_current_screen();
+
+    if ( $hook == 'edit.php' && in_array( $current_page->post_type,  array( 'wp-type-activity', 'wp-type-contacts' ) ) ) {
+      wp_enqueue_script( 'quick_edit_js', plugins_url( '../script/ukuu-edit.js', __FILE__ ) );
+      wp_localize_script( 'quick_edit_js', 'quick_edit', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'ukuu_quick_edit' ) ) );
+    }
+    else {
+      wp_dequeue_script( 'quick_edit_js' );
+    }
+  }
+
+  // Build data for fields in quick edit
+  public function ukuu_get_field_data() {
+    $field = array();
+    switch ( $_POST['field'] ) {
+      case 'wpcf-assignee' :
+        // get all people's related to our team
+        $field['options'] = $this->assign_contact_list( false );
+
+        if ( isset( $_POST['id'] ) && $_POST['id'] != NULL )
+          $field['values'] = get_post_meta( $_POST['id'], 'wpcf_assigned_to' );
+        break;
+    }
+    echo json_encode( $field );
+    wp_die();
   }
 
   // Change view post message.
@@ -210,6 +246,45 @@ class UkuuPeople {
           })
         </script>
       ";
+    }
+
+    // Add tags and contact-types to quick edit of wp-type-contacts
+    if ( $post_type == 'wp-type-activity' && $column_name == 'wp-startdate' ) {
+      // get status
+      global $customterm;
+      $touchpoint_status = $customterm['fields']['status'];?>
+
+      <fieldset class='inline-edit-col-left ukuu-custom-quick-edit'>
+        <div class='inline-edit-col'>
+          <div id='ukuu-quick-edit-activity-status'>
+            <span class='title ukuu-inline-edit-touchpoint-status-label'>
+              <?php echo esc_html( trim( $touchpoint_status['name'], '*' ) ); ?>
+            </span>
+            <input type='hidden' name='touchpoint_status[]' value='0' />
+
+            <ul class='cat-checklist touchpoint-status-checklist'>
+            <?php foreach ( $touchpoint_status['options'] as $status_name => $status_label ) : ?>
+              <li>
+                <label class="selectit">
+                  <input type="checkbox" id="touchpoint-status-<?php echo $status_name; ?>" name="touchpoint_status[]" value="<?php echo $status_name; ?>"> <?php echo $status_label; ?>
+                </label>
+              </li>
+            <?php endforeach; ?>
+            </ul>
+          </div>
+          <div id='ukuu-quick-edit-touchpoint-assignee'>
+            <span class='title ukuu-inline-edit-touchpoint-assignee-label'>
+              Add Assignee
+            </span>
+            <input type='hidden' name='touchpoint_assignee[]' value='0' />
+            <ul class='cat-checklist touchpoint-assignee-checklist'>
+              <!-- Build li using js -->
+            </ul>
+          </div>
+        </div>
+      </fieldset>
+
+    <?php
     }
   }
 
@@ -623,7 +698,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     wp_die();
   }
 
-  function assign_contact_list( ){
+  function assign_contact_list( $echo = true ) {
     $list = array();
     $args = array(
       'fields' => 'ids',
@@ -654,8 +729,14 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
         $list[] = array( 'id' => $val, 'name' => $display );
       }
     }
-    echo json_encode( $list );
-    wp_die();
+
+    if ( $echo ) {
+      echo json_encode( $list );
+      wp_die();
+    }
+    else {
+      return $list;
+    }
   }
 
   function change_placeholder( $label, $post ){
@@ -2151,11 +2232,15 @@ function insert_taxonomy_terms() {
         echo $this->activity_assigned( get_the_ID() );
         break;
       case 'wp-status': // Activity Status
-        if (get_post_meta( get_the_ID(), 'wpcf-status', true) == 'scheduled' ) {
-          echo "<div class='ukuuclock'></div>";
+        $activity_status = get_post_meta( get_the_ID(), 'wpcf-status', true);
+        if ( $activity_status == 'scheduled' ) {
+          echo "<div class='ukuuclock' id='scheduled'></div>";
         }
-        elseif (get_post_meta( get_the_ID(), 'wpcf-status', true) == 'completed' ) {
-          echo "<div class='ukuucheck'></div>";
+        elseif ( $activity_status == 'completed' ) {
+          echo "<div class='ukuucheck' id='completed'></div>";
+        }
+        else {
+          echo "<div id='{$activity_status}'></div>";
         }
         if ( get_post_meta( get_the_ID(), 'wpcf-attachments', true) ) {
           echo "<div class='paper-icon'></div>";
@@ -2594,6 +2679,43 @@ function insert_taxonomy_terms() {
       }
       if ( isset( $_POST['wpcf-pr-belongs'] ) && empty( $_POST['hidden_cid'] ) )
       update_post_meta( $post_ID , "_wpcf_belongs_wp-type-contacts_id", $_POST['wpcf-pr-belongs'] );
+    }
+
+    // Quick-edit save options
+    if ( $_POST['action'] == 'inline-save'  /*&& $_POST['post_type'] == 'wp-type-activity'*/ ) {
+      //if not autosaving
+      if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return false;
+      }
+
+      // save fields
+      if ( isset( $_POST['touchpoint_status'][1] ) ) {
+        update_post_meta( $_POST['post_ID'], 'wpcf-status', $_POST['touchpoint_status'][1] );
+      }
+
+      if (isset( $_POST['touchpoint_assignee'] ) ) {
+        $touchpoint_assignee = array_filter( $_POST['touchpoint_assignee'] );
+        update_post_meta( $_POST['post_ID'], 'wpcf_assigned_to', $touchpoint_assignee );
+      }
+    }
+    elseif ( isset( $_GET['bulk_edit'] ) && $_GET['bulk_edit'] == 'Update' && $_GET['post_type'] == 'wp-type-activity' ) {
+      if ( empty ( $_GET['post'] ) )
+        return false;
+
+      $update_options = array();
+      if ( isset( $_GET['touchpoint_status'][1] ) ) {
+        $update_options['wpcf-status'] = $_GET['touchpoint_status'][1];
+      }
+
+      if ( ! empty( $touchpoint_assignee = array_filter( $_GET['touchpoint_assignee'] ) ) ) {
+        $update_options['wpcf_assigned_to'] = $touchpoint_assignee;
+      }
+
+      foreach ( $_GET['post'] as $touchpoint ) {
+        foreach ( $update_options as $field => $value ) {
+          update_post_meta( $touchpoint, $field, $value );
+        }
+      }
     }
   }
 

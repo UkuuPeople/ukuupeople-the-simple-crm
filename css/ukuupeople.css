@@ -1902,3 +1902,21 @@ input:-moz-placeholder { font-size: 12px; color: #555; }
     line-height: 0;
     margin-top: 9px;
 }
+
+/* Quick Edit related changes for Assignee and Status options */
+fieldset.ukuu-custom-quick-edit {
+  width: 32% !important;
+}
+
+#ukuu-quick-edit-activity-status, #ukuu-quick-edit-touchpoint-assignee {
+  float: left;
+  width: 48%;
+  padding: 4px;
+}
+
+.ukuu-inline-edit-touchpoint-status-label, .ukuu-inline-edit-touchpoint-assignee-label {
+  text-align: center;
+  display: block;
+  line-height: 2.5;
+  margin: 0.2em 0;
+}
