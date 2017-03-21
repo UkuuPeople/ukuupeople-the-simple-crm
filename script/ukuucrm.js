@@ -1,6 +1,31 @@
 jQuery(function ($) {
-    // Contribution Dahsboard code End //
-    // Column of activity graph on Find Contact page code start //
+
+//Welcome page
+jQuery('#mc-embedded-subscribe-form-ukuu').on('submit', function () {
+  var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+  var email = jQuery('#mce-EMAIL').val();
+  if (!testEmail.test(email)) {
+        setMsg( "Invalid Email");
+        return false;
+    }
+});
+
+function setMsg ( $msg, $error_type ) {
+    if ( ! $msg )
+      return false;
+
+    if ( ! $error_type )
+      $error_type = 'ukuu-subscription-error';
+
+    jQuery("#ukuu-subscription-status").addClass( $error_type );
+    jQuery("#ukuu-subscription-status").html( $msg );
+    jQuery('#ukuu-subscription-status').css('color', 'red');
+    jQuery('#ukuu-subscription-status').css('font-size', '12px');
+    jQuery('#ukuu-subscription-status').css('font-weight', 'bold');
+}
+
+  // Contribution Dahsboard code End //
+  // Column of activity graph on Find Contact page code start //
 
     jQuery('div.tdata').find('svg').each(function(i, el) {
 	var ColumnName=jQuery(this).attr("activityc");
