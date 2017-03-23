@@ -2621,7 +2621,7 @@ function insert_taxonomy_terms() {
    *
    * @param type $post_ID
    */
-  function ukuu_set_wp_custom_type( $post_ID , $post) {
+  function ukuu_set_wp_custom_type( $post_ID , $post ) {
     global $typenow;
     global $wp_meta_boxes;
     $url = admin_url();
@@ -2714,7 +2714,7 @@ function insert_taxonomy_terms() {
     }
 
     // Quick-edit save options
-    if ( $_POST['action'] == 'inline-save'  /*&& $_POST['post_type'] == 'wp-type-activity'*/ ) {
+    if ( isset( $_POST['action'] ) && $_POST['action'] == 'inline-save' ) {
       //if not autosaving
       if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
         return false;
