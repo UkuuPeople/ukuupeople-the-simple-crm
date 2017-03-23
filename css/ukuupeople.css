@@ -1626,6 +1626,7 @@ margin-top: 12px;
 .ukuu-dahsboard-left-inside, #ukuu-dashboard-subscribe-form {margin-left: 12px;}
 .ukuu-dahsboard-top, .ukuu-dahsboard-bottom-right {
   margin-left: 8px;
+  margin-top:30px;
 }
 .ukuu-dahsboard-bottom {
   margin-left: 13px;
@@ -1928,4 +1929,14 @@ fieldset.ukuu-custom-quick-edit {
   display: block;
   line-height: 2.5;
   margin: 0.2em 0;
+}
+
+
+a.nav-tab {
+    padding: 5px 20px !important;
+}
+
+
+.dashboard_page_ukuu-about .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-get-started .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-add-ons .nav-tab-wrapper .nav-tab {
+    margin-left: 5px !important; */
 }
