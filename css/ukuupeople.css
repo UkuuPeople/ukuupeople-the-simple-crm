@@ -1605,10 +1605,6 @@ margin-top: 12px;
 .ukuu-cafe-mockup {
   margin-bottom: 50px;
 }
-.button-secondary, #mc-embedded-subscribe {
-  background: #4c91cc none repeat scroll 0 0 !important;
-  color: #fff !important;
-}
 .dashboard_page_ukuu-about .ukuu-newsletter-intro, .dashboard_page_ukuu-get-started .ukuu-newsletter-intro, .dashboard_page_ukuu-add-ons .ukuu-newsletter-intro  {
     color: #777;
     font-size: 13px;
@@ -1627,7 +1623,7 @@ margin-top: 12px;
   width: 75%;
   margin-right: 30px;
 }
-.ukuu-dahsboard-left-inside, #ukuu-dashboard-subscribe-form {margin-left: 10px;}
+.ukuu-dahsboard-left-inside, #ukuu-dashboard-subscribe-form {margin-left: 12px;}
 .ukuu-dahsboard-top, .ukuu-dahsboard-bottom-right {
   margin-left: 8px;
 }
@@ -1676,7 +1672,7 @@ margin-top: 12px;
   width: 67%;
 }
 .dashboard_page_ukuu-about .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-get-started .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-add-ons  .nav-tab-wrapper .nav-tab{
-  margin-left: 0!important;
+  margin-left: -11px !important;
 }
 
 /* end of navbar*/
@@ -1856,20 +1852,29 @@ input:-moz-placeholder { font-size: 12px; color: #555; }
   display: block !important;
   margin-bottom: 35px;
   margin-right: 0 !important;
-  padding: 0 15px 0 5px;
+  padding: 0 15px 0 10px;
   width: auto;
 }
 .ukuu-dahsboard-bottom {margin-left: 0!important;}
-.dashboard_page_ukuu-about .nav-tab-wrapper, .dashboard_page_ukuu-get-started .nav-tab-wrapper, .dashboard_page_ukuu-add-ons .nav-tab-wrapper {border-bottom:0!important; margin-left: 0!important; width: 100%!important;}
+
+.dashboard_page_ukuu-about .nav-tab-wrapper, .dashboard_page_ukuu-get-started .nav-tab-wrapper, .dashboard_page_ukuu-add-ons .nav-tab-wrapper {
+  border-bottom: 0 none !important;
+  margin-left: 0 !important;
+  padding: 0 15px 0 10px;
+  width: auto !important;;
+}
 .ukuu-add-on-img-main {padding: 0 20px 0 10px!important; width: auto!important;}
 .add-on-text {
   margin-left: 0!important;
   text-align: center;
 }
 .dashboard_page_ukuu-about .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-get-started .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-add-ons .nav-tab-wrapper .nav-tab {
+  border-bottom: 1px solid #ccc !important;
+  display: block !important;
+  float: none !important;
+  margin-bottom: 20px;
   width: auto !important;
-  display: block!important;
-  float: none!important;
+  margin-left: 0!important;
 }
 .ukuu-dahsboard-top {width: 100%!important; margin-left: 0!important;}
 .ukuu-add-on-img {
@@ -1901,6 +1906,10 @@ input:-moz-placeholder { font-size: 12px; color: #555; }
     font-weight: bold;
     line-height: 0;
     margin-top: 9px;
+}
+
+#mc-embedded-subscribe-form-ukuu {
+  margin-left: 10px;
 }
 
 /* Quick Edit related changes for Assignee and Status options */
