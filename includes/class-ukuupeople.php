@@ -173,6 +173,38 @@ class UkuuPeople {
 
     // Get Quick Edit Field Data
     add_action( 'wp_ajax_ukuu_quick_edit_get_field_data', array( $this , 'ukuu_get_field_data' ) );
+
+    add_filter( 'custom_menu_order', array( $this, 'ukuu_reorder_submenu' ), 99 );
+  }
+
+  /** Reorder Ukuu-Submenu's
+   *  UkuuPeople and TouchPoint submenu's should be at the top
+   *  Add-ons & Settings should be at the bottom
+  **/
+  public function ukuu_reorder_submenu( $menu_ord ) {
+    global $submenu;
+
+    // Define top and last array options
+    $top_submenu_items  = array( 'People', 'TouchPoints' );
+    $last_submenu_items = array( 'Add-ons', 'Settings' );
+
+    $submenu_copy = $submenu['edit.php?post_type=wp-type-contacts'];
+
+    foreach ( $submenu_copy as $submenu_id => $submenu_info ) {
+      if ( ( $position = array_search( $submenu_info[0], $top_submenu_items ) ) !== FALSE ) {
+        unset( $top_submenu_items[ $position ] );
+
+        $top_submenu_items[ $submenu_id ] = $submenu_info;
+
+        unset( $submenu_copy[ $submenu_id ] );
+      }
+      elseif ( in_array( $submenu_info[0], $last_submenu_items ) !== FALSE ) {
+        unset( $submenu_copy[ $submenu_id ] );
+        $submenu_copy[ $submenu_id ] = $submenu_info;
+      }
+    }
+    $submenu['edit.php?post_type=wp-type-contacts'] = $top_submenu_items + $submenu_copy;
+    return $menu_ord;
   }
 
   // Add js to admin pages
