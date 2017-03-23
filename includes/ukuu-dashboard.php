@@ -74,7 +74,7 @@ function ukuupeople_dashboard_page() {
       );
   ?>
   </p>
-        <p class="ukuu-newsletter-intro"><?php esc_html_e( 'Be sure to sign up for the Give newsletter below to stay informed of important updates and news.', 'UkuuPeople' ); ?></p>
+        <p class="ukuu-newsletter-intro"><?php esc_html_e( 'Be sure to sign up for the Ukuupeople newsletter below to stay informed of important updates and news.', 'UkuuPeople' ); ?></p>
     </div> <!-- ukuu-dahsboard-left-inside -->
       <?php ukuu_dashboard_subscribe(); ?>
       </div> <!-- ukuu-dahsboard-left -->
