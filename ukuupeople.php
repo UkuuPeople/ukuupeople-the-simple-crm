@@ -128,6 +128,8 @@ require_once( UKUUPEOPLE_ABSPATH.'/includes/class-ukuupeople.php' );
 global $wp_ukuu_people;
 $wp_ukuu_people = new UkuuPeople();
 
+require_once( UKUUPEOPLE_ABSPATH.'/includes/ukuu-dashboard.php' );
+
 /**
  * Load UkuuPeople taxtdomain.
  *

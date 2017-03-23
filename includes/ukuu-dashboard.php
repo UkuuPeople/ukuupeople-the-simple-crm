@@ -107,7 +107,7 @@ function ukuupeople_dashboard_page() {
             <h2><?php esc_html_e( 'UkuuPeople -  Bring Your People Together Without Complicated Software', 'UkuuPeople' ); ?></h2>
 
             <p class = "ukuu-content-p"><?php esc_html_e( 'UkuuPeople helps you elegently manage all your human relationships. UkuuPeople is the easiets CRM tool for Wordpress. The simple CRM effortlessly ties all of your contact interactions and contact data collection tool together. Now you can form one authorative master list of allyour contacts and a record of your interactions with them.', 'UkuuPeople' ); ?></p>
-            <a class="button-secondary" target="_blank" title="Google Apps" href="#">
+            <a class="button-primary" target="_blank" title="Google Apps" href="https://ukuupeople.com" id ="btn-links">
               Learn More
           </a>
           </div>
@@ -121,7 +121,7 @@ function ukuupeople_dashboard_page() {
           <div class = "div-about-content">
             <h2><?php esc_html_e( 'Getting to Know UkuuPeople', 'UkuuPeople' ); ?></h2>
           <p class = "ukuu-content-p"><?php esc_html_e( 'Before you get started with UkuuPeople, we suggest you take a look at the online documentation. There you will find tutorials which will help you get up and running quickly. If you have any question,issue, or bug with the UkuuPeople plugin, Please submit the problem on the UkuuPeople support site by clicking the red Ask a Question button. We also welcome your feedback and feature requests. Welcome to UkuuPeople. We wish you much success with your people.', 'UkuuPeople' ); ?></p>
-          <a class="button-secondary" target="_blank" title="Google Apps" href="#">
+          <a class="button-primary" target="_blank" title="Google Apps" href="http://support.ukuupeople.com/" id = "btn-links">
               Documentation
           </a>
       </div>
@@ -173,7 +173,7 @@ function ukuupeople_dashboard_page() {
           </div>
 
 					<p class = "p-ukuu-get-started">
-            <?php echo 'Its so basic and simple,yes. And you\'ve already made an excellent start! but there\'s so much more you can do. Learn to categorize usign Tribes and Tags and Relationships. Find out how to create additional Touchpoints Types. And add even more functionality with our Add-ons <br>To learn more, <a href= "#">visit our support pages.</a>'; ?></p>
+            <?php echo 'Its so basic and simple,yes. And you\'ve already made an excellent start! but there\'s so much more you can do. Learn to categorize usign Tribes and Tags and Relationships. Find out how to create additional Touchpoints Types. And add even more functionality with our Add-ons <br>To learn more, <a href= "http://support.ukuupeople.com/" target="_blank">visit our support pages.</a>'; ?></p>
      </div>
     </div>
   <?php }
