@@ -82,8 +82,8 @@ Currently it supports only
 
 = Minimum Requirements =
 
-* WordPress 3.8 or greater
-* PHP Version 5.3 or greater
+* WordPress 4.6 or greater
+* PHP Version 5.4 or greater
 * MySQL version 5.0.15 or greater
 
 = Automatic Installation =
@@ -121,6 +121,21 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 4. UkuuPeople TouchPoints listing.
 
 == Changelog ==
+= 1.6.0 =
+* Major feature update.
+* Update dashlet for TouchPoints to display today forward instead of all Scheduled.
+* Update TouchPoint Dashboard with filter for "TouchPoints Assigned To"
+* Add German Translation
+* Add ACL Controls for Roles
+* Bug and styling fixes
+* Add welcome screen on activation
+* Fixes to Quick Edit and Bulk Edit options
+* Remove "View Post" labels on Contact dashboard
+* Add sort by to more columns including inactive days.
+
+= 1.5.6 =
+* Fixes for WordPress 4.7
+
 = 1.5.4 =
 * Addition of support for Opportunity Management Add-on
 * Change of Dashboard Menu from "UkuuPeople" to "Contacts"
@@ -142,6 +157,8 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 
 
 == Upgrade Notice ==
+= 1.6.0 =
+This is a major feature release that includes improvements to ACL's for user roles, fixes to quick edit and bulk edit options, changes to filters, dashlets, and sorting options. Addition of German translation. Addition of getting started page on activation.
 
 = 1.5.3 =
 This version fixes some compatibility issues with some versions of PHP 5.3 as well as incorporates better translations support.
