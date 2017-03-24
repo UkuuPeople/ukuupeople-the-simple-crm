@@ -398,11 +398,12 @@ Sweet.</p>
       LEARN MORE
       <span class="dashicons dashicons-external"></span>
     </a>
-   </div>
+  </div>
        </div></div>
-    
-    
     </div>
+    <div class = "ukuu-add-on-button">
+     <h2><a href=" http://ukuupeople.com/add-ons/" class="button-primary ukuupeople-view-addons-all" title="<?php _e( 'Browse All Extensions', 'UkuuPeople' ); ?>" target="_blank"><?php _e( 'View All Add-ons', 'UkuuPeople' ); ?> </a> </h2>
+      </div>
     </div>
   <?php }
 
