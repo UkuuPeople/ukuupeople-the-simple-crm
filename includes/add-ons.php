@@ -139,7 +139,7 @@ Sweet.</p>
     <h3 class="addon-heading">
       <a target="_blank" title="CSV Import" href="http://shop.ukuupeople.com/add-on/ukuu-csv-import/">Ukuu CSV Import</a>
     </h3>
-    <p>The Ukuu CSV Import/Export tool makes setting up your CRM a flash!</p>
+    <p>The Ukuu CSV Import/Export tool makes setting up your CRM a flash! Now includes simple reporting.</p>
    </div>
    <div class="addon-footer-wrap give-clearfix">
     <a class="button-secondary" target="_blank" title="CSV Import" href="http://shop.ukuupeople.com/add-on/ukuu-csv-import/">
