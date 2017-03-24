@@ -2858,3 +2858,7 @@ a.nav-tab {
 .dashboard_page_ukuu-about .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-get-started .nav-tab-wrapper .nav-tab, .dashboard_page_ukuu-add-ons .nav-tab-wrapper .nav-tab {
     margin-left: 5px !important; */
 }
+
+.ukuu-add-on-button {
+    text-align: right !important;
+} 
