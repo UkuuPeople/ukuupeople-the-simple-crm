@@ -1721,7 +1721,7 @@
  */
 
 .ukuu-addon-wrapper {
-    width:100%;
+    width:80%;
     max-width:1200px;
     
 }
@@ -1730,7 +1730,7 @@
     display:flex !important;
     flex-direction:column;
     float: left;
-    margin:20px;
+    margin:20px 0;
     padding: 0;
     vertical-align: top;
     
@@ -1763,8 +1763,8 @@
 
 .ukuupeople-add-on-main .addon-content {
      *zoom: 1;
-    padding: 15px 20px;
-    margin: auto;
+    padding: 0 20px;
+    margin: 0 auto;
 }
 
 .ukuupeople-add-on-main .addon-content:before, .ukuupeople-add-on-main .addon-content:after {
