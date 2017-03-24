@@ -48,12 +48,80 @@ function ukuupeople_add_ons_page() {
  */
 function ukuupeople_add_ons() {
   $mailchimp = UKUUPEOPLE_RELPATH. '/images/mailchimp.png';
-  $gravity_forms = UKUUPEOPLE_RELPATH.'/images/gravity-forms-logo.png';
-  $googleapp = UKUUPEOPLE_RELPATH.'/images/google-apps.png';
-  $give = UKUUPEOPLE_RELPATH.'/images/give-logo.png';
-  $csvimport = UKUUPEOPLE_RELPATH.'/images/ukuucsvimport.png';
-  $opportunity = UKUUPEOPLE_RELPATH.'/images/opportunity_management.png';
-  $output = '<div class="ukuupeople-add-on-main">
+   $gravity_forms = UKUUPEOPLE_RELPATH.'/images/gravity-forms-logo.png';
+   $googlecal = UKUUPEOPLE_RELPATH.'/images/google-cal.png';
+   $give = UKUUPEOPLE_RELPATH.'/images/give-logo.png';
+   $csvimport = UKUUPEOPLE_RELPATH.'/images/ukuucsvimport.png';
+   $opportunity = UKUUPEOPLE_RELPATH.'/images/opportunity_management.png';
+   $give = UKUUPEOPLE_RELPATH. '/images/give-wp-logo.png';
+   $mailchimp = UKUUPEOPLE_RELPATH. '/images/mailchimp.png';
+   $opportunity = UKUUPEOPLE_RELPATH. '/images/opportunity_management.png';
+   $import = UKUUPEOPLE_RELPATH. '/images/ukuucsvimport.png';
+   $bundlebasic = UKUUPEOPLE_RELPATH.'/images/basic_bundle.png';
+   $bundlenonprofit = UKUUPEOPLE_RELPATH.'/images/nonprofit_plus_bundle.png';
+   $bundlesales = UKUUPEOPLE_RELPATH.'/images/sales_management_bundle.png';
+   $reminders = UKUUPEOPLE_RELPATH.'/images/reminders.png';
+   $output = '<div class="ukuu-addon-wrapper">
+<div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
+  <div class="featured-img">
+     <a target="_blank" title="UkkuPeople Mailchimp" href="https://shop.ukuupeople.com/add-on/basic-bundle/">
+      <img width="100%" height="100%" alt="UkkuPeople Basic Bundle" src="'.$bundlebasic.'">
+    </a>
+  </div>
+  <div class="addon-content">
+    <h3 class="addon-heading">
+      <a target="_blank" title="UkuuPeople Basic Bundle" href="https://shop.ukuupeople.com/add-on/basic-bundle/">Basic Bundle</a>
+    </h3>
+    <p>This basic bundle includes all the essentials you\'ll need to get up and running with UkuuPeople.</p>
+  </div>
+  <div class="addon-footer-wrap give-clearfix">
+    <a class="button-secondary" target="_blank" title="UkuuPeople Basic Bundle" href="https://shop.ukuupeople.com/add-on/basic-bundle/">
+      LEARN MORE
+      <span class="dashicons dashicons-external"></span>
+    </a>
+          </div></div></div>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
+  <div class="featured-img">
+     <a target="_blank" title="UkkuPeople Nonprofit Plus" href="https://shop.ukuupeople.com/add-on/nonprofit-plus-bundle/">
+      <img width="100%" height="100%" alt="UkkuPeople Nonprofit Plus Bundle" src="'.$bundlenonprofit.'">
+    </a>
+  </div>
+  <div class="addon-content">
+    <h3 class="addon-heading">
+      <a target="_blank" title="UkuuPeople Nonprofit Plus" href="http://shop.ukuupeople.com/add-on/mailchimp/">Nonprofit Plus</a>
+    </h3>
+    <p>The Nonprofit Plus Bundle includes everything you\'ll need to get your nonprofit organization up and running with UkuuPeople.</p>
+  </div>
+  <div class="addon-footer-wrap give-clearfix">
+    <a class="button-secondary" target="_blank" title="UkuuPeople Nonprofit Plus" href="https://shop.ukuupeople.com/add-on/nonprofit-plus-bundle/">
+      LEARN MORE
+      <span class="dashicons dashicons-external"></span>
+    </a>
+          </div></div></div>
+   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
+  <div class="featured-img">
+     <a target="_blank" title="UkkuPeople Sales Management Bundle" href="https://shop.ukuupeople.com/add-on/sales-management-bundle/">
+      <img width="100%" height="100%" alt="UkkuPeople Sales Management Bundle" src="'.$bundlesales.'">
+    </a>
+  </div>
+  <div class="addon-content">
+    <h3 class="addon-heading">
+      <a target="_blank" title="UkuuPeople Sales Management Bundle" href="https://shop.ukuupeople.com/add-on/sales-management-bundle/">Sales Management Bundle</a>
+    </h3>
+    <p>The Sales Management Bundle includes everything you’ll need to manage your sales pipeline and get up and running with UkuuPeople.</p>
+  </div>
+  <div class="addon-footer-wrap give-clearfix">
+    <a class="button-secondary" target="_blank" title="UkuuPeople Sales Management Bundle" href="https://shop.ukuupeople.com/add-on/sales-management-bundle/">
+      LEARN MORE
+      <span class="dashicons dashicons-external"></span>
+    </a>
+          </div></div></div>
+   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
   <div class="featured-img">
      <a target="_blank" title="UkkuPeople Mailchimp" href="http://shop.ukuupeople.com/add-on/mailchimp/">
       <img width="100%" height="100%" alt="UkkuPeople Mailchimp" src="'.$mailchimp.'">
@@ -70,18 +138,19 @@ function ukuupeople_add_ons() {
       LEARN MORE
       <span class="dashicons dashicons-external"></span>
     </a>
-  </div></div>
-  <div class="ukuupeople-add-on-main">
+          </div></div></div>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
   <div class="featured-img">
-    <a target="_blank" title="Google Apps" href=" http://shop.ukuupeople.com/add-on/google-apps/">
-      <img width="100%" height="100%" alt="Google Apps" src="'.$googleapp.'">
+    <a target="_blank" title="Google Calendar" href=" http://shop.ukuupeople.com/add-on/google-apps/">
+      <img width="100%" height="100%" alt="Google Calendar" src="'.$googlecal.'">
     </a>
   </div>
   <div class="addon-content">
     <h3 class="addon-heading">
-      <a target="_blank" title="Google Apps" href="http://shop.ukuupeople.com/add-on/google-apps/">Google Apps</a>
+      <a target="_blank" title="Google Calendar" href="http://shop.ukuupeople.com/add-on/google-apps/">Google Calendar</a>
     </h3>
-    <p>Sync your activities to your Google Calendar, sync your contact list to your business contact list and more.</p>
+    <p>Sync your activities to your Google Calendar!</p>
   </div>
   <div class="addon-footer-wrap give-clearfix">
     <a class="button-secondary" target="_blank" title="Google Apps" href="http://shop.ukuupeople.com/add-on/google-apps/">
@@ -89,8 +158,9 @@ function ukuupeople_add_ons() {
       <span class="dashicons dashicons-external"></span>
     </a>
   </div>
-  </div>
-  <div class="ukuupeople-add-on-main">
+        </div></div>
+   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
   <div class="featured-img">
     <a target="_blank" title="Gravity Forms" href="http://shop.ukuupeople.com/add-on/gravity-forms/">
       <img width="100%" height="100%" alt="Gravity Forms" src="'.$gravity_forms.'">
@@ -108,8 +178,9 @@ function ukuupeople_add_ons() {
       <span class="dashicons dashicons-external"></span>
     </a>
   </div>
-  </div>
-  <div class="ukuupeople-add-on-main">
+       </div></div>
+   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
   <div class="featured-img">
     <a target="_blank" title="Give" href="http://shop.ukuupeople.com/add-on/give-donation-pages/">
       <img width="100%" height="100%" alt="Give" src="'.$give.'">
@@ -128,8 +199,9 @@ Sweet.</p>
       <span class="dashicons dashicons-external"></span>
     </a>
    </div>
-  </div>
-<div class="ukuupeople-add-on-main">
+       </div></div>
+   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
   <div class="featured-img">
     <a target="_blank" title="CSV Import" href="http://shop.ukuupeople.com/add-on/ukuu-csv-import/">
       <img width="100%" height="100%" alt="CSV Import" src="'.$csvimport.'">
@@ -147,8 +219,9 @@ Sweet.</p>
       <span class="dashicons dashicons-external"></span>
     </a>
    </div>
-</div>
-<div class="ukuupeople-add-on-main">
+       </div></div>
+   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
   <div class="featured-img">
     <a target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">
       <img width="100%" height="100%" alt="Opportunity" src="'.$opportunity.'">
@@ -156,7 +229,7 @@ Sweet.</p>
   </div>
   <div class="addon-content">
     <h3 class="addon-heading">
-      <a target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/opportunity-managment/">Opportunity Managment</a>
+      <a target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/opportunity-management/">Opportunity Management</a>
     </h3>
     <p>The Opportunity Management is perfect for tracking leads from a cold contact all the way through to a won opportunity.</p>
    </div>
@@ -166,7 +239,32 @@ Sweet.</p>
       <span class="dashicons dashicons-external"></span>
     </a>
    </div>
-</div>';
+       </div></div>
+    
+       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="ukuupeople-add-on-main">
+  <div class="featured-img">
+    <a target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/reminders/">
+      <img width="100%" height="100%" alt="Opportunity" src="'.$reminders.'">
+    </a>
+  </div>
+  <div class="addon-content">
+    <h3 class="addon-heading">
+      <a target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/reminders/">Reminders</a>
+    </h3>
+    <p>Get email notifications about all the important things!</p>
+   </div>
+   <div class="addon-footer-wrap give-clearfix">
+    <a class="button-secondary" target="_blank" title="Opportunity" href="http://shop.ukuupeople.com/add-on/reminders/">
+      LEARN MORE
+      <span class="dashicons dashicons-external"></span>
+    </a>
+   </div>
+       </div></div>
+    
+    
+    </div>
+    </div>';
 	return $output;
 
 }
