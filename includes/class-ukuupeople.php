@@ -184,26 +184,28 @@ class UkuuPeople {
   public function ukuu_reorder_submenu( $menu_ord ) {
     global $submenu;
 
-    // Define top and last array options
-    $top_submenu_items  = array( 'People', 'TouchPoints' );
-    $last_submenu_items = array( 'Add-ons', 'Settings' );
+    if ( isset( $submenu['edit.php?post_type=wp-type-contacts'] ) ) {
+      // Define top and last array options
+      $top_submenu_items  = array( 'People', 'TouchPoints' );
+      $last_submenu_items = array( 'Add-ons', 'Settings' );
 
-    $submenu_copy = $submenu['edit.php?post_type=wp-type-contacts'];
+      $submenu_copy = $submenu['edit.php?post_type=wp-type-contacts'];
 
-    foreach ( $submenu_copy as $submenu_id => $submenu_info ) {
-      if ( ( $position = array_search( $submenu_info[0], $top_submenu_items ) ) !== FALSE ) {
-        unset( $top_submenu_items[ $position ] );
+      foreach ( $submenu_copy as $submenu_id => $submenu_info ) {
+        if ( ( $position = array_search( $submenu_info[0], $top_submenu_items ) ) !== FALSE ) {
+          unset( $top_submenu_items[ $position ] );
 
-        $top_submenu_items[ $submenu_id ] = $submenu_info;
+          $top_submenu_items[ $submenu_id ] = $submenu_info;
 
-        unset( $submenu_copy[ $submenu_id ] );
+          unset( $submenu_copy[ $submenu_id ] );
+        }
+        elseif ( in_array( $submenu_info[0], $last_submenu_items ) !== FALSE ) {
+          unset( $submenu_copy[ $submenu_id ] );
+          $submenu_copy[ $submenu_id ] = $submenu_info;
+        }
       }
-      elseif ( in_array( $submenu_info[0], $last_submenu_items ) !== FALSE ) {
-        unset( $submenu_copy[ $submenu_id ] );
-        $submenu_copy[ $submenu_id ] = $submenu_info;
-      }
+      $submenu['edit.php?post_type=wp-type-contacts'] = $top_submenu_items + $submenu_copy;
     }
-    $submenu['edit.php?post_type=wp-type-contacts'] = $top_submenu_items + $submenu_copy;
     return $menu_ord;
   }
 
