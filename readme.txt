@@ -123,6 +123,7 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 == Changelog ==
 = 1.6.1 = 
 * Fix for errors on some hosting environments.
+
 = 1.6.0 =
 * Major feature update.
 * Update dashlet for TouchPoints to display today forward instead of all Scheduled.
