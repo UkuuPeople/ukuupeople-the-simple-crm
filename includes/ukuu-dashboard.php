@@ -163,7 +163,7 @@ function ukuupeople_dashboard_page() {
           </div>
 
 					<p class = "p-ukuu-get-started">
-            <?php echo 'Now that your contact record is created, you can: <li><i>click on <b>Add Touchpoints</b></i> at the top of the record to start adding interactions with this person.</li><li>Decide what type of touchpoint this is by selecting from the drop-down menu.</li><li>Briefly describe it.</li><li>Add a date And any other information you choose.</li><li>Tap <i><b>Create</li><li></b></i> Your first interaction with this person is scheduled.</li>'; ?></p>
+            <?php echo 'Now that your contact record is created, you can: <li><i>Click on <b>Add Touchpoints</b></i> at the top of the record to start adding interactions with this person.</li><li>Decide what type of touchpoint this is by selecting from the drop-down menu.</li><li>Briefly describe it.</li><li>Add a date And any other information you choose.</li><li>Tap <i><b>Create</li><li></b></i> Your first interaction with this person is scheduled.</li>'; ?></p>
       </div>
 
      <div class = "ukuu-step-4">
