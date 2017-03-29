@@ -1,7 +1,7 @@
 === CRM: Contact Management Simplified - UkuuPeople ===
 Contributors: nathanporter, marisqa, stephenlobo, sonalshah, tporter, kurund, yogeshnipane, prashantgajare, subhashuyadav, suniltorase, ashwinikadam
 Donate Link: http://ukuupeople.com
-Tags: crm, contact, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
+Tags: crm, contact, user management, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
 Requires at least: 3.8
 Tested up to: 4.7.3
 Stable tag: 1.6.1
