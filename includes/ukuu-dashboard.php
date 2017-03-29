@@ -70,7 +70,7 @@ function ukuupeople_dashboard_page() {
 
       <p class = 'ukuu-about'><?php
       printf(
-        __( 'Thank you for activating or updating to the latest version of UkuuPeople If you\'re a first time user, welcome! You\'re well on your way to bringing your people together. We encourage you to check out the plugin documentation. Also,check out the Get started guide below.', 'UkuuPeople' )
+        __( 'Thank you for activating or updating to the latest version of UkuuPeople If you\'re a first time user, welcome! You\'re well on your way to bringing your people together. We encourage you to check out the plugin documentation. Also, check out the Get Started guide below.', 'UkuuPeople' )
       );
   ?>
   </p>
@@ -106,7 +106,7 @@ function ukuupeople_dashboard_page() {
           <div class = "div-about-content">
             <h2><?php esc_html_e( 'UkuuPeople -  Bring Your People Together Without Complicated Software', 'UkuuPeople' ); ?></h2>
 
-            <p class = "ukuu-content-p"><?php esc_html_e( 'UkuuPeople helps you elegently manage all your human relationships. UkuuPeople is the easiets CRM tool for Wordpress. The simple CRM effortlessly ties all of your contact interactions and contact data collection tool together. Now you can form one authorative master list of allyour contacts and a record of your interactions with them.', 'UkuuPeople' ); ?></p>
+            <p class = "ukuu-content-p"><?php esc_html_e( 'UkuuPeople helps you elegantly manage all your human relationships. UkuuPeople is the easiest CRM tool for Wordpress. The simple CRM effortlessly ties all of your contact interactions and contact data collection tool together. Now you can form one authoritative master list of all your contacts and a record of your interactions with them.', 'UkuuPeople' ); ?></p>
             <a class="button-primary" target="_blank" title="Google Apps" href="https://ukuupeople.com" id ="btn-links">
               Learn More
           </a>
@@ -120,7 +120,7 @@ function ukuupeople_dashboard_page() {
 
           <div class = "div-about-content">
             <h2><?php esc_html_e( 'Getting to Know UkuuPeople', 'UkuuPeople' ); ?></h2>
-          <p class = "ukuu-content-p"><?php esc_html_e( 'Before you get started with UkuuPeople, we suggest you take a look at the online documentation. There you will find tutorials which will help you get up and running quickly. If you have any question,issue, or bug with the UkuuPeople plugin, Please submit the problem on the UkuuPeople support site by clicking the red Ask a Question button. We also welcome your feedback and feature requests. Welcome to UkuuPeople. We wish you much success with your people.', 'UkuuPeople' ); ?></p>
+          <p class = "ukuu-content-p"><?php esc_html_e( 'Before you get started with UkuuPeople, we suggest you take a look at the online documentation. There you will find tutorials which will help you get up and running quickly. If you have any question, issue, or bug with the UkuuPeople plugin, please submit the problem on the UkuuPeople support site by clicking the red <b>Ask a Question</b> button. We also welcome your feedback and feature requests. Welcome to UkuuPeople. We wish you much success with your people.', 'UkuuPeople' ); ?></p>
           <a class="button-primary" target="_blank" title="Google Apps" href="http://support.ukuupeople.com/" id = "btn-links">
               Documentation
           </a>
@@ -137,14 +137,14 @@ function ukuupeople_dashboard_page() {
     $step4 = UKUUPEOPLE_RELPATH. '/images/step_4_and_more.png';
     ?>
     <?php ukuupeople_dashboard_page(); ?>
-      <h3 class = "ukuu-get-h3"><?php esc_html_e( 'Getting started with UkuuPeople is easy! We put together this quick start guide to help first time users of the plugin. Our  goal is to get up and running in no time. Lets begin!', 'UkuuPeople' ); ?></h3>
+      <h3 class = "ukuu-get-h3"><?php esc_html_e( 'Getting started with UkuuPeople is easy! We put together this quick start guide to help first time users of the plugin. Our goal is to get you up and running in no time. Let’s begin!', 'UkuuPeople' ); ?></h3>
 
       <div class = "ukuu-step-1">
         <h3><?php esc_html_e( 'STEP 1 - DASHBOARD', 'UkuuPeople' ); ?></h3>
   			<div class = "ukuu-get-start-img">
           <img src="<?php echo $step1 ?>" alt="<?php esc_attr_e( 'Step1', 'UkuuPeople' ); ?>" height = 50% width = 50%>
           </div>
-				<p class = "p-ukuu-get-started"><?php esc_html_e( 'UkuuPeople is divided into major categories, for tracking People, Touchpoints, and more. Each category has its own Dashboard where you can input and sort data. So take a look at the menu and...', 'UkuuPeople' ); ?></p>
+				<p class = "p-ukuu-get-started"><?php esc_html_e( 'UkuuPeople is divided into major categories for tracking People, TouchPoints, and more. Each category has its own Dashboard where you can input and sort data. So take a look at the menu and...', 'UkuuPeople' ); ?></p>
       </div>
 
       <div class = "ukuu-step-2">
@@ -153,7 +153,7 @@ function ukuupeople_dashboard_page() {
           <img src="<?php echo $step2 ?>" alt="<?php esc_attr_e( 'Step2', 'UkuuPeople' ); ?>" height = 50% width = 50%>
           </div>
 				<p class = "p-ukuu-get-started">
-          <?php echo  '... open up the People Dahsboard. <br>Here you can <i><b>Add New</b></i> <br>Choose to add either a <b>Human</b> or an <b>Organization.</b> Enter your desired contact information. (Every field with an asterisk is required)<br> And tap <i><b>Create!</b></i>'; ?></p>
+          <?php echo  '... open up the People Dashboard. <br>Here you can <i><b>Add New</b></i> <br>Choose to add either a <b>Human</b> or an <b>Organization.</b> Enter your desired contact information. (Every field with an asterisk is required)<br> And tap <i><b>Create!</b></i>'; ?></p>
       </div>
 
       <div class = "ukuu-step-3">
@@ -163,7 +163,7 @@ function ukuupeople_dashboard_page() {
           </div>
 
 					<p class = "p-ukuu-get-started">
-            <?php echo 'Now that your contact record is created, you can click on <i><b>Add Touchpoints</b></i> at the top of <br>the record to start adding interactions with this perosn. <br>Decide what type of touchpoint this is by selecting from the drop-down menu. <br>Briefly describe it. <br>Add a date And any other information you choose. <br>Tap <i><b>Create</b></i>, and you schedule your first interaction with this person'; ?></p>
+            <?php echo 'Now that your contact record is created, you can: <li><i>click on <b>Add Touchpoints</b></i> at the top of the record to start adding interactions with this person.</li><li><br>Decide what type of touchpoint this is by selecting from the drop-down menu.</li><li>Briefly describe it.</li><li>Add a date And any other information you choose.</li><li>Tap <i><b>Create</li><li></b></i> Your first interaction with this person is scheduled.</li>'; ?></p>
       </div>
 
      <div class = "ukuu-step-4">
@@ -173,7 +173,7 @@ function ukuupeople_dashboard_page() {
           </div>
 
 					<p class = "p-ukuu-get-started">
-            <?php echo 'Its so basic and simple,yes. And you\'ve already made an excellent start! but there\'s so much more you can do. Learn to categorize usign Tribes and Tags and Relationships. Find out how to create additional Touchpoints Types. And add even more functionality with our Add-ons <br>To learn more, <a href= "http://support.ukuupeople.com/" target="_blank">visit our support pages.</a>'; ?></p>
+            <?php echo 'You\'ve already made an excellent start! but there\'s so much more you can do. Learn to categorize using Tribes, Tags and Relationships. Find out how to create additional Touchpoints Types. And add even more functionality with our Add-ons <br>To learn more, <a href= "http://support.ukuupeople.com/" target="_blank">visit our support pages.</a>'; ?></p>
      </div>
     </div>
   <?php }
