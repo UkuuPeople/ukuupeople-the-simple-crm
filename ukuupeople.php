@@ -53,6 +53,7 @@ if ( !empty( $installed_ver ) &&  $installed_ver != $ukuupeople_db_version ) {
   $ukuupeople_updater = new ukuupeople_update( $installed_ver, $ukuupeople_db_version );
   $ukuupeople_updater->onUpdate();
   update_option( "ukuupeople_db_version", $ukuupeople_db_version );
+  assign_capabilities();
 }
 
 
@@ -84,6 +85,10 @@ function on_activation() {
   dbDelta( $sql );
   global $ukuupeople_db_version;
   update_option( "ukuupeople_db_version", $ukuupeople_db_version );
+  assign_capabilities();
+}
+
+function assign_capabilities() {
   require_once( UKUUPEOPLE_ABSPATH . '/ukuupeople-config.php' );
   $capabilities_ukuupeople = ukuupeople_capabilities();
   $capabilities_touchpoint = touchpoint_capabilities();
