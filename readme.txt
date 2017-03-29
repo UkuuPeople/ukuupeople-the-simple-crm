@@ -3,7 +3,7 @@ Contributors: nathanporter, marisaporter, stephenlobo, sonalshah, yogeshnipane, 
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
 Requires at least: 3.8
-Tested up to: 4.7
+Tested up to: 4.7.3
 Stable tag: 1.6.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -121,6 +121,8 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 4. UkuuPeople TouchPoints listing.
 
 == Changelog ==
+= 1.6.1 = 
+* Fix for errors on some hosting environments.
 = 1.6.0 =
 * Major feature update.
 * Update dashlet for TouchPoints to display today forward instead of all Scheduled.
@@ -157,6 +159,9 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 
 
 == Upgrade Notice ==
+= 1.6.1 =
+Includes patch for error on some hosting environments.
+
 = 1.6.0 =
 This is a major feature release that includes improvements to ACL's for user roles, fixes to quick edit and bulk edit options, changes to filters, dashlets, and sorting options. Addition of German translation. Addition of getting started page on activation.
 
