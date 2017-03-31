@@ -30,7 +30,7 @@ add_action( 'cmb2_init', 'ukuu_register_address_metabox' );
 add_action( 'cmb2_init', 'ukuu_register_related_org_metabox' );
 
 /**
- * To create custom fields for Touchpoints
+ * To create custom fields for TouchPoints
  */
 add_action( 'cmb2_init', 'touchpoints_register_metabox' );
 add_action( 'cmb2_init', 'touchpoints_register_assigned_to_metabox' );
@@ -196,17 +196,17 @@ function create_post_type() {
 
 	// create a new taxonomy
 	$labels = array(
-		'name'              => _x( 'Touchpoint Types', 'taxonomy general name', 'UkuuPeople' ),
-		'singular_name'     => _x( 'Touchpoint Type', 'taxonomy singular name', 'UkuuPeople' ),
-		'search_items'      => __( 'Search Touchpoint Type', 'UkuuPeople' ),
-		'all_items'         => __( 'All Touchpoint Type', 'UkuuPeople' ),
-		'parent_item'       => __( 'Parent Touchpoint Type', 'UkuuPeople' ),
-		'parent_item_colon' => __( 'Parent Touchpoint Type:', 'UkuuPeople' ),
-		'edit_item'         => __( 'Edit Touchpoint Type', 'UkuuPeople' ),
-		'update_item'       => __( 'Update Touchpoint Type', 'UkuuPeople' ),
-		'add_new_item'      => __( 'Add New Touchpoint Type', 'UkuuPeople' ),
-		'new_item_name'     => __( 'New Touchpoint Type Name', 'UkuuPeople' ),
-		'menu_name'         => __( 'Touchpoint Type', 'UkuuPeople' ),
+		'name'              => _x( 'TouchPoint Types', 'taxonomy general name', 'UkuuPeople' ),
+		'singular_name'     => _x( 'TouchPoint Type', 'taxonomy singular name', 'UkuuPeople' ),
+		'search_items'      => __( 'Search TouchPoint Type', 'UkuuPeople' ),
+		'all_items'         => __( 'All TouchPoint Type', 'UkuuPeople' ),
+		'parent_item'       => __( 'Parent TouchPoint Type', 'UkuuPeople' ),
+		'parent_item_colon' => __( 'Parent TouchPoint Type:', 'UkuuPeople' ),
+		'edit_item'         => __( 'Edit TouchPoint Type', 'UkuuPeople' ),
+		'update_item'       => __( 'Update TouchPoint Type', 'UkuuPeople' ),
+		'add_new_item'      => __( 'Add New TouchPoint Type', 'UkuuPeople' ),
+		'new_item_name'     => __( 'New TouchPoint Type Name', 'UkuuPeople' ),
+		'menu_name'         => __( 'TouchPoint Type', 'UkuuPeople' ),
 	);
 
 	$args = array(
@@ -317,7 +317,7 @@ function ukuu_register_related_org_metabox(){
               ) );
 
   $cmb_demo->add_field( array(
-      'name'             => __( 'select organization', 'UkuuPeople' ),
+      'name'             => __( 'Select Organization', 'UkuuPeople' ),
       'desc'             => __( '', 'UkuuPeople' ),
       'id'               => $prefix . 'related-org',
       'type'             => 'select',
@@ -355,7 +355,7 @@ function touchpoints_register_metabox() {
   $prefix = 'wpcf-';
   $activity_information = new_cmb2_box( array(
                             'id'            => $prefix . 'group-activity-information',
-                            'title'         => __( 'Activity information', 'UkuuPeople' ),
+                            'title'         => __( 'Activity Information', 'UkuuPeople' ),
                             'object_types'  => array( 'wp-type-activity', ), // Post type
                           ) );
 

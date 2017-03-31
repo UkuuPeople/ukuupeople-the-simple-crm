@@ -78,10 +78,10 @@ function settings() {
   $activity_type = get_terms( 'wp-type-activity-types','hide_empty=0' );
   $tribes = get_terms( 'wp-type-group','hide_empty=0' );
   $tags = get_terms( 'wp-type-tags','hide_empty=0' );
-  echo '<div class="postbox main-type-list"><h3 class="hndle"><span> Touchpoint'. __( 'Types', 'UkuuPeople' ) .'</span></h3>';
+  echo '<div class="postbox main-type-list"><h3 class="hndle"><span> TouchPoint'. __( 'Types', 'UkuuPeople' ) .'</span></h3>';
   types_list( $activity_type , 'touchpoint' );
   echo '</div>';
-  echo "<a href='".admin_url()."edit-tags.php?taxonomy=wp-type-activity-types&post_type=wp-type-contacts'><input type='button' class='button button-primary' value='".__( 'Add New', 'UkuuPeople' )." Touchpoint ". __( 'Type', 'UkuuPeople' ) . "'></a>";
+  echo "<a href='".admin_url()."edit-tags.php?taxonomy=wp-type-activity-types&post_type=wp-type-contacts'><input type='button' class='button button-primary' value='".__( 'Add New', 'UkuuPeople' )." TouchPoint ". __( 'Type', 'UkuuPeople' ) . "'></a>";
   echo '<div class="postbox main-type-list"><h3 class="hndle"><span>Tribes</span></h3>';
   types_list( $tribes , 'tribe' );
   echo '</div>';

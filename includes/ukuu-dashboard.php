@@ -163,7 +163,7 @@ function ukuupeople_dashboard_page() {
           </div>
 
 					<p class = "p-ukuu-get-started">
-            <?php echo 'Now that your contact record is created, you can: <li><i>Click on <b>Add Touchpoints</b></i> at the top of the record to start adding interactions with this person.</li><li>Decide what type of touchpoint this is by selecting from the drop-down menu.</li><li>Briefly describe it.</li><li>Add a date And any other information you choose.</li><li>Tap <i><b>Create</li><li></b></i> Your first interaction with this person is scheduled.</li>'; ?></p>
+            <?php echo 'Now that your contact record is created, you can: <li><i>Click on <b>Add TouchPoints</b></i> at the top of the record to start adding interactions with this person.</li><li>Decide what type of touchpoint this is by selecting from the drop-down menu.</li><li>Briefly describe it.</li><li>Add a date And any other information you choose.</li><li>Tap <i><b>Create</li><li></b></i> Your first interaction with this person is scheduled.</li>'; ?></p>
       </div>
 
      <div class = "ukuu-step-4">
@@ -173,7 +173,7 @@ function ukuupeople_dashboard_page() {
           </div>
 
 					<p class = "p-ukuu-get-started">
-            <?php echo 'You\'ve already made an excellent start! but there\'s so much more you can do. Learn to categorize using Tribes, Tags and Relationships. Find out how to create additional Touchpoints Types. And add even more functionality with our Add-ons <br>To learn more, <a href= "http://support.ukuupeople.com/" target="_blank">visit our support pages.</a>'; ?></p>
+            <?php echo 'You\'ve already made an excellent start! but there\'s so much more you can do. Learn to categorize using Tribes, Tags and Relationships. Find out how to create additional TouchPoints Types. And add even more functionality with our Add-ons <br>To learn more, <a href= "http://support.ukuupeople.com/" target="_blank">visit our support pages.</a>'; ?></p>
      </div>
     </div>
   <?php }
@@ -309,7 +309,7 @@ function ukuupeople_dashboard_page() {
     <h3 class="addon-heading">
       <a target="_blank" title="Gravity Forms" href="http://shop.ukuupeople.com/add-on/gravity-forms/">Gravity Forms</a>
     </h3>
-    <p>Bring your form data back into UkuuPeople in the form of People or Touchpoints.</p>
+    <p>Bring your form data back into UkuuPeople in the form of People or TouchPoints.</p>
   </div>
   <div class="addon-footer-wrap give-clearfix">
     <a class="button-secondary" target="_blank" title="Gravity Forms" href="http://shop.ukuupeople.com/add-on/gravity-forms/">

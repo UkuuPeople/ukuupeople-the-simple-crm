@@ -170,7 +170,7 @@ function ukuupeople_add_ons() {
     <h3 class="addon-heading">
       <a target="_blank" title="Gravity Forms" href="http://shop.ukuupeople.com/add-on/gravity-forms/">Gravity Forms</a>
     </h3>
-    <p>Bring your form data back into UkuuPeople in the form of People or Touchpoints.</p>
+    <p>Bring your form data back into UkuuPeople in the form of People or TouchPoints.</p>
   </div>
   <div class="addon-footer-wrap give-clearfix">
     <a class="button-secondary" target="_blank" title="Gravity Forms" href="http://shop.ukuupeople.com/add-on/gravity-forms/">

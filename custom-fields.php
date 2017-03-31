@@ -108,7 +108,7 @@ $customterm = array(
       'type' => 'text_medium',
     ) ,
     'postalcode' => array(
-      'name' => __( 'Postal code', 'UkuuPeople' ),
+      'name' => __( 'Postal Code', 'UkuuPeople' ),
       'desc' => __( '', 'UkuuPeople' ),
       'id'   => $prefix . 'postalcode',
       'type' => 'text_medium',
@@ -168,7 +168,7 @@ $customterm = array(
     ),
     'status' => array(
       'name'             => __( 'Status*', 'UkuuPeople' ),
-      'desc'             => __( 'Status of Touchpoint', 'UkuuPeople' ),
+      'desc'             => __( 'Status of TouchPoint', 'UkuuPeople' ),
       'id'               => $prefix . 'status',
       'type'             => 'select',
       'attributes'  => array(
