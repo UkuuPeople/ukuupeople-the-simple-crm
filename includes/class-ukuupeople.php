@@ -153,7 +153,7 @@ class UkuuPeople {
     add_filter( 'posts_clauses', array( $this, 'touchpoint_query_clauses' ), 20, 2 );
     add_action( 'do_meta_boxes' , array( $this, 'remove_post_custom_fields' ) );
     /*
-     * Touchpoints Sorting
+     * TouchPoints Sorting
      */
 
     /* Sorting table columns of contacts and activity
@@ -243,8 +243,8 @@ class UkuuPeople {
     global $post;
     if ($post->post_type == "wp-type-activity") {
       $link = get_post_permalink($post->ID);
-      $messages["post"][1] = "Touchpoint updated. <a href = '{$link}' > View touchpoint</a>";
-      $messages["post"][6] = "Touchpoint created. <a href = '{$link}' > View touchpoint</a>";
+      $messages["post"][1] = "TouchPoint updated. <a href = '{$link}' > View TouchPoint</a>";
+      $messages["post"][6] = "TouchPoint created. <a href = '{$link}' > View TouchPoint</a>";
     }
     else if ($post->post_type == "wp-type-contacts") {
       $link = get_post_permalink($post->ID);
@@ -254,7 +254,7 @@ class UkuuPeople {
     return $messages;
   }
 
-  // Alter quick edit options in Ukuupeople & Touchpoints
+  // Alter quick edit options in UkuuPeople & TouchPoints
   public function ukuupeople_alter_quick_edit_options( $column_name, $post_type ) {
     if ( ! in_array( $post_type, array('wp-type-contacts', 'wp-type-activity') ) ) {
       return;
@@ -776,7 +776,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   function change_placeholder( $label, $post ){
 
     if( $post->post_type == 'wp-type-activity' )
-      $label= __( 'Enter Touchpoint Short Description', 'UkuuPeople' );
+      $label= __( 'Enter TouchPoint Short Description', 'UkuuPeople' );
 
     return $label;
   }
@@ -797,7 +797,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
       'post_author'   => $current_user->ID ,
     );
 
-    // Insert the Touchpoint into the database
+    // Insert the TouchPoint into the database
     $post_ID = wp_insert_post( $my_post );
 
     // NOTE : Dates in the m/d/y or d-m-y formats are disambiguated by looking at the separator between the various components: if the separator is a slash (/), then the American m/d/y is assumed; whereas if the separator is a dash (-) or a dot (.), then the European d-m-y format is assumed.
@@ -1055,11 +1055,11 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
       <div style="display:none" id="dialog" title="<?php _e( 'Add New','UkuuPeople') ?>">
          <table>
          <tr>
-         <td><?php echo __( 'Touchpoint Contact', 'UkuuPeople' ); ?></td>
+         <td><?php echo __( 'TouchPoint Contact', 'UkuuPeople' ); ?></td>
          <td><input type="text" name="touchpoint_contact_name" placeholder="<?php _e('Start typing name', 'UkuuPeople') ?>"></td>
          </tr>
          <input type="hidden" id="touchpoint_contact_id">
-         <tr><td></td><td><input type="button" class="button button-primary" value="create" name="wp-touchpoint-contact-select" redirect="<?php echo $Url?>"></td></tr>
+         <tr><td></td><td><input type="button" class="button button-primary" value="Create" name="wp-touchpoint-contact-select" redirect="<?php echo $Url?>"></td></tr>
          </table>
          </div>
       <?php
@@ -1088,7 +1088,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     }
 
     add_submenu_page( NULL , '', 'View Ukuu People', 'access_ukuupeoples', 'view-ukuupeople', array($this,'view_ukuu_people') );
-    add_submenu_page( NULL , '', 'View Ukuu Touchpoint', 'access_touchpoints', 'view-touchpoint', array($this,'view_touchpoint') );
+    add_submenu_page( NULL , '', 'View Ukuu TouchPoint', 'access_touchpoints', 'view-touchpoint', array($this,'view_touchpoint') );
   }
 
   function ukuuCRM_dashboard_setup() {
@@ -1112,11 +1112,11 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     );
 	}
 
-  // Function for adding color option for Touchpoints
+  // Function for adding color option for TouchPoints
   function add_color_fields( $taxonomy_name ) {
     ?>
     <div>
-      <label><?php __( 'Choose color for', 'UkuuPeople' ); ?> Touchpoint</label>
+      <label><?php __( 'Choose color for', 'UkuuPeople' ); ?> TouchPoint</label>
          <input type="radio" name="category-radio" id="act-color-1" value="#666" style="display: inline-block; width: 25px;" />
         <label for="act-color-1" style="display: inline-block; width: auto; vertical-align: top;"><div style="width: 30px;height: 20px;border-width: 1px;background-color:#666;"></div></label>
         <input type="radio" name="category-radio" id="act-color-2" value="#FE4D39" style="display: inline-block; width: 25px;" />
@@ -1288,7 +1288,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   }
 
   /**
-   * Custom metabox for Touchpoint list.
+   * Custom metabox for TouchPoint list.
    */
   function ukuu_custom_touchpoint() {
     //To hide screen options
@@ -1303,7 +1303,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     foreach ( $screens as $screen ) {
       add_meta_box(
         'touchpoint-types',            // Unique ID
-        __( 'Touchpoint List', 'UkuuPeople' ),      // Box title
+        __( 'TouchPoint List', 'UkuuPeople' ),      // Box title
         array( $this ,'ukuu_custom_touchpoint_list') ,  // Content callback
         $screen
       );
@@ -1311,7 +1311,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   }
 
   /**
-   * Content callback for custom metabox Touchpoint list.
+   * Content callback for custom metabox TouchPoint list.
    */
   function ukuu_custom_touchpoint_list( $post ) {
     if ( isset( $post->ID ) && $post->post_type == 'wp-type-activity' ) {
@@ -1327,7 +1327,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
       $acttype = get_terms( 'wp-type-activity-types' ,'hide_empty=0' );
       echo '<select name="touchpoint-list" id="touchpoint-list" class="postbox form-control" required="">';
       if( empty( $post_term ) ){
-        echo "<option value='' selected>".__( 'Select Touchpoint type', 'UkuuPeople' )."..</option>";
+        echo "<option value='' selected>".__( 'Select TouchPoint Type', 'UkuuPeople' )."..</option>";
       }
       foreach ($acttype as $key => $value ) {
         if( isset( $post_term[0] ) && $value->name == $post_term[0] ){
@@ -1341,7 +1341,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   }
 
   /**
-   * Touchpoint list for dashboard.
+   * TouchPoint list for dashboard.
    *
    */
   public static function ukuuCRM_dashboard_activities_content() {
@@ -1420,7 +1420,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   }
 
   /**
-   * Touchpoint favorites list for dashboard.
+   * TouchPoint favorites list for dashboard.
    */
   public static function ukuuCRM_dashboard_favorites_content() {
     $user_id = get_current_user_id();
@@ -1460,7 +1460,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
   }
 
   /**
-   * Quick Add Touchpoint
+   * Quick Add TouchPoint
    */
   public static function ukuuCRM_dashboard_createactivity_content() {
     wp_enqueue_script( 'media-upload' );
@@ -1772,7 +1772,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
          <option class="wpcf-form-option form-option option" selected="selected" value="5">5</option>
          <option class="wpcf-form-option form-option option" value="10">10</option>
          <option class="wpcf-form-option form-option option" value="15">15</option>
-       </select>Touchpoints
+       </select>TouchPoints
       </div>
       <?php } echo "</div></div>";
   }
@@ -2184,7 +2184,7 @@ function insert_taxonomy_terms() {
         }
         echo "</select>";
       }
-      // Filter post by Touchpoint Contact
+      // Filter post by TouchPoint Contact
       $assignee_contacts = get_id_and_displayname(); // Get assignee_contact
       echo "<select name='touchpoint-assignee' id='touchpoint-assignee' class='postform'>";
       echo "<option value=''>".__( 'Show All', 'UkuuPeople' )." Assignees</option>";
@@ -2879,7 +2879,7 @@ function insert_taxonomy_terms() {
         echo '<div class="add-touchpoint">';
         $contact_id = get_the_ID();
         echo "<div class='edit_contact'><a href='#wpcf-group-edit-contact-info' class='button button-primary'>Edit Contact</a></div>";
-        echo "<div><a href='".admin_url()."post-new.php?post_type=wp-type-activity&cid=$contact_id' class='button button-primary'>Add Touchpoints</a></div>";
+        echo "<div><a href='".admin_url()."post-new.php?post_type=wp-type-activity&cid=$contact_id' class='button button-primary'>Add TouchPoint</a></div>";
         echo '</div></div></div>';
         echo '<div id="contactdetailsblock"><table id="contactdetail-table">';
 
@@ -3079,7 +3079,7 @@ function insert_taxonomy_terms() {
 ?>
     </div>
    </div>
-   <div class="edit-touchpoint"><a href="#wpcf-group-activity-information">Edit Touchpoint</a></div>
+   <div class="edit-touchpoint"><a href="#wpcf-group-activity-information">Edit TouchPoint</a></div>
   </div>
 </div>
 <?php
@@ -3191,7 +3191,7 @@ function insert_taxonomy_terms() {
      require_once( 'view-touchpoint.php' );
    }
     else
-      echo 'Touchpoint doesnot exist';
+      echo 'TouchPoint doesnot exist';
   }
 
   function manage_wp_posts_be_qe_posts_clauses( $pieces, $query ) {

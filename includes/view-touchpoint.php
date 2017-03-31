@@ -1,4 +1,4 @@
- <div class='wrap'><h1>View Touchpoint</h1>
+ <div class='wrap'><h1>View TouchPoint</h1>
  <?php
     if ( isset($touchpoint_object->ID) && ( $touchpoint_object->post_type == 'wp-type-activity' ) ) {
       $custom = get_post_custom( $touchpoint_object->ID );
@@ -147,7 +147,7 @@
       </div>
       </div>
       <?php if( current_user_can('edit_touchpoint') ):?>
-      <div class="edit-touchpoint"><a href="post.php?post=<?php echo $touchpoint_object->ID;?>&action=edit#wpcf-group-activity-information">Edit Touchpoint</a></div>
+      <div class="edit-touchpoint"><a href="post.php?post=<?php echo $touchpoint_object->ID;?>&action=edit#wpcf-group-activity-information">Edit TouchPoint</a></div>
       <?php
       endif;
       ?>
