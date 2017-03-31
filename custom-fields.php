@@ -151,7 +151,7 @@ $customterm = array(
     ) ,
     'startdate' => array(
       'name' => __( 'Start Date*', 'UkuuPeople' ),
-      'desc' => __( 'Enter the Start Date', 'UkuuPeople' ),
+      'desc' => __( 'Enter the Start Date and Time', 'UkuuPeople' ),
       'id'   => $prefix . 'startdate',
       'type' => 'text_datetime_timestamp',
       'attributes'  => array(
@@ -160,7 +160,7 @@ $customterm = array(
     ) ,
     'enddate' => array(
       'name' => __( 'End Date', 'UkuuPeople' ),
-      'desc' => __( 'Enter the End Date', 'UkuuPeople' ),
+      'desc' => __( 'Enter the End Date and Time', 'UkuuPeople' ),
       'id'   => $prefix . 'enddate',
       'type' => 'text_datetime_timestamp',
       'attributes'  => array(
