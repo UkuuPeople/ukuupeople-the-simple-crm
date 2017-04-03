@@ -1327,7 +1327,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
       $acttype = get_terms( 'wp-type-activity-types' ,'hide_empty=0' );
       echo '<select name="touchpoint-list" id="touchpoint-list" class="postbox form-control" required="">';
       if( empty( $post_term ) ){
-        echo "<option value='' selected>".__( 'Select TouchPoint Type', 'UkuuPeople' )."..</option>";
+        echo "<option value='' selected>".__( 'Select TouchPoint Type', 'UkuuPeople' )."</option>";
       }
       foreach ($acttype as $key => $value ) {
         if( isset( $post_term[0] ) && $value->name == $post_term[0] ){
@@ -1491,6 +1491,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     <script>
     <!--Custom touchpoint contact dialog box-->
        jQuery(function($) {
+           var assigneeval = [];
            $( "#dialog" ).dialog({
              modal : true,
                  autoOpen: false,
@@ -1505,14 +1506,28 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
                  buttons: {
                    Ok: function() {
                    $( this ).dialog( "close" );
-                   $val = $( "select[name='touchpoint_assign_name']" ).val();
-                   $text = $( "select[name='touchpoint_assign_name'] option:selected" ).text();
-                   jQuery( "#touchpoint_assign_name_display" ).val( $text );
-                   jQuery( "#touchpoint_assign_id" ).val( $val );
+
+                   $newtext = $( "select[name='touchpoint_assign_name'] option:selected" ).text();
+                   $prvtxt = jQuery(".quickadd input[name='touchpoint_assign_name_display']").val();
+
+                   if ($prvtxt == "") {
+                      jQuery( "#touchpoint_assign_name_display" ).val( $newtext );
+                      $prval = $( "select[name='touchpoint_assign_name'] option:selected" ).val();
+                      assigneeval.push($prval);
+                    }
+
+                   else {
+                      $prval = $( "select[name='touchpoint_assign_name'] option:selected" ).val();
+                      if(jQuery.inArray($prval, assigneeval) === -1) {
+                          assigneeval.push($prval);
+                          jQuery(".quickadd input[name='touchpoint_assign_name_display']").val($prvtxt+","+$newtext);
+                        }
+                    }
+                   jQuery( "#touchpoint_assign_id" ).val( assigneeval );
                    $( "#touchpoint_assign_name_display" ).show();
                  }
                }
-                 });
+            });
 
            $( "#dashboard-widgets-wrap #ukuuCRM-dashboard-createactivity-widget .quickadd input[name='dassign']" ).click(function() {
                $( "#dialog" ).dialog( "open" );
@@ -1539,18 +1554,18 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
     <table class="quickadd">
       <tr>
       <td class="quickadd-label"><?php _e( 'Contact*', 'UkuuPeople' ) ?></td>
-      <td><input type="text" name="dname" required placeholder="<?php _e( 'Start typing name', 'UkuuPeople' ) ?>"><input id="dcontact_id" type="hidden" name="contact_id"></td>
+      <td><input type="text" name="dname" required placeholder="<?php _e( 'Start Typing Name', 'UkuuPeople' ) ?>"><input id="dcontact_id" type="hidden" name="contact_id"></td>
       </tr>
 
       <tr>
       <td class="quickadd-label"><?php _e( 'Subject*', 'UkuuPeople' ) ?></td>
-      <td><input type="text" name="dsubject" required placeholder="<?php _e( 'Enter subject', 'UkuuPeople' ) ?>"></td>
+      <td><input type="text" name="dsubject" required placeholder="<?php _e( 'Enter Subject', 'UkuuPeople' ) ?>"></td>
       </tr>
 
       <tr>
       <td class="quickadd-label"><?php _e( 'Type*', 'UkuuPeople' ) ?></td>
       <td><select class="form-control" required="" name="dtype"><?php
-      echo "<option value='' selected>".__( 'Select TouchPoint type', 'UkuuPeople' )."..</option>";
+      echo "<option value='' selected>".__( 'Select TouchPoint Type', 'UkuuPeople' )."</option>";
       foreach ( $acttype as $key => $value ) {
         echo "<option value=".$value->slug.">".$value->name."</option>";
       }

@@ -1,5 +1,7 @@
 jQuery(function ($) {
 
+jQuery("#touchpoint_assign_name_display").attr('readonly', 'true');
+
 //Welcome page
 jQuery('#mc-embedded-subscribe-form-ukuu').on('submit', function () {
   var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
@@ -286,7 +288,7 @@ assing_result, extractLast( request.term ) ) );
 	var arr = ["contact_id","dsubject","dsdate","dedate","dstime","detime","filename","touchpoint_assign_id"];
 	jQuery.each(arr, function( index, value ) {
 	    var datavalue = jQuery(document).find('input[name="'+value+'"]').val();
-	    fd.append(value, datavalue); 
+	    fd.append(value, datavalue);
 	});
 
 	jQuery.ajax({
@@ -303,8 +305,7 @@ assing_result, extractLast( request.term ) ) );
 	jQuery('#quickAddform').trigger('reset');
 	jQuery(".quickadd #filename").hide();
 	jQuery(".quickadd #touchpoint_assign_name_display").hide();
-	jQuery(".quickadd .seprate").hide();
-    });
+ });
 
     jQuery("#dashboard-widgets-wrap #ukuuCRM-dashboard-createactivity-widget .quickadd input[name='dupload']").click( function() {
 	formfield = jQuery('.quickadd #filename').attr('name');
