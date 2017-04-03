@@ -2741,7 +2741,9 @@ function insert_taxonomy_terms() {
         $update_options['wpcf-status'] = $_GET['touchpoint_status'][1];
       }
 
-      if ( ! empty( $touchpoint_assignee = array_filter( $_GET['touchpoint_assignee'] ) ) ) {
+      $touchpoint_assignee = array_filter( $_GET['touchpoint_assignee'] );
+
+      if ( ! empty( $touchpoint_assignee ) ) {
         $update_options['wpcf_assigned_to'] = $touchpoint_assignee;
       }
 
