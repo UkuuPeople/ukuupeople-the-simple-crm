@@ -308,30 +308,39 @@ assing_result, extractLast( request.term ) ) );
 	jQuery(".quickadd #touchpoint_assign_name_display").hide();
  });
 
-    jQuery("#dashboard-widgets-wrap #ukuuCRM-dashboard-createactivity-widget .quickadd input[name='dupload']").click( function() {
-	formfield = jQuery('.quickadd #filename').attr('name');
-	tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
-	return false;
+  jQuery("#dashboard-widgets-wrap #ukuuCRM-dashboard-createactivity-widget .quickadd input[name='dupload']").click( function() {
+    var frame;
+
+    // If the media frame already exists, reopen it.
+    if ( frame ) {
+      frame.open();
+      return;
+    }
+
+    // Create a new media frame
+    frame = wp.media({
+      title: 'Attachments',
+      button: {
+        text: 'Use this media'
+      },
+      multiple: false  // Set to true to allow multiple files to be selected
     });
 
-  window.send_to_editor = function(html) {
-	imgurl = jQuery(html).attr('src');
-    fileurl = jQuery(html).attr('href');
-    var url;
-    if (imgurl == undefined) {
-      url = fileurl;
-    }
-   else {
-    url = imgurl;
-    }
-	jQuery('.quickadd #filename').val(url);
-	jQuery(".quickadd #filename").show();
-	tb_remove();
-    }
+    // When an image is selected in the media frame...
+    frame.on( 'select', function() {
+      // Get media attachment details from the frame state
+      var attachment = frame.state().get('selection').first().toJSON();
 
-    jQuery('.post-type-wp-type-activity .over-image').hide();
-    jQuery('.post-type-wp-type-activity .inner-attachment-first').hide();
-    jQuery(".post-type-wp-type-activity .attachment-first").hover(function(){
+      // Send the attachment URL to our custom image input field.
+      jQuery('.quickadd #filename').val(attachment.url).show();
+    });
+
+    frame.open();
+  });
+
+  jQuery('.post-type-wp-type-activity .over-image').hide();
+  jQuery('.post-type-wp-type-activity .inner-attachment-first').hide();
+  jQuery(".post-type-wp-type-activity .attachment-first").hover(function(){
 	var id = this.id;
 	jQuery( '.post-type-wp-type-activity #'+id+' .over-image' ).show();
 	jQuery( '.post-type-wp-type-activity #'+id+' .inner-attachment-first' ).show();
