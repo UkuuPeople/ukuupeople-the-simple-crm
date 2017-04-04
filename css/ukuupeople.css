@@ -2864,6 +2864,10 @@ a.nav-tab {
 } 
 
 /* CSS to override Give plugins CSS for dialog box in Activity Dashlet */
+.ui-dialog .ui-dialog-titlebar-close {
+    margin: -5px;
+}
+
 .override-give-css .ui-button-icon-primary.ui-icon {
     display: none !important;
 }
