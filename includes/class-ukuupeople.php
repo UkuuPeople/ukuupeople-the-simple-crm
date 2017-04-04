@@ -1301,12 +1301,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
 
     $screens = array( 'wp-type-activity' );
     foreach ( $screens as $screen ) {
-      add_meta_box(
-        'touchpoint-types',            // Unique ID
-        __( 'TouchPoint List', 'UkuuPeople' ),      // Box title
-        array( $this ,'ukuu_custom_touchpoint_list') ,  // Content callback
-        $screen
-      );
+      add_action( 'edit_form_after_editor', array( $this , 'ukuu_custom_touchpoint_list' ) );
     }
   }
 
