@@ -144,6 +144,7 @@ jQuery(document).ready(function() {
     jQuery( "#dialog" ).dialog({
         modal : true,
         autoOpen: false,
+        dialogClass: 'override-give-css',
         show: {
             effect: "blind",
             duration: 1000
