@@ -2594,8 +2594,9 @@ margin-top: 12px;
 }
 
 /* end of navbar*/
+/*marisa's notes: this image is much smaller than the container, so it should be set at 35% until it can be replaced with a proper image. it's being degraded*/
 .ukuu-add-on-img > img, .ukuu-dahsboard-right > img {
-  width: 100%;
+  width: 35%;
   height: auto;
 }
 .ukuu-get-start-img > img {
