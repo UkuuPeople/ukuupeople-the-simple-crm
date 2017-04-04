@@ -2862,3 +2862,8 @@ a.nav-tab {
 .ukuu-add-on-button {
     text-align: right !important;
 } 
+
+/* CSS to override Give plugins CSS for dialog box in Activity Dashlet */
+.override-give-css .ui-button-icon-primary.ui-icon {
+    display: none !important;
+}
