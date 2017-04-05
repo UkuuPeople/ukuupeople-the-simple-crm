@@ -1458,7 +1458,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
    * Quick Add TouchPoint
    */
   public static function ukuuCRM_dashboard_createactivity_content() {
-    wp_enqueue_script( 'media-upload' );
+    wp_enqueue_media();
     wp_enqueue_script( 'thickbox' );
     wp_enqueue_style( 'thickbox' );
     wp_enqueue_script( 'ukuucrm', UKUUPEOPLE_RELPATH.'/script/ukuucrm.js' , array('jquery','media-upload','thickbox') );
