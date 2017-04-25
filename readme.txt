@@ -164,6 +164,9 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 
 
 == Upgrade Notice ==
+= 1.6.2 = 
+This fixes errors for some users using older versions of PHP. Includes various bug fixes and styling fixes as well as enhancements to file upload features.
+
 = 1.6.1 =
 Includes patch for error on some hosting environments.
 
