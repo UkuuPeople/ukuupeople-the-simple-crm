@@ -4,7 +4,7 @@ Donate Link: http://ukuupeople.com
 Tags: crm, contact, user management, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
 Requires at least: 3.8
 Tested up to: 4.7.3
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -121,6 +121,10 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 4. UkuuPeople TouchPoints listing.
 
 == Changelog ==
+= 1.6.2 = 
+* Bug and styling fixes	
+* Enhancement for file upload activity in dashlet
+
 = 1.6.1 = 
 * Fix for errors on some hosting environments.
 
