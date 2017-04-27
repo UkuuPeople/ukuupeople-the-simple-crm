@@ -2,8 +2,8 @@
 Contributors: nathanporter, marisqa, stephenlobo, sonalshah, tporter, kurund, yogeshnipane, prashantgajare, subhashuyadav, suniltorase, ashwinikadam
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, user management, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
-Requires at least: 3.8
-Tested up to: 4.7.3
+Requires at least: 4.0
+Tested up to: 4.7.4
 Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -122,6 +122,7 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 
 == Changelog ==
 = 1.6.2 = 
+* Fixes for some users with older versions of PHP.
 * Bug and styling fixes	
 * Enhancement for file upload activity in dashlet
 
