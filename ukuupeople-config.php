@@ -452,7 +452,7 @@ function get_related_org_value() {
     $display_name = get_post_meta($item, 'wpcf-display-name', true);
     $display_names[$item] = $display_name;
   }
-  $array_values = "";
+  $array_values = array();
   foreach ( $display_names as $key => $values ) {
     $array_values[$key] = __( $values, 'UkuuPeople' );
   }
