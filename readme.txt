@@ -2,9 +2,9 @@
 Contributors: nathanporter, marisqa, stephenlobo, sonalshah, tporter, kurund, yogeshnipane, prashantgajare, subhashuyadav, suniltorase, ashwinikadam
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, user management, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
-Requires at least: 4.0
-Tested up to: 4.7.4
-Stable tag: 1.6.2
+Requires at least: 4.6
+Tested up to: 4.9.7
+Stable tag: 1.6.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,7 +83,7 @@ Currently it supports only
 = Minimum Requirements =
 
 * WordPress 4.6 or greater
-* PHP Version 5.4 or greater
+* PHP Version 5.6 or greater
 * MySQL version 5.0.15 or greater
 
 = Automatic Installation =
@@ -121,6 +121,9 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 4. UkuuPeople TouchPoints listing.
 
 == Changelog ==
+= 1.6.3 = 
+* Fixes for related org issue on some installs.
+
 = 1.6.2 = 
 * Fixes for some users with older versions of PHP.
 * Bug and styling fixes	
@@ -165,6 +168,9 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 
 
 == Upgrade Notice ==
+= 1.6.3 =
+This fixes errors on related Orgs for some installs. 
+
 = 1.6.2 = 
 This fixes errors for some users using older versions of PHP. Includes various bug fixes and styling fixes as well as enhancements to file upload features.
 
