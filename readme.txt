@@ -1,9 +1,9 @@
 === CRM: Contact Management Simplified - UkuuPeople ===
 Contributors: nathanporter, marisqa, stephenlobo, sonalshah, tporter, kurund, yogeshnipane, prashantgajare, subhashuyadav, suniltorase, ashwinikadam
 Donate Link: http://ukuupeople.com
-Tags: crm, contact, user management, customer, client, relationship manager, wordpress crm, nonprofit, mailchimp, marketing, sales, email, list building, fundraising, donations
+Tags: crm, contact, user management, customer, client, relationship manager, wordpress crm, nonprofit, list building, fundraising, donations
 Requires at least: 4.6
-Tested up to: 4.9.7
+Tested up to: 5.3
 Stable tag: 1.6.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,11 +32,11 @@ UkuuPeople is the easiest CRM tool for WordPress. It effortlessly ties all of yo
 * Track your relationship activity using TouchPoints
 * Attach files to TouchPoint records
 * Quickly view upcoming schedule and favorite contacts with Dashlets
-* Build your email list
+* Build your email list (with MailChimp Addon)
 * Schedule meetings and tasks then assign them to team members
-* Automatically collect data from front end forms
+* Automatically collect data from front end forms (with GravityForms Addon)
 * Share relationship data with your whole team
-* Capture donation or payment information and display in contact dashboard
+* Capture donation or payment information and display in contact dashboard (with GiveWP Addon)
 * ... and much more!
 
 See all the features on the [UkuuPeople Website](http://ukuupeople.com "Visit the UkuuPeople website").
