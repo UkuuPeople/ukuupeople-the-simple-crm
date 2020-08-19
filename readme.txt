@@ -3,8 +3,8 @@ Contributors: nathanporter, marisqa, stephenlobo, sonalshah, tporter, kurund, yo
 Donate Link: http://ukuupeople.com
 Tags: crm, contact, user management, customer, client, relationship manager, wordpress crm, nonprofit, list building, fundraising, donations
 Requires at least: 4.6
-Tested up to: 5.3
-Stable tag: 1.6.3
+Tested up to: 5.5
+Stable tag: 1.6.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,7 +57,7 @@ UkuuPeople has a growing collection of add-ons to create an even more robust and
 
 = Don't miss out on the latest news! =
 
-We're constantly creating new features and premium add-ons. Don't miss out. [Join the Campfire](http://ukuupeople.com "Join our email newsletter"). [Tweet to us](http://twitter.com/ukuupeople "UkuuPeople on Twitter") and like our [Facebook page](http://facebook.com/ukuupeople "UkuuPeople Facebook Page").
+Don't miss out. [Join the Campfire](https://ukuupeople.com/ "Join our email newsletter"). [Tweet to us](http://twitter.com/ukuupeople "UkuuPeople on Twitter") and like our [Facebook page](http://facebook.com/ukuupeople "UkuuPeople Facebook Page").
 
 = Go get your people! =
 
@@ -69,8 +69,8 @@ Go conquer the world!
 
 = Docs & Support =
 
-You can find docs, FAQ and more detailed information about UkuuPeople on (http://ukuupeople.com/).
-If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support knowledgebase](http://support.ukuupeople.com/).
+You can find docs, FAQ and more detailed information about UkuuPeople on (https://ukuupeople.com/).
+If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support knowledgebase](https://ukuupeople.com/support/).
 
 = Translators =
 
@@ -82,9 +82,9 @@ Currently it supports only
 
 = Minimum Requirements =
 
-* WordPress 4.6 or greater
-* PHP Version 5.6 or greater
-* MySQL version 5.0.15 or greater
+* WordPress 5.0 or greater
+* PHP Version 7.3 or greater
+* MySQL version 5.6 or greater (or at least version 10.1 of MariaDB)
 
 = Automatic Installation =
 
@@ -94,12 +94,12 @@ In the search field type "UkuuPeople" and click Search Plugins. Once you have fo
 
 = Manual Installation =
 
-1. Download the plugins from: http://ukuupeople.com/
+1. Download the plugins from: https://ukuupeople.com/
 2. Upload plugin files to your plugins folder.
 3. Activate the plugin.
 On successfull activation, UkuuPeople menu will be dispalyed in admin menu.
 
-For basic usage, you can also have a look at the [plugin homepage](http://ukuupeople.com/ "UkuuPeople Website").
+For basic usage, you can also have a look at the [plugin homepage](https://ukuupeople.com/ "UkuuPeople Website").
 
 = Updating =
 
@@ -109,9 +109,9 @@ Automatic updates should work great! As an added precaution, just be sure to alw
 
 Do you have questions or issues with UKUU PEOPLE? Use these support channels to learn more.
 
-1. **[Documentation](http://support.ukuupeople.com/ "UkuuPeople Knowledgebase")**
-2. **[FAQ](http://ukuupeople.com/ "UkuuPeople Website")**
-3. **[Ask a Question](http://support.ukuupeople.com/ "UkuuPeople Support")**
+1. **[Documentation](https://ukuupeople.com/knowledge-base/ "UkuuPeople Knowledgebase")**
+2. **[Contact Us](https://ukuupeople.com/support/#contact-us "Contact a Tier One Tech")**
+3. **[Purchase Support](https://ukuupeople.com/support/#purchase-support "Advanced Help")**
 
 == Screenshots ==
 
@@ -119,6 +119,10 @@ Do you have questions or issues with UKUU PEOPLE? Use these support channels to 
 2. UkuuPeople contact listing.
 3. UkuuPeople contact dashboad (includes contribution display - add-on required).
 4. UkuuPeople TouchPoints listing.
+
+== Changelog ==
+= 1.6.5 =
+*Updates to fix broken links and outdated verbiage.
 
 == Changelog ==
 = 1.6.3 = 
