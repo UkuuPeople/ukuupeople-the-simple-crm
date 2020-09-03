@@ -82,30 +82,30 @@ jQuery(document).ready(function($) {
   }
 
    // Alter taxonomy field for single-selection in quick edit (for touchpoint only)
-   jQuery(".wp-type-activity-types-checklist input[type='checkbox']").live('click', function () {
-    var current_selection = jQuery(this).val();
+   $(".wp-type-activity-types-checklist input[type='checkbox']").on('click', function () {
+    var current_selection = $(this).val();
 
-    jQuery("input[type='checkbox']", ".wp-type-activity-types-checklist").each( function (index, value) {
-      if ( jQuery(this).val() != current_selection )
-        jQuery(this).prop('checked', false);
+    $("input[type='checkbox']", ".wp-type-activity-types-checklist").each( function (index, value) {
+      if ( $(this).val() != current_selection )
+        $(this).prop('checked', false);
     });
   });
 
-   jQuery(".touchpoint-status-checklist input[type='checkbox']").live('click', function () {
-    var current_selection = jQuery(this).val();
+   $(".touchpoint-status-checklist input[type='checkbox']").on('click', function () {
+    var current_selection = $(this).val();
 
-    jQuery("input[type='checkbox']", ".touchpoint-status-checklist").each( function (index, value) {
-      if ( jQuery(this).val() != current_selection )
-        jQuery(this).prop('checked', false);
+    $("input[type='checkbox']", ".touchpoint-status-checklist").each( function (index, value) {
+      if ( $(this).val() != current_selection )
+        $(this).prop('checked', false);
     });
   });
    // Alter taxonomy field for single-selection in quick edit (for Contacts only)
-   jQuery(".wp-type-contacts-subtype-checklist input[type='checkbox']").live('click', function () {
-    var current_selection = jQuery(this).val();
+   $(".wp-type-contacts-subtype-checklist input[type='checkbox']").on('click', function () {
+    var current_selection = $(this).val();
 
-    jQuery("input[type='checkbox']", ".wp-type-contacts-subtype-checklist").each( function (index, value) {
-      if ( jQuery(this).val() != current_selection )
-        jQuery(this).prop('checked', false);
+    $("input[type='checkbox']", ".wp-type-contacts-subtype-checklist").each( function (index, value) {
+      if ( $(this).val() != current_selection )
+        $(this).prop('checked', false);
     });
   });
 });

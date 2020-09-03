@@ -1022,6 +1022,7 @@ LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = SUBSTRING( pm1.meta_value, 15, 
           jQuery(document).ready(function() {
               jQuery( ".wrap a.page-title-action" ).attr("href", "#");
               jQuery( ".wrap a.page-title-action" ).click(function() {
+                console.log('page-title-action clicked');
                   jQuery( "#dialog" ).dialog( "open" );
                 });
             });

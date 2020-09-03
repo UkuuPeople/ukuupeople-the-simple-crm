@@ -271,7 +271,6 @@ function ukuu_register_contact_metabox() {
                 'title'         => __( 'Edit Contact Info', 'UkuuPeople' ),
                 'object_types'  => array( 'wp-type-contacts', ), // Post type
               ) );
-
   $actual_fields = array(
     0 => 'first-name',
     1 => 'last-name',
@@ -286,7 +285,6 @@ function ukuu_register_contact_metabox() {
     10 => 'ukuu-facebook-url',
     11 => 'ukuu-date-of-birth',
   );
-
   add_fields( $actual_fields , $cmb_demo);
 }
 
@@ -300,7 +298,6 @@ function ukuu_register_setting_metabox() {
                 'title'         => __( 'Edit Privacy Settings', 'UkuuPeople' ),
                 'object_types'  => array( 'wp-type-contacts', ), // Post type
               ) );
-
   $actual_fields = array(
     0 => 'privacy-settings',
     1 => 'bulk-mailings',
@@ -315,7 +312,6 @@ function ukuu_register_related_org_metabox(){
                 'title'         => __( 'Related Organization', 'UkuuPeople' ),
                 'object_types'  => array( 'wp-type-contacts', ), // Post type
               ) );
-
   $cmb_demo->add_field( array(
       'name'             => __( 'Select Organization', 'UkuuPeople' ),
       'desc'             => __( '', 'UkuuPeople' ),
@@ -336,7 +332,6 @@ function ukuu_register_address_metabox() {
                 'title'         => __( 'Edit Contact Address', 'UkuuPeople' ),
                 'object_types'  => array( 'wp-type-contacts', ), // Post type
               ) );
-
   $actual_fields = array(
     0 => 'streetaddress',
     1 => 'streetaddress2',
@@ -358,7 +353,6 @@ function touchpoints_register_metabox() {
                             'title'         => __( 'Activity Information', 'UkuuPeople' ),
                             'object_types'  => array( 'wp-type-activity', ), // Post type
                           ) );
-
   $actual_fields = array(
     0 => 'startdate',
     1 => 'enddate',
@@ -371,7 +365,6 @@ function touchpoints_register_metabox() {
 
 function touchpoints_register_assigned_to_metabox() {
   $prefix = 'wpcf_';
-
   $touchpoint_assigned = new_cmb2_box( array(
                            'id'            => $prefix . 'touchpoint_assigned_metabox',
                            'title'         => __( 'Assigned To', 'UkuuPeople' ),
@@ -380,7 +373,6 @@ function touchpoints_register_assigned_to_metabox() {
                            'priority'   => 'high',
                            'closed'     => true, // true to keep the metabox closed by default
                          ) );
-
   $touchpoint_assigned->add_field( array(
       'name'             => __( 'Assigned to', 'UkuuPeople' ),
       'desc'             => __( '', 'UkuuPeople' ),
@@ -418,14 +410,19 @@ function get_id_and_displayname() {
   $items = (array) get_posts($args);
   $display_names = array();
   foreach ( $items as $item ) {
-    $display_name = get_post_meta($item, 'wpcf-display-name', true);
+    $display_name = get_post_meta( $item, 'wpcf-display-name', true );
     $display_names[$item] = $display_name;
   }
-  $array_values = "";
+  $array_values = array();
   foreach ( $display_names as $key => $values ) {
     $array_values[$key] = __( $values, 'UkuuPeople' );
   }
-  if ( !empty( $array_values ) ) return $array_values;
+  if ( !empty( $array_values ) ) {
+    return $array_values;
+  }
+  else {
+    return array();
+  }
 }
 
 function get_related_org_value() {
@@ -456,9 +453,13 @@ function get_related_org_value() {
   foreach ( $display_names as $key => $values ) {
     $array_values[$key] = __( $values, 'UkuuPeople' );
   }
-  if ( !empty( $array_values ) ) return $array_values;
+  if ( !empty( $array_values ) ) {
+    return $array_values;
+  }
+  else {
+    return array();
+  }
 }
-
 function add_fields( $actual_fields , $cmb_demo) {
   global $customterm;
   foreach ( $customterm['fields'] as $key => $value ){
@@ -466,7 +467,6 @@ function add_fields( $actual_fields , $cmb_demo) {
       $cmb_demo->add_field( $value );
   }
 }
-
 function update_date_picker_defaults( $l10n ) {
   $l10n['defaults']['date_picker']['yearRange'] = '1900:+10';
   return $l10n;
