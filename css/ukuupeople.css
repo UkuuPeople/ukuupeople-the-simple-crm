@@ -2872,3 +2872,14 @@ a.nav-tab {
 .override-give-css .ui-button-icon-primary.ui-icon {
     display: none !important;
 }
+
+/* Additional CMB2 Stylizations */
+.ui-button.ui-dialog-titlebar-close {
+  overflow: hidden;
+}
+.ukuu-calendar .ui-datepicker-buttonpane {
+  display: none!important;
+}
+.ui-dialog {
+  min-width: 320px;
+}
